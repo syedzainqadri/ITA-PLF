@@ -19,11 +19,6 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  // Text("Gokids.COM", style: TextStyle(
-                  //   fontSize: 14,
-                  //   fontWeight: FontWeight.w500,
-                  //   fontFamily: 'circe'
-                  // ),),
                   Text(
                     "Skip",
                     style: TextStyle(
