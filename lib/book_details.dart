@@ -1,3 +1,4 @@
+import 'package:PLF/book_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:PLF/ColorScheme.dart';
@@ -5,21 +6,12 @@ import 'package:PLF/HomePage.dart';
 
 import 'SubProgramWidget.dart';
 
-class ProgramDetailPage extends StatefulWidget {
-  String img, name, subText, grade;
-  bool hasSubProgram;
-  ProgramDetailPage(img,name,subText,grade,hasSubProgram){
-    this.img=img;
-    this.name=name;
-    this.subText=subText;
-    this.grade=grade;
-    this.hasSubProgram=hasSubProgram;
-  }
+class BookDetials extends StatefulWidget {
   @override
-  _ProgramDetailPageState createState() => _ProgramDetailPageState();
+  _BookDetialsState createState() => _BookDetialsState();
 }
 
-class _ProgramDetailPageState extends State<ProgramDetailPage> {
+class _BookDetialsState extends State<BookDetials> {
   
 
   int selectedDate = DateTime.now().day;
@@ -66,14 +58,14 @@ class _ProgramDetailPageState extends State<ProgramDetailPage> {
                       bottom: 0,
                       left: 20,
                       child: Hero(
-                        tag: widget.img,
+                        tag: 'bookGuy.png',
                         child: Container(
                           height: 220,
                           width: 200,
                           decoration: BoxDecoration(
                               image: DecorationImage(
                                   image:
-                                      AssetImage('asset/images/${widget.img}.png'))),
+                                      AssetImage('asset/images/bookGuy.png'))),
                         ),
                       ),
                     )
@@ -87,7 +79,7 @@ class _ProgramDetailPageState extends State<ProgramDetailPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        widget.name,
+                        'Book Name',
                         style: TextStyle(
                             fontSize: 21,
                             fontWeight: FontWeight.w700,
@@ -97,7 +89,7 @@ class _ProgramDetailPageState extends State<ProgramDetailPage> {
                         height: 5,
                       ),
                       Text(
-                        "Program Description",
+                        "Book Description",
                         style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
@@ -110,7 +102,7 @@ class _ProgramDetailPageState extends State<ProgramDetailPage> {
                       Row(
                         children: [
                           Text(
-                            widget.subText,
+                            'Book Author',
                             style: TextStyle(fontFamily: 'circe'),
                           )
                         ],
@@ -118,25 +110,7 @@ class _ProgramDetailPageState extends State<ProgramDetailPage> {
                       SizedBox(
                         height: 10,
                       ),
-                      Row(
-                        children: [
-                          Container(
-                            height: 20,
-                            width: 20,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage(
-                                        'asset/images/palette.png'))),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            "Program History",
-                            style: TextStyle(fontFamily: 'circe'),
-                          )
-                        ],
-                      ),
+                      
                     ],
                   ),
                 ),
@@ -153,7 +127,7 @@ class _ProgramDetailPageState extends State<ProgramDetailPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "About Program",
+                      "About the Author",
                       style: TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: 17,
@@ -163,7 +137,7 @@ class _ProgramDetailPageState extends State<ProgramDetailPage> {
                       height: 10,
                     ),
                     Text(
-                      "At Pakistan Learning Festival, we are committed to providing learning opportunities for all. Over the years, we witnessed that one of the major contributing factors to the learning deficiency amongst our children especially in remote areas of Pakistan is the lack of easy access to books and lack of guidance.",
+                      "Judith Blume is an American writer of children's, young adult and adult fiction. Blume began writing in 1959 and has published more than 25 novels. Among her best-known works are Are You There God? It's Me, Margaret, Tales of a Fourth Grade Nothing, Deenie, and Blubber.",
                       style: TextStyle(
                         fontFamily: 'circe',
                         fontSize: 12,
@@ -172,14 +146,8 @@ class _ProgramDetailPageState extends State<ProgramDetailPage> {
                     SizedBox(
                       height: 20,
                     ),
-                    widget.hasSubProgram?Text(
-                      "Sub programs",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 17,
-                          fontFamily: 'product'),
-                    ):Text(
-                      "No Sub programs for this Program",
+                    Text(
+                      "More Books by this Author",
                       style: TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: 17,
@@ -188,93 +156,41 @@ class _ProgramDetailPageState extends State<ProgramDetailPage> {
                     SizedBox(
                       height: 10,
                     ),
-                    widget.hasSubProgram==false?SizedBox(height: 100,):
-                    widget.name=='YAA'?
                     Container(
-                      height: 100,
+                      height: 180,
                       width: MediaQuery.of(context).size.width,
                       child: SingleChildScrollView(
-                        scrollDirection: Axis.vertical,
-                        child: Column(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            subProgramWidget("icon1", "YAA 2021-2022 Launch",
-                                "GRADE 0-1", lightBlue, darkBlue),
-                            subProgramWidget("icon2", "YAA Winners 2020-2021", "GRADE 0-2",
-                                yellow, Color(0xff4d4d4d)),
-                            subProgramWidget("icon3", "YAA Winners 2019-2020", "GRADE 0-2",
-                                yellow, Color(0xff4d4d4d)),
-                            subProgramWidget("icon1", "YAA Jury Member 2019-2020", "GRADE 0-2",
-                                yellow, Color(0xff4d4d4d)),
-                            subProgramWidget("icon2", "YAA FAQ", "GRADE 0-2",
-                                yellow, Color(0xff4d4d4d)),
-                          ],
-                        ),
-                      ),
-                    ):Container(
-                      height: 100,
-                      width: MediaQuery.of(context).size.width,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.vertical,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            subProgramWidget("digi_kutub_khanay", "Digi Kutub Khana",
-                                "GRADE 0-1", lightBlue, darkBlue),
-                            subProgramWidget("kitab_gari", "Kitab Gari", "GRADE 0-2",
-                                yellow, Color(0xff4d4d4d)),
+                       Padding(
+                         padding: const EdgeInsets.all(8.0),
+                         child: bookWidget("book5.png","Spiderman", lightBlue,darkBlue,context),
+                       ),
+                       Padding(
+                         padding: const EdgeInsets.all(8.0),
+                         child: bookWidget("book4.png","Superman", lightBlue,darkBlue,context),
+                       ),
+                       Padding(
+                         padding: const EdgeInsets.all(8.0),
+                         child: bookWidget("book7.png","Batman", lightBlue,darkBlue,context),
+                       ),
+                       Padding(
+                         padding: const EdgeInsets.all(8.0),
+                         child: bookWidget("book3.png","Flash", lightBlue,darkBlue,context),
+                       ),
+                       Padding(
+                         padding: const EdgeInsets.all(8.0),
+                         child: bookWidget("book1.png","Wonder Woman", lightBlue,darkBlue,context),
+                       ),
                           ],
                         ),
                       ),
                     ),
                     SizedBox(
-                      height: 20,
-                    ),
-                    Center(
-                      child: Text(
-                        "Any other instructions of Specific Text",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 17,
-                            fontFamily: 'product'),
-                      ),
-                    ),
-                    SizedBox(
                       height: 10,
                     ),
-                    Center(
-                      child: Text(
-                        "Can Go here",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 17,
-                            fontFamily: 'product'),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    // Container(
-                    //   child: Column(
-                    //     mainAxisAlignment: MainAxisAlignment.center,
-                    //     children: [
-                    //       Row(
-                    //         children: [
-                    //           timeSlotWidget("11:00 AM", false),
-                    //           timeSlotWidget("12:00 PM", false),
-                    //           timeSlotWidget("01:00 PM", false),
-                    //           timeSlotWidget("03:00 PM", true),
-                    //         ],
-                    //       ),
-                    //       Row(
-                    //         children: [
-                    //           timeSlotWidget("04:00 PM", false),
-                    //           timeSlotWidget("06:00 PM", false),
-                    //         ],
-                    //       ),
-                    //     ],
-                    //   ),
-                    // )
                   ],
                 ),
               ),
@@ -295,7 +211,7 @@ class _ProgramDetailPageState extends State<ProgramDetailPage> {
                     color: darkBlue),
                 child: Center(
                   child: Text(
-                    "Check Other Programs",
+                    "Add to Cart",
                     style: TextStyle(
                         color: Colors.white,
                         fontFamily: 'circe',
@@ -305,7 +221,7 @@ class _ProgramDetailPageState extends State<ProgramDetailPage> {
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -358,10 +274,6 @@ class _ProgramDetailPageState extends State<ProgramDetailPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                dayValue(tempDate.weekday),
-                style: TextStyle(fontSize: 10),
-              ),
-              Text(
                 tempDate.day.toString(),
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
               )
@@ -372,17 +284,5 @@ class _ProgramDetailPageState extends State<ProgramDetailPage> {
     );
   }
 
-  String dayValue(int weekDayVal) {
-    List<String> dayString = [
-      '',
-      "Mon",
-      "Tue",
-      "Wed",
-      "Thu",
-      "Fri",
-      "Sat",
-      'Sun'
-    ];
-    return dayString[weekDayVal];
-  }
+
 }

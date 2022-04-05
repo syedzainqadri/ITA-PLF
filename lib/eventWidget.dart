@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:PLF/ColorScheme.dart';
 import 'package:PLF/ProgramDetailPage.dart';
 
-InkWell programWidget(String img, String name, String subText, String grade,bool hasSubProgram) {
+InkWell eventWidget(String img, String name, String subText, String grade,bool hasSubProgram) {
   return InkWell(
     onTap: () {
       Get.to(ProgramDetailPage(img,name,subText,grade,hasSubProgram));

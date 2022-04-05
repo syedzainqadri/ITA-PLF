@@ -1,28 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:PLF/ColorScheme.dart';
-import 'package:PLF/HomePage.dart';
 
-import 'SubProgramWidget.dart';
-
-class ProgramDetailPage extends StatefulWidget {
-  String img, name, subText, grade;
-  bool hasSubProgram;
-  ProgramDetailPage(img,name,subText,grade,hasSubProgram){
+class SubProgramDetailPage extends StatefulWidget {
+  String img, name, grade;
+  SubProgramDetailPage(img, name, grade){
     this.img=img;
     this.name=name;
-    this.subText=subText;
     this.grade=grade;
-    this.hasSubProgram=hasSubProgram;
   }
   @override
-  _ProgramDetailPageState createState() => _ProgramDetailPageState();
+  _SubProgramDetailPageState createState() => _SubProgramDetailPageState();
 }
 
-class _ProgramDetailPageState extends State<ProgramDetailPage> {
-  
-
+class _SubProgramDetailPageState extends State<SubProgramDetailPage> {
   int selectedDate = DateTime.now().day;
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,7 +90,7 @@ class _ProgramDetailPageState extends State<ProgramDetailPage> {
                         height: 5,
                       ),
                       Text(
-                        "Program Description",
+                        widget.grade,
                         style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
@@ -110,7 +103,7 @@ class _ProgramDetailPageState extends State<ProgramDetailPage> {
                       Row(
                         children: [
                           Text(
-                            widget.subText,
+                            "Sub title or Description",
                             style: TextStyle(fontFamily: 'circe'),
                           )
                         ],
@@ -132,7 +125,7 @@ class _ProgramDetailPageState extends State<ProgramDetailPage> {
                             width: 5,
                           ),
                           Text(
-                            "Program History",
+                            "Sub Program History",
                             style: TextStyle(fontFamily: 'circe'),
                           )
                         ],
@@ -153,7 +146,7 @@ class _ProgramDetailPageState extends State<ProgramDetailPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "About Program",
+                      "About this Sub Program",
                       style: TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: 17,
@@ -170,90 +163,9 @@ class _ProgramDetailPageState extends State<ProgramDetailPage> {
                       ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 180,
                     ),
-                    widget.hasSubProgram?Text(
-                      "Sub programs",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 17,
-                          fontFamily: 'product'),
-                    ):Text(
-                      "No Sub programs for this Program",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 17,
-                          fontFamily: 'product'),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    widget.hasSubProgram==false?SizedBox(height: 100,):
-                    widget.name=='YAA'?
-                    Container(
-                      height: 100,
-                      width: MediaQuery.of(context).size.width,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.vertical,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            subProgramWidget("icon1", "YAA 2021-2022 Launch",
-                                "GRADE 0-1", lightBlue, darkBlue),
-                            subProgramWidget("icon2", "YAA Winners 2020-2021", "GRADE 0-2",
-                                yellow, Color(0xff4d4d4d)),
-                            subProgramWidget("icon3", "YAA Winners 2019-2020", "GRADE 0-2",
-                                yellow, Color(0xff4d4d4d)),
-                            subProgramWidget("icon1", "YAA Jury Member 2019-2020", "GRADE 0-2",
-                                yellow, Color(0xff4d4d4d)),
-                            subProgramWidget("icon2", "YAA FAQ", "GRADE 0-2",
-                                yellow, Color(0xff4d4d4d)),
-                          ],
-                        ),
-                      ),
-                    ):Container(
-                      height: 100,
-                      width: MediaQuery.of(context).size.width,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.vertical,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            subProgramWidget("digi_kutub_khanay", "Digi Kutub Khana",
-                                "GRADE 0-1", lightBlue, darkBlue),
-                            subProgramWidget("kitab_gari", "Kitab Gari", "GRADE 0-2",
-                                yellow, Color(0xff4d4d4d)),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Center(
-                      child: Text(
-                        "Any other instructions of Specific Text",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 17,
-                            fontFamily: 'product'),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Center(
-                      child: Text(
-                        "Can Go here",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 17,
-                            fontFamily: 'product'),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    
                     // Container(
                     //   child: Column(
                     //     mainAxisAlignment: MainAxisAlignment.center,
@@ -282,7 +194,7 @@ class _ProgramDetailPageState extends State<ProgramDetailPage> {
           ),
           InkWell(
             onTap: () {
-              Get.to(HomePage());
+              Navigator.pop(context);
             },
             child: Container(
               color: Colors.white,
@@ -295,7 +207,7 @@ class _ProgramDetailPageState extends State<ProgramDetailPage> {
                     color: darkBlue),
                 child: Center(
                   child: Text(
-                    "Check Other Programs",
+                    "Check Other Sub Programs",
                     style: TextStyle(
                         color: Colors.white,
                         fontFamily: 'circe',

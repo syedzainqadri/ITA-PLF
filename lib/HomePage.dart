@@ -1,6 +1,11 @@
+import 'package:PLF/LoginPage.dart';
+import 'package:PLF/book_store.dart';
+import 'package:PLF/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:PLF/ColorScheme.dart';
 import 'package:PLF/programWidget.dart';
+
+import 'donations.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -8,9 +13,145 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
+      drawer: Drawer(
+        backgroundColor: lightBlue,
+        child: ListView(
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: darkBlue,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(30),
+                ),
+              ),
+              child: Center(
+                  child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    width: 80,
+                    height: 80,
+                    decoration: BoxDecoration(
+                        color: lightBlue,
+                        borderRadius: BorderRadius.circular(100),
+                        image: DecorationImage(
+                            fit: BoxFit.contain,
+                            image:
+                                AssetImage('asset/images/profilePhoto.png'))),
+                  ),
+                  Text(
+                    'Student Name',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25,
+                    ),
+                  ),
+                ],
+              )),
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                        opaque: false,
+                        pageBuilder: (context, _, __) {
+                          return BookStore();
+                        },
+                        transitionsBuilder: (_, __, ___, Widget child) {
+                          return child;
+                        }));
+              },
+              child: ListTile(
+                title: const Text(
+                  'Book Store',
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 38, 36, 36),
+                  ),
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                        opaque: false,
+                        pageBuilder: (context, _, __) {
+                          return Donations();
+                        },
+                        transitionsBuilder: (_, __, ___, Widget child) {
+                          return child;
+                        }));
+              },
+              child: ListTile(
+                title: const Text(
+                  'Donations',
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 38, 36, 36),
+                  ),
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                        opaque: false,
+                        pageBuilder: (context, _, __) {
+                          return FeedbackPage();
+                        },
+                        transitionsBuilder: (_, __, ___, Widget child) {
+                          return child;
+                        }));
+              },
+              child: ListTile(
+                title: const Text(
+                  'Feedback',
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 38, 36, 36),
+                  ),
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                        opaque: false,
+                        pageBuilder: (context, _, __) {
+                          return LoginPage();
+                        },
+                        transitionsBuilder: (_, __, ___, Widget child) {
+                          return child;
+                        }));
+              },
+              child: ListTile(
+                title: const Text(
+                  'Log Out',
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 38, 36, 36),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
       backgroundColor: lightBlue,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -21,7 +162,9 @@ class _HomePageState extends State<HomePage> {
             color: Colors.black,
             size: 30,
           ),
-          onPressed: () {},
+          onPressed: () {
+            _scaffoldKey.currentState.openDrawer();
+          },
         ),
         actions: [
           IconButton(
@@ -35,6 +178,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
             height: MediaQuery.of(context).size.height * 0.3,
@@ -100,44 +244,111 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Main Programs",
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w600),
-                      ),
-                      Text(
-                        "See all",
-                        style:
-                            TextStyle(color: Colors.blueAccent, fontSize: 13),
-                      )
-                    ],
-                  ),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          programWidget(
-                            "boy1Big",
-                            "Incredible Libraries",
-                            "Program Description",
-                            "0-5",
-                          ),
-                          programWidget(
-                              "girl", "YAA", "Program Description", "0-5"),
-                          programWidget("boy2", "Online Book Club",
-                              "Program Description", "0-2"),
-                        ],
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Upcoming Events",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w600),
+                        ),
+                        Text(
+                          "See all",
+                          style:
+                              TextStyle(color: Colors.blueAccent, fontSize: 13),
+                        )
+                      ],
+                    ),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Column(
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width/1.2,
+                              height: MediaQuery.of(context).size.width/1.2,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: Colors.grey,
+                              ),
+                            ),Container(
+                              width: MediaQuery.of(context).size.width/1.2,
+                              height: MediaQuery.of(context).size.width/1.2,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: Colors.grey,
+                              ),
+                            ),Container(
+                              width: MediaQuery.of(context).size.width/1.2,
+                              height: MediaQuery.of(context).size.width/1.2,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  )
+                  
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
+    );
+  }
+
+  eventsWidgets(name) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              name,
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            ),
+            Text(
+              "See all",
+              style: TextStyle(color: Colors.blueAccent, fontSize: 13),
+            )
+          ],
+        ),
+        Expanded(
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Column(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width / 1.2,
+                  height: MediaQuery.of(context).size.width / 1.2,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.grey,
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width / 1.2,
+                  height: MediaQuery.of(context).size.width / 1.2,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.grey,
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width / 1.2,
+                  height: MediaQuery.of(context).size.width / 1.2,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.grey,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        )
+      ],
     );
   }
 }

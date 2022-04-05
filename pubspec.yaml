@@ -31,6 +31,8 @@ dependencies:
   get: ^4.6.1
   custom_check_box: ^0.0.4
   dropdown_button2: ^1.2.2
+  flutter_rating_bar: ^4.0.0
+  chewie: ^0.10.1
 
 
 dev_dependencies:
