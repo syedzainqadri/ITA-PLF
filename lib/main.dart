@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:PLF/ProgramDetailPage.dart';
 import 'package:PLF/SplashScreen.dart';
 import 'HomePage.dart';
 import 'checkwebview.dart';
 
 void main() {
-  runApp(WebViewExample());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {

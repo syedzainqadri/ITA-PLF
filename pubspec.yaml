@@ -33,7 +33,7 @@ dependencies:
   dropdown_button2: ^1.2.2
   flutter_rating_bar: ^4.0.0
   chewie: ^0.10.1
-  webview_flutter: ^3.0.2
+  # webview_flutter: ^3.0.2
 
 
 dev_dependencies:
