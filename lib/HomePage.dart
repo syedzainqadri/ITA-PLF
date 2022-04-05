@@ -1,11 +1,15 @@
 import 'package:PLF/LoginPage.dart';
+import 'package:PLF/allEvent.dart';
 import 'package:PLF/book_store.dart';
+import 'package:PLF/eventWidget.dart';
 import 'package:PLF/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:PLF/ColorScheme.dart';
 import 'package:PLF/programWidget.dart';
+import 'package:get/get.dart';
 
 import 'donations.dart';
+import 'event_history.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -103,6 +107,54 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
+            
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                        opaque: false,
+                        pageBuilder: (context, _, __) {
+                          return AllUpcomingEvents();
+                        },
+                        transitionsBuilder: (_, __, ___, Widget child) {
+                          return child;
+                        }));
+              },
+              child: ListTile(
+                title: const Text(
+                  'Upcoming Events',
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 38, 36, 36),
+                  ),
+                ),
+              ),
+            ),
+            
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                        opaque: false,
+                        pageBuilder: (context, _, __) {
+                          return EventsHistory();
+                        },
+                        transitionsBuilder: (_, __, ___, Widget child) {
+                          return child;
+                        }));
+              },
+              child: ListTile(
+                title: const Text(
+                  'Events History',
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 38, 36, 36),
+                  ),
+                ),
+              ),
+            ),
             GestureDetector(
               onTap: () {
                 Navigator.pop(context);
@@ -154,12 +206,13 @@ class _HomePageState extends State<HomePage> {
       ),
       backgroundColor: lightBlue,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        title: Center(child: Text("PLF")),
+        backgroundColor: darkBlue,
         elevation: 0,
         leading: IconButton(
           icon: Icon(
             Icons.menu,
-            color: Colors.black,
+            color: Colors.white,
             size: 30,
           ),
           onPressed: () {
@@ -170,7 +223,7 @@ class _HomePageState extends State<HomePage> {
           IconButton(
             icon: Icon(
               Icons.notifications_none,
-              color: Colors.black,
+              color: Colors.white,
               size: 30,
             ),
             onPressed: () {},
@@ -180,116 +233,120 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Container(
-            height: MediaQuery.of(context).size.height * 0.3,
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("asset/images/searchBg.png"))),
-            child: Container(
-              padding: EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Hello",
-                    style: TextStyle(fontSize: 16, fontFamily: 'circe'),
-                  ),
-                  Text(
-                    "Student Name",
-                    style: TextStyle(
-                        fontSize: 30,
-                        fontFamily: 'circe',
-                        fontWeight: FontWeight.w700),
-                  ),
-                  Expanded(child: Container()),
-                  Container(
-                    height: 70,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        color: Colors.white),
-                    child: Row(
-                      children: [
-                        IconButton(
-                          icon: Icon(
-                            Icons.search,
-                            color: Colors.black,
-                            size: 30,
-                          ),
-                          onPressed: () {},
-                        ),
-                        Expanded(
-                          child: TextField(
-                            style: TextStyle(fontSize: 18, fontFamily: 'circe'),
-                            decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: "Search for Programs or Events"),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  )
-                ],
-              ),
-            ),
-          ),
           Expanded(
             child: Container(
               padding: EdgeInsets.all(30),
               width: MediaQuery.of(context).size.width,
               color: Colors.white,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Upcoming Events",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w600),
-                        ),
-                        Text(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Upcoming Events",
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w600),
+                      ),
+                      GestureDetector(
+                        onTap: (){
+                          
+                          Get.to(AllUpcomingEvents());
+                        },
+                        child: Text(
                           "See all",
                           style:
                               TextStyle(color: Colors.blueAccent, fontSize: 13),
-                        )
-                      ],
-                    ),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Column(
-                          children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width/1.2,
-                              height: MediaQuery.of(context).size.width/1.2,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Colors.grey,
-                              ),
-                            ),Container(
-                              width: MediaQuery.of(context).size.width/1.2,
-                              height: MediaQuery.of(context).size.width/1.2,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Colors.grey,
-                              ),
-                            ),Container(
-                              width: MediaQuery.of(context).size.width/1.2,
-                              height: MediaQuery.of(context).size.width/1.2,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ],
                         ),
+                      )
+                    ],
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                           eventWidget(
+                            "boy1Big",
+                            "Incredible Libraries",
+                            "Event Description",
+                            context
+                          ),
+                           eventWidget(
+                            "girl",
+                            "YAA",
+                            "Event Description",
+                            context
+                          ),
+                           eventWidget(
+                            "boy2",
+                            "Incredible Libraries",
+                            "Event Description",
+                            context
+                          ),
+                           eventWidget(
+                            "boy1Big",
+                            "Incredible Libraries",
+                            "Event Description",
+                            context
+                          ),
+                        ],
                       ),
                     ),
-                  
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Events History",
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w600),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Get.to(EventsHistory());
+                        },
+                        child: Text(
+                          "See all",
+                          style:
+                              TextStyle(color: Colors.blueAccent, fontSize: 13),
+                        ),
+                      )
+                    ],
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: Column(
+                        children: [
+                          programWidget(
+                            "boy1Big",
+                            "Incredible Libraries",
+                            "Program Description",
+                            "0-5",
+                            true,
+                          ),
+                          programWidget(
+                              "yaa", "YAA", "Program Description", "0-5", true),
+                          programWidget("boy2", "Online Book Club",
+                              "Program Description", "0-2", false),
+                          programWidget("story_bytes", "Story Bytes",
+                              "Program Description", "0-2", false),
+                          programWidget("girl", "Art & Craft Therapy",
+                              "Program Description", "0-2", false),
+                          programWidget("boy2", "Digital Learning Festival",
+                              "Program Description", "0-2", false),
+                          programWidget("boy1Big", "PLP Publications",
+                              "Program Description", "0-2", false),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -299,56 +356,17 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  eventsWidgets(name) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              name,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-            ),
-            Text(
-              "See all",
-              style: TextStyle(color: Colors.blueAccent, fontSize: 13),
-            )
-          ],
+  upcomingEvent() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        width: MediaQuery.of(context).size.width / 1.3,
+        height: MediaQuery.of(context).size.width / 1.2,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: lightBlue,
         ),
-        Expanded(
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Column(
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width / 1.2,
-                  height: MediaQuery.of(context).size.width / 1.2,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.grey,
-                  ),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width / 1.2,
-                  height: MediaQuery.of(context).size.width / 1.2,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.grey,
-                  ),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width / 1.2,
-                  height: MediaQuery.of(context).size.width / 1.2,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.grey,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        )
-      ],
+      ),
     );
   }
 }
