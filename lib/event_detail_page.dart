@@ -5,23 +5,19 @@ import 'package:PLF/HomePage.dart';
 
 import 'SubProgramWidget.dart';
 
-class ProgramDetailPage extends StatefulWidget {
-  String img, name, subText, grade;
-  bool hasSubProgram;
-  ProgramDetailPage(img,name,subText,grade,hasSubProgram){
-    this.img=img;
-    this.name=name;
-    this.subText=subText;
-    this.grade=grade;
-    this.hasSubProgram=hasSubProgram;
+class EventDetailPage extends StatefulWidget {
+  String img, name, subText, date;
+  EventDetailPage(img, name, subText, date) {
+    this.img = img;
+    this.name = name;
+    this.subText = subText;
+    this.date = date;
   }
   @override
-  _ProgramDetailPageState createState() => _ProgramDetailPageState();
+  _EventDetailPageState createState() => _EventDetailPageState();
 }
 
-class _ProgramDetailPageState extends State<ProgramDetailPage> {
-  
-
+class _EventDetailPageState extends State<EventDetailPage> {
   int selectedDate = DateTime.now().day;
   @override
   Widget build(BuildContext context) {
@@ -72,8 +68,8 @@ class _ProgramDetailPageState extends State<ProgramDetailPage> {
                           width: 200,
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image:
-                                      AssetImage('asset/images/${widget.img}.png'))),
+                                  image: AssetImage(
+                                      'asset/images/${widget.img}.png'))),
                         ),
                       ),
                     )
@@ -153,7 +149,7 @@ class _ProgramDetailPageState extends State<ProgramDetailPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "About Program",
+                      "Event Details",
                       style: TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: 17,
@@ -166,147 +162,90 @@ class _ProgramDetailPageState extends State<ProgramDetailPage> {
                       "At Pakistan Learning Festival, we are committed to providing learning opportunities for all. Over the years, we witnessed that one of the major contributing factors to the learning deficiency amongst our children especially in remote areas of Pakistan is the lack of easy access to books and lack of guidance.",
                       style: TextStyle(
                         fontFamily: 'circe',
-                        fontSize: 12,
+                        fontSize: 15,
                       ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 60,
                     ),
-                    widget.hasSubProgram?Text(
-                      "Sub programs",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 17,
-                          fontFamily: 'product'),
-                    ):Text(
-                      "No Sub programs for this Program",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 17,
-                          fontFamily: 'product'),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    widget.hasSubProgram==false?SizedBox(height: 100,):
-                    widget.name=='YAA'?
-                    Container(
-                      height: 100,
-                      width: MediaQuery.of(context).size.width,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.vertical,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            subProgramWidget("icon1", "YAA 2021-2022 Launch",
-                                "GRADE 0-1", lightBlue, darkBlue),
-                            subProgramWidget("icon2", "YAA Winners 2020-2021", "GRADE 0-2",
-                                yellow, Color(0xff4d4d4d)),
-                            subProgramWidget("icon3", "YAA Winners 2019-2020", "GRADE 0-2",
-                                yellow, Color(0xff4d4d4d)),
-                            subProgramWidget("icon1", "YAA Jury Member 2019-2020", "GRADE 0-2",
-                                yellow, Color(0xff4d4d4d)),
-                            subProgramWidget("icon2", "YAA FAQ", "GRADE 0-2",
-                                yellow, Color(0xff4d4d4d)),
+                            buttonWidget("Sponsors"),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            buttonWidget("Sponsors"),
                           ],
                         ),
-                      ),
-                    ):Container(
-                      height: 100,
-                      width: MediaQuery.of(context).size.width,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.vertical,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            subProgramWidget("digi_kutub_khanay", "Digi Kutub Khana",
-                                "GRADE 0-1", lightBlue, darkBlue),
-                            subProgramWidget("kitab_gari", "Kitab Gari", "GRADE 0-2",
-                                yellow, Color(0xff4d4d4d)),
+                            buttonWidget("Gallery"),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            buttonWidget("Gallery"),
                           ],
                         ),
-                      ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            buttonWidget("Trana"),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            buttonWidget("Trana"),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                      ],
                     ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Center(
-                      child: Text(
-                        "Any other instructions of Specific Text",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 17,
-                            fontFamily: 'product'),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Center(
-                      child: Text(
-                        "Can Go here",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 17,
-                            fontFamily: 'product'),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    // Container(
-                    //   child: Column(
-                    //     mainAxisAlignment: MainAxisAlignment.center,
-                    //     children: [
-                    //       Row(
-                    //         children: [
-                    //           timeSlotWidget("11:00 AM", false),
-                    //           timeSlotWidget("12:00 PM", false),
-                    //           timeSlotWidget("01:00 PM", false),
-                    //           timeSlotWidget("03:00 PM", true),
-                    //         ],
-                    //       ),
-                    //       Row(
-                    //         children: [
-                    //           timeSlotWidget("04:00 PM", false),
-                    //           timeSlotWidget("06:00 PM", false),
-                    //         ],
-                    //       ),
-                    //     ],
-                    //   ),
-                    // )
                   ],
                 ),
               ),
             ),
           ),
-          InkWell(
-            onTap: () {
-              Get.to(HomePage());
-            },
-            child: Container(
-              color: Colors.white,
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.all(15),
-                margin: EdgeInsets.only(bottom: 20, right: 30, left: 30),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    color: darkBlue),
-                child: Center(
-                  child: Text(
-                    "Check Other Programs",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'circe',
-                        fontWeight: FontWeight.w700,
-                        fontSize: 18),
-                  ),
-                ),
-              ),
-            ),
-          )
         ],
+      ),
+    );
+  }
+
+  buttonWidget(buttonName) {
+    return Container(
+      color: Colors.white,
+      child: InkWell(
+        onTap: () {
+          Get.to(HomePage());
+        },
+        child: Container(
+          width: MediaQuery.of(context).size.width / 2.5,
+          padding: EdgeInsets.all(15),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              color: darkBlue),
+          child: Center(
+            child: Text(
+              buttonName,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'circe',
+                  fontWeight: FontWeight.w700,
+                  fontSize: 18),
+            ),
+          ),
+        ),
       ),
     );
   }

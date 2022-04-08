@@ -1,3 +1,4 @@
+import 'package:video_player/video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:PLF/ColorScheme.dart';
 
@@ -8,29 +9,21 @@ class OnBoardingPage extends StatefulWidget {
 
 class _OnBoardingPageState extends State<OnBoardingPage> {
 
-// final _videoPlayerController = VideoPlayerController.network(
-//     'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4');
+VideoPlayerController _controller;
 
-// ChewieController _chewieController;
-
-// chewieController(){
-//   _chewieController = ChewieController(
-//       videoPlayerController: _videoPlayerController,
-//       autoPlay: true,
-//       looping: true);
-// }
-
-
-//   Future<void> initializePlayer() async {
-//     await Future.wait([
-//       _videoPlayerController.initialize(),
-//     ]);
-//     chewieController();
-//   }
 
 @override
   void initState() {
     super.initState();
+    _controller = VideoPlayerController.network(
+        'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4')
+      ..initialize().then((_) {
+        setState(() {
+          _controller.play();
+          _controller.setLooping(true);
+          _controller.setVolume(0.0);
+        });
+      });
   }
   @override
   void dispose() {
@@ -44,11 +37,16 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         child: Column(
           children: [
             Container(
-              height: MediaQuery.of(context).size.height*0.4,
+              height: MediaQuery.of(context).size.height*0.35,
               width: MediaQuery.of(context).size.width,
-              color: Colors.grey,
-              child: Center(child: 
-              Icon(Icons.play_arrow,size: 50,)
+              color: Color.fromARGB(221, 26, 25, 25),
+              child: _controller.value.isInitialized
+              ? AspectRatio(
+                  aspectRatio: _controller.value.aspectRatio,
+                  child: VideoPlayer(_controller),
+                )
+              :Center(child: 
+              Icon(Icons.play_arrow,size: 70,color: Colors.white,)
               ),
             ),
             // Expanded(
@@ -134,7 +132,12 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                           color: darkBlue,
                         ),
                         child: IconButton(
-                          onPressed: openHomePage,
+                          onPressed: (){
+                            openHomePage();
+                            setState(() {
+                              _controller.pause();
+                            });
+                          },
                           icon: Icon(
                             Icons.arrow_forward_ios,
                             color: Colors.white,

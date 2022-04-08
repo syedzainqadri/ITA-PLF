@@ -6,8 +6,8 @@ import 'package:PLF/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:PLF/ColorScheme.dart';
 import 'package:PLF/programWidget.dart';
-import 'package:get/get.dart';
-
+import 'package:flutter_treeview/flutter_treeview.dart';
+import 'webview.dart';
 import 'donations.dart';
 import 'event_history.dart';
 
@@ -17,15 +17,157 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  String _selectedNode;
+  List<Node> _nodes;
+  TreeViewController _treeViewController;
+  bool ourStoryOpen = true;
+  bool deepExpanded = true;
+  ExpanderPosition _expanderPosition = ExpanderPosition.start;
+  ExpanderType _expanderType = ExpanderType.plusMinus;
+  ExpanderModifier _expanderModifier = ExpanderModifier.none;
+  bool _allowParentSelect = false;
+  bool _supportParentDoubleTap = false;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
+  initState() {
+    _nodes = [
+      Node(label: 'Home', key: 'd1', icon: Icons.home),
+      Node(
+        label: 'Our Story',
+        key: 'about',
+        expanded: ourStoryOpen,
+        children: [
+          Node(
+            label: 'About',
+            key: 'd3',
+            icon: Icons.input,
+          ),
+          Node(
+            label: 'PLF Advisors',
+            key: 'd3',
+            icon: Icons.input,
+          ),
+          Node(
+            label: 'PLF Tarana',
+            key: 'd3',
+            icon: Icons.input,
+          ),
+        ],
+      ),
+      Node(
+        label: 'Friends of PLF',
+        key: 'fplf',
+        expanded: ourStoryOpen,
+        children: [
+          Node(
+            label: 'Ambassadors',
+            key: 'd3',
+            icon: Icons.input,
+          ),
+          Node(
+            label: 'Resource Persons',
+            key: 'd3',
+            icon: Icons.input,
+          ),
+          Node(
+            label: 'Child Prodigies',
+            key: 'd3',
+            icon: Icons.input,
+          ),
+          Node(
+            label: 'Partner Organizations',
+            key: 'd3',
+            icon: Icons.input,
+          ),
+          Node(
+            label: 'Core Partners',
+            key: 'd3',
+            icon: Icons.input,
+          ),
+          Node(
+            label: 'Story Tellers',
+            key: 'd3',
+            icon: Icons.input,
+          ),
+        ],
+      ),
+      Node(label: 'Strands', key: 'd1'),
+      Node(
+        label: 'Programs',
+        key: 'fplf',
+        expanded: ourStoryOpen,
+        children: [
+          Node(
+            label: 'Incredible Libraries',
+            key: 'd3',
+            icon: Icons.input,
+          ),
+          Node(
+            label: 'Young Author Award',
+            key: 'd3',
+            icon: Icons.input,
+          ),
+          Node(
+            label: 'Online Book Club',
+            key: 'd3',
+            icon: Icons.input,
+          ),
+          Node(
+            label: 'Partner Organizations',
+            key: 'd3',
+            icon: Icons.input,
+          ),
+          Node(
+            label: 'Core Partners',
+            key: 'd3',
+            icon: Icons.input,
+          ),
+          Node(
+            label: 'Story Tellers',
+            key: 'd3',
+            icon: Icons.input,
+          ),
+        ],
+      ),
+    ];
+    _treeViewController = TreeViewController(
+      children: _nodes,
+      selectedKey: _selectedNode,
+    );
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    TreeViewTheme _treeViewTheme = TreeViewTheme(
+      expanderTheme: ExpanderThemeData(
+          type: _expanderType,
+          modifier: _expanderModifier,
+          position: _expanderPosition,
+          // color: Colors.grey.shade800,
+          size: 20,
+          color: Colors.blue),
+      labelStyle: TextStyle(
+        fontSize: 16,
+        letterSpacing: 0.3,
+      ),
+      parentLabelStyle: TextStyle(
+        fontSize: 16,
+        letterSpacing: 0.1,
+        fontWeight: FontWeight.w800,
+        color: Colors.blue.shade700,
+      ),
+      iconTheme: IconThemeData(
+        size: 18,
+        color: Colors.grey.shade800,
+      ),
+      colorScheme: Theme.of(context).colorScheme,
+    );
     return Scaffold(
       key: _scaffoldKey,
       drawer: Drawer(
         backgroundColor: lightBlue,
         child: ListView(
-          // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: [
             DrawerHeader(
@@ -60,6 +202,67 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               )),
+            ),
+            GestureDetector(
+              onTap: () {
+                FocusScope.of(context).requestFocus(FocusNode());
+              },
+              child: Expanded(
+                child: Container(
+                  padding: EdgeInsets.all(20),
+                  height: double.infinity,
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        height: 160,
+                        child: Column(
+                          children: <Widget>[],
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          padding: EdgeInsets.all(10),
+                          child: TreeView(
+                            controller: _treeViewController,
+                            allowParentSelect: _allowParentSelect,
+                            supportParentDoubleTap: _supportParentDoubleTap,
+                            onExpansionChanged: (key, expanded) =>
+                                _expandNode(key, expanded),
+                            onNodeTap: (key) {
+                              debugPrint('Selected: $key');
+                              setState(() {
+                                _selectedNode = key;
+                                _treeViewController = _treeViewController
+                                    .copyWith(selectedKey: key);
+                              });
+                            },
+                            theme: _treeViewTheme,
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          debugPrint('Close Keyboard');
+                          FocusScope.of(context).unfocus();
+                        },
+                        child: Container(
+                          padding: EdgeInsets.only(top: 20),
+                          alignment: Alignment.center,
+                          child: Text(
+                              _treeViewController.getNode(_selectedNode) == null
+                                  ? ''
+                                  : _treeViewController
+                                      .getNode(_selectedNode)
+                                      .label),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
             ),
             GestureDetector(
               onTap: () {
@@ -107,7 +310,6 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            
             GestureDetector(
               onTap: () {
                 Navigator.pop(context);
@@ -131,7 +333,6 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            
             GestureDetector(
               onTap: () {
                 Navigator.pop(context);
@@ -149,6 +350,29 @@ class _HomePageState extends State<HomePage> {
               child: ListTile(
                 title: const Text(
                   'Events History',
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 38, 36, 36),
+                  ),
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                        opaque: false,
+                        pageBuilder: (context, _, __) {
+                          return WebViewPage();
+                        },
+                        transitionsBuilder: (_, __, ___, Widget child) {
+                          return child;
+                        }));
+              },
+              child: ListTile(
+                title: const Text(
+                  'WebView',
                   style: TextStyle(
                     color: Color.fromARGB(255, 38, 36, 36),
                   ),
@@ -250,9 +474,9 @@ class _HomePageState extends State<HomePage> {
                             fontSize: 16, fontWeight: FontWeight.w600),
                       ),
                       GestureDetector(
-                        onTap: (){
-                          
-                          Get.to(AllUpcomingEvents());
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => AllUpcomingEvents()));
                         },
                         child: Text(
                           "See all",
@@ -268,30 +492,14 @@ class _HomePageState extends State<HomePage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                           eventWidget(
-                            "boy1Big",
-                            "Incredible Libraries",
-                            "Event Description",
-                            context
-                          ),
-                           eventWidget(
-                            "girl",
-                            "YAA",
-                            "Event Description",
-                            context
-                          ),
-                           eventWidget(
-                            "boy2",
-                            "Incredible Libraries",
-                            "Event Description",
-                            context
-                          ),
-                           eventWidget(
-                            "boy1Big",
-                            "Incredible Libraries",
-                            "Event Description",
-                            context
-                          ),
+                          eventWidget("boy1Big", "Incredible Libraries",
+                              "Event Description", context),
+                          eventWidget(
+                              "girl", "YAA", "Event Description", context),
+                          eventWidget("boy2", "Incredible Libraries",
+                              "Event Description", context),
+                          eventWidget("boy1Big", "Incredible Libraries",
+                              "Event Description", context),
                         ],
                       ),
                     ),
@@ -309,7 +517,8 @@ class _HomePageState extends State<HomePage> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Get.to(EventsHistory());
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => EventsHistory()));
                         },
                         child: Text(
                           "See all",
@@ -354,6 +563,30 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
     );
+  }
+
+  _expandNode(String key, bool expanded) {
+    String msg = '${expanded ? "Expanded" : "Collapsed"}: $key';
+    debugPrint(msg);
+    Node node = _treeViewController.getNode(key);
+    if (node != null) {
+      List<Node> updated;
+      if (key == 'ourStory') {
+        updated = _treeViewController.updateNode(
+            key,
+            node.copyWith(
+              expanded: expanded,
+              icon: expanded ? Icons.folder_open : Icons.folder,
+            ));
+      } else {
+        updated = _treeViewController.updateNode(
+            key, node.copyWith(expanded: expanded));
+      }
+      setState(() {
+        if (key == 'ourStory') ourStoryOpen = expanded;
+        _treeViewController = _treeViewController.copyWith(children: updated);
+      });
+    }
   }
 
   upcomingEvent() {

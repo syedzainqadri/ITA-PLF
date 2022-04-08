@@ -1,3 +1,4 @@
+import 'package:PLF/event_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:PLF/ColorScheme.dart';
@@ -6,7 +7,7 @@ import 'package:PLF/ProgramDetailPage.dart';
 InkWell eventWidget(String img, String name, String subText,context) {
   return InkWell(
     onTap: () {
-      
+      Get.to(EventDetailPage(img, name, subText, "Date"));
     },
     child: Padding(
       padding: const EdgeInsets.all(8.0),
