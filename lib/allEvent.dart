@@ -1,10 +1,13 @@
+import 'package:PLF/models/event_model.dart';
 import 'package:flutter/material.dart';
 import 'package:PLF/ColorScheme.dart';
 
+import 'eventWidget.dart';
 import 'programWidget.dart';
 
 class AllUpcomingEvents extends StatefulWidget {
-  const AllUpcomingEvents({Key key}) : super(key: key);
+  final List<EventModel> eventModel;
+  const AllUpcomingEvents({Key key, @required this.eventModel}) : super(key: key);
 
   @override
   State<AllUpcomingEvents> createState() => _AllUpcomingEventsState();
@@ -33,75 +36,21 @@ class _AllUpcomingEventsState extends State<AllUpcomingEvents> {
           },
         ),
       ),
-      body: Center(
-        child: Container(
-          width: MediaQuery.of(context).size.width/1.1,
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                programWidget(
-                              "boy1Big",
-                              "Incredible Libraries",
-                              "Program Description",
-                              "0-5",
-                              true,
-                            ),
-                            programWidget(
-                                "yaa", "YAA", "Program Description", "0-5", true),
-                            programWidget("boy2", "Online Book Club",
-                                "Program Description", "0-2", false),
-                            programWidget("story_bytes", "Story Bytes",
-                                "Program Description", "0-2", false),
-                            programWidget("girl", "Art & Craft Therapy",
-                                "Program Description", "0-2", false),
-                            programWidget("boy2", "Digital Learning Festival",
-                                "Program Description", "0-2", false),
-                            programWidget("boy1Big", "PLP Publications",
-                                "Program Description", "0-2", false),
-                                programWidget(
-                              "boy1Big",
-                              "Incredible Libraries",
-                              "Program Description",
-                              "0-5",
-                              true,
-                            ),
-                            programWidget(
-                                "yaa", "YAA", "Program Description", "0-5", true),
-                            programWidget("boy2", "Online Book Club",
-                                "Program Description", "0-2", false),
-                            programWidget("story_bytes", "Story Bytes",
-                                "Program Description", "0-2", false),
-                            programWidget("girl", "Art & Craft Therapy",
-                                "Program Description", "0-2", false),
-                            programWidget("boy2", "Digital Learning Festival",
-                                "Program Description", "0-2", false),
-                            programWidget("boy1Big", "PLP Publications",
-                                "Program Description", "0-2", false),
-                                programWidget(
-                              "boy1Big",
-                              "Incredible Libraries",
-                              "Program Description",
-                              "0-5",
-                              true,
-                            ),
-                            programWidget(
-                                "yaa", "YAA", "Program Description", "0-5", true),
-                            programWidget("boy2", "Online Book Club",
-                                "Program Description", "0-2", false),
-                            programWidget("story_bytes", "Story Bytes",
-                                "Program Description", "0-2", false),
-                            programWidget("girl", "Art & Craft Therapy",
-                                "Program Description", "0-2", false),
-                            programWidget("boy2", "Digital Learning Festival",
-                                "Program Description", "0-2", false),
-                            programWidget("boy1Big", "PLP Publications",
-                                "Program Description", "0-2", false),
-              ]
-            ),
-          ),
-        ),
-      ),
+      body: widget.eventModel.isNotEmpty ?
+      ListView.builder(
+          itemCount: widget.eventModel.length,
+          itemBuilder: (context, index) {
+            return  programWidget(
+                widget.eventModel[index].url,
+                widget.eventModel[index].name,
+                widget.eventModel[index].description,
+                widget.eventModel[index].description != null ? true : false,
+                context
+            );
+          })
+          : Center(child: Text("No UpComing Events Available",
+        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+      ),),
     );
   }
 }

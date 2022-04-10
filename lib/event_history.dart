@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:PLF/ColorScheme.dart';
 
+import 'models/event_model.dart';
 import 'programWidget.dart';
 
 class EventsHistory extends StatefulWidget {
-  const EventsHistory({Key key}) : super(key: key);
+  final List<EventModel> eventHistoryModel;
+  const EventsHistory({Key key, @required this.eventHistoryModel}) : super(key: key);
 
   @override
   State<EventsHistory> createState() => _EventsHistoryState();
@@ -33,75 +35,21 @@ class _EventsHistoryState extends State<EventsHistory> {
           },
         ),
       ),
-       body: Center(
-        child: Container(
-          width: MediaQuery.of(context).size.width/1.1,
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                programWidget(
-                              "boy1Big",
-                              "Incredible Libraries",
-                              "Program Description",
-                              "0-5",
-                              true,
-                            ),
-                            programWidget(
-                                "yaa", "YAA", "Program Description", "0-5", true),
-                            programWidget("boy2", "Online Book Club",
-                                "Program Description", "0-2", false),
-                            programWidget("story_bytes", "Story Bytes",
-                                "Program Description", "0-2", false),
-                            programWidget("girl", "Art & Craft Therapy",
-                                "Program Description", "0-2", false),
-                            programWidget("boy2", "Digital Learning Festival",
-                                "Program Description", "0-2", false),
-                            programWidget("boy1Big", "PLP Publications",
-                                "Program Description", "0-2", false),
-                                programWidget(
-                              "boy1Big",
-                              "Incredible Libraries",
-                              "Program Description",
-                              "0-5",
-                              true,
-                            ),
-                            programWidget(
-                                "yaa", "YAA", "Program Description", "0-5", true),
-                            programWidget("boy2", "Online Book Club",
-                                "Program Description", "0-2", false),
-                            programWidget("story_bytes", "Story Bytes",
-                                "Program Description", "0-2", false),
-                            programWidget("girl", "Art & Craft Therapy",
-                                "Program Description", "0-2", false),
-                            programWidget("boy2", "Digital Learning Festival",
-                                "Program Description", "0-2", false),
-                            programWidget("boy1Big", "PLP Publications",
-                                "Program Description", "0-2", false),
-                                programWidget(
-                              "boy1Big",
-                              "Incredible Libraries",
-                              "Program Description",
-                              "0-5",
-                              true,
-                            ),
-                            programWidget(
-                                "yaa", "YAA", "Program Description", "0-5", true),
-                            programWidget("boy2", "Online Book Club",
-                                "Program Description", "0-2", false),
-                            programWidget("story_bytes", "Story Bytes",
-                                "Program Description", "0-2", false),
-                            programWidget("girl", "Art & Craft Therapy",
-                                "Program Description", "0-2", false),
-                            programWidget("boy2", "Digital Learning Festival",
-                                "Program Description", "0-2", false),
-                            programWidget("boy1Big", "PLP Publications",
-                                "Program Description", "0-2", false),
-              ]
-            ),
-          ),
-        ),
-      ),
+       body: widget.eventHistoryModel.isNotEmpty ?
+       ListView.builder(
+           itemCount: widget.eventHistoryModel.length,
+           itemBuilder: (context, index) {
+             return  programWidget(
+                 widget.eventHistoryModel[index].url,
+                 widget.eventHistoryModel[index].name,
+                 widget.eventHistoryModel[index].description,
+                 widget.eventHistoryModel[index].description != null ? true : false,
+                 context
+             );
+           })
+           : Center(child: Text("No Events History Available",
+         style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+       ),),
     );
   }
 }
