@@ -1,24 +1,33 @@
+import 'package:PLF/utils/url_base.dart';
+import 'package:PLF/utils/url_paths.dart';
+import 'package:PLF/webview.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:PLF/ColorScheme.dart';
 import 'package:PLF/HomePage.dart';
 
 import 'SubProgramWidget.dart';
+import 'models/event_model.dart';
 
 class EventDetailPage extends StatefulWidget {
   String img, name, subText, date;
-  EventDetailPage(img, name, subText, date) {
+  EventModel eventModel;
+
+  EventDetailPage(img, name, subText, date, eventModel) {
     this.img = img;
     this.name = name;
     this.subText = subText;
     this.date = date;
+    this.eventModel = eventModel;
   }
+
   @override
   _EventDetailPageState createState() => _EventDetailPageState();
 }
 
 class _EventDetailPageState extends State<EventDetailPage> {
   int selectedDate = DateTime.now().day;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,8 +77,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                           width: 200,
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: AssetImage(
-                                      'asset/images/${widget.img}.png'))),
+                                  image: NetworkImage(widget.img))),
                         ),
                       ),
                     )
@@ -114,25 +122,25 @@ class _EventDetailPageState extends State<EventDetailPage> {
                       SizedBox(
                         height: 10,
                       ),
-                      Row(
-                        children: [
-                          Container(
-                            height: 20,
-                            width: 20,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage(
-                                        'asset/images/palette.png'))),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            "Program History",
-                            style: TextStyle(fontFamily: 'circe'),
-                          )
-                        ],
-                      ),
+                      // Row(
+                      //   children: [
+                      //     Container(
+                      //       height: 20,
+                      //       width: 20,
+                      //       decoration: BoxDecoration(
+                      //           image: DecorationImage(
+                      //               image: AssetImage(
+                      //                   'asset/images/palette.png'))),
+                      //     ),
+                      //     SizedBox(
+                      //       width: 5,
+                      //     ),
+                      //     Text(
+                      //       "Program History",
+                      //       style: TextStyle(fontFamily: 'circe'),
+                      //     )
+                      //   ],
+                      // ),
                     ],
                   ),
                 ),
@@ -159,7 +167,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                       height: 10,
                     ),
                     Text(
-                      "At Pakistan Learning Festival, we are committed to providing learning opportunities for all. Over the years, we witnessed that one of the major contributing factors to the learning deficiency amongst our children especially in remote areas of Pakistan is the lack of easy access to books and lack of guidance.",
+                      widget.subText,
                       style: TextStyle(
                         fontFamily: 'circe',
                         fontSize: 15,
@@ -174,11 +182,29 @@ class _EventDetailPageState extends State<EventDetailPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            buttonWidget("Sponsors"),
+                            widget.eventModel.tarana
+                                ? InkWell(
+                                onTap: () {
+                                  Get.to(WebViewPage(
+                                      title: "Tarana",
+                                      url: UrlBase.buttonURL + UrlPathHelper.getValue(UrlPath.tarana)
+                                  ));
+                                },
+                                child: buttonWidget("Tarana"))
+                                : buildEmptyContainer(context),
                             SizedBox(
                               width: 10,
                             ),
-                            buttonWidget("Sponsors"),
+                            widget.eventModel.poster
+                                ? InkWell(
+                                onTap: () {
+                                  Get.to(WebViewPage(
+                                      title: "Poster",
+                                      url: UrlBase.buttonURL + UrlPathHelper.getValue(UrlPath.poster)
+                                  ));
+                                },
+                                child: buttonWidget("Poster"))
+                                : buildEmptyContainer(context),
                           ],
                         ),
                         SizedBox(
@@ -187,11 +213,29 @@ class _EventDetailPageState extends State<EventDetailPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            buttonWidget("Gallery"),
+                            widget.eventModel.sponsors
+                                ? InkWell(
+                                onTap: () {
+                                  Get.to(WebViewPage(
+                                      title: "Sponsors",
+                                      url: UrlBase.buttonURL + UrlPathHelper.getValue(UrlPath.sponsors)
+                                  ));
+                                },
+                                child: buttonWidget("Sponsors"))
+                                : buildEmptyContainer(context),
                             SizedBox(
                               width: 10,
                             ),
-                            buttonWidget("Gallery"),
+                            widget.eventModel.program
+                                ? InkWell(
+                                onTap: () {
+                                  Get.to(WebViewPage(
+                                      title: "Program",
+                                      url: UrlBase.buttonURL + UrlPathHelper.getValue(UrlPath.program)
+                                  ));
+                                },
+                                child: buttonWidget("Program"))
+                                : buildEmptyContainer(context),
                           ],
                         ),
                         SizedBox(
@@ -200,11 +244,140 @@ class _EventDetailPageState extends State<EventDetailPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            buttonWidget("Trana"),
+                            widget.eventModel.resource_Persons
+                                ? InkWell(
+                                onTap: () {
+                                  Get.to(WebViewPage(
+                                      title: "Resource Persons",
+                                      url: UrlBase.buttonURL + UrlPathHelper.getValue(UrlPath.resourcePerson)
+                                  ));
+                                },
+                                child: buttonWidget("Resource Persons"))
+                                : buildEmptyContainer(context),
                             SizedBox(
                               width: 10,
                             ),
-                            buttonWidget("Trana"),
+                            widget.eventModel.gallery
+                                ? InkWell(
+                                onTap: () {
+                                  Get.to(WebViewPage(
+                                      title: "Gallery",
+                                      url: UrlBase.buttonURL + UrlPathHelper.getValue(UrlPath.gallery)
+                                  ));
+                                },
+                                child: buttonWidget("Gallery"))
+                                : buildEmptyContainer(context),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            widget.eventModel.media
+                                ? InkWell(
+                                onTap: () {
+                                  Get.to(WebViewPage(
+                                      title: "Media",
+                                      url: UrlBase.buttonURL + UrlPathHelper.getValue(UrlPath.media)
+                                  ));
+                                },
+                                child: buttonWidget("Media"))
+                                : buildEmptyContainer(context),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            widget.eventModel.getInvolved
+                                ? InkWell(
+                                onTap: () {
+                                  Get.to(WebViewPage(
+                                      title: "Get Involved",
+                                      url: UrlBase.buttonURL + UrlPathHelper.getValue(UrlPath.getInvolved)
+                                  ));
+                                },
+                                child: buttonWidget("Get Involved"))
+                                : buildEmptyContainer(context),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            widget.eventModel.testimonials
+                                ? InkWell(
+                                onTap: () {
+                                  Get.to(WebViewPage(
+                                      title: "Testimonials",
+                                      url: UrlBase.buttonURL + UrlPathHelper.getValue(UrlPath.testimonials)
+                                  ));
+                                },
+                                child: buttonWidget("Testimonials"))
+                                : buildEmptyContainer(context),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            widget.eventModel.venue
+                                ? InkWell(
+                                onTap: () {
+                                  Get.to(WebViewPage(
+                                      title: "Venue",
+                                      url: UrlBase.buttonURL + UrlPathHelper.getValue(UrlPath.venue)
+                                  ));
+                                },
+                                child: buttonWidget("Venue"))
+                                : buildEmptyContainer(context),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            widget.eventModel.registration
+                                ? InkWell(
+                                onTap: () {
+                                  Get.to(WebViewPage(
+                                      title: "Registration",
+                                      url: UrlBase.buttonURL + UrlPathHelper.getValue(UrlPath.registration)
+                                  ));
+                                },
+                                child: buttonWidget("Registration"))
+                                : buildEmptyContainer(context),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            widget.eventModel.videos
+                                ? InkWell(
+                                onTap: () {
+                                  Get.to(WebViewPage(
+                                      title: "Videos",
+                                      url: UrlBase.buttonURL + UrlPathHelper.getValue(UrlPath.videos)
+                                  ));
+                                },
+                                child: buttonWidget("Videos"))
+                                : buildEmptyContainer(context),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            widget.eventModel.book_launches
+                                ? InkWell(
+                                onTap: () {
+                                  Get.to(WebViewPage(
+                                      title: "Book Launches",
+                                      url: UrlBase.buttonURL + UrlPathHelper.getValue(UrlPath.bookLaunches)
+                                  ));
+                                },
+                                child: buttonWidget("Book Launches"))
+                                : buildEmptyContainer(context),
                           ],
                         ),
                         SizedBox(
@@ -222,29 +395,31 @@ class _EventDetailPageState extends State<EventDetailPage> {
     );
   }
 
+  Container buildEmptyContainer(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width / 2.5,
+      height: 55,
+      padding: EdgeInsets.all(15),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10)), color: grey)
+    );
+  }
+
   buttonWidget(buttonName) {
     return Container(
-      color: Colors.white,
-      child: InkWell(
-        onTap: () {
-          Get.to(HomePage());
-        },
-        child: Container(
-          width: MediaQuery.of(context).size.width / 2.5,
-          padding: EdgeInsets.all(15),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              color: darkBlue),
-          child: Center(
-            child: Text(
-              buttonName,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'circe',
-                  fontWeight: FontWeight.w700,
-                  fontSize: 18),
-            ),
-          ),
+      width: MediaQuery.of(context).size.width / 2.5,
+      padding: EdgeInsets.all(15),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          color: darkBlue),
+      child: Center(
+        child: Text(
+          buttonName,
+          style: TextStyle(
+              color: Colors.white,
+              fontFamily: 'circe',
+              fontWeight: FontWeight.w700,
+              fontSize: 18),
         ),
       ),
     );
