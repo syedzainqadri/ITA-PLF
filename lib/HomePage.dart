@@ -5,7 +5,7 @@ import 'package:PLF/eventWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:PLF/ColorScheme.dart';
-import 'package:PLF/programWidget.dart';
+import 'package:PLF/eventHistoryWidget.dart';
 import 'controllers/events_controller.dart';
 import 'event_history.dart';
 import 'package:get/get.dart';
@@ -51,10 +51,9 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       key: _scaffoldKey,
       drawer: CustomDrawer(),
-      backgroundColor: backgroundColor,
       appBar: AppBar(
         title: Center(child: Text("PLF", style: TextStyle(color: black),)),
-        backgroundColor: appbarColor,
+        backgroundColor: white,
         elevation: 0,
         leading: IconButton(
           icon: Icon(
@@ -95,18 +94,32 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         Text(
                           "Upcoming Events",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w600),
+                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                         GestureDetector(
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => AllUpcomingEvents(eventModel: upComingEventModel)));
                           },
-                          child: Text(
-                            "See all",
-                            style:
-                            TextStyle(color: Colors.blueAccent, fontSize: 13),
+                          child: Container(
+                            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.2),
+                                  spreadRadius: 1,
+                                  blurRadius: 1,
+                                  offset: Offset(1, 4),
+                                ),
+                              ],
+                            ),
+                            child: Text(
+                              "See all",
+                              style:
+                              TextStyle(color: Colors.blueAccent, fontSize: 13),
+                            ),
                           ),
                         )
                       ],
@@ -153,18 +166,32 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         Text(
                           "Events History",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w600),
+                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                         GestureDetector(
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => EventsHistory(eventHistoryModel: eventHistoryModel)));
                           },
-                          child: Text(
-                            "See all",
-                            style:
-                            TextStyle(color: Colors.blueAccent, fontSize: 13),
+                          child: Container(
+                            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.2),
+                                  spreadRadius: 1,
+                                  blurRadius: 1,
+                                  offset: Offset(1, 4),
+                                ),
+                              ],
+                            ),
+                            child: Text(
+                              "See all",
+                              style:
+                              TextStyle(color: Colors.blueAccent, fontSize: 13),
+                            ),
                           ),
                         )
                       ],
@@ -174,7 +201,7 @@ class _HomePageState extends State<HomePage> {
                       ListView.builder(
                           itemCount: eventHistoryModel.length,
                           itemBuilder: (context, index) {
-                            return  programWidget(
+                            return  eventHistoryWidget(
                                 eventHistoryModel[index].url,
                                 eventHistoryModel[index].name,
                                 eventHistoryModel[index].description,

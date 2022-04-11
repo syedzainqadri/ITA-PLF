@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'models/event_model.dart';
-import 'programWidget.dart';
+import 'eventHistoryWidget.dart';
 
 class EventsHistory extends StatefulWidget {
   final List<EventModel> eventHistoryModel;
@@ -38,7 +38,7 @@ class _EventsHistoryState extends State<EventsHistory> {
        ListView.builder(
            itemCount: widget.eventHistoryModel.length,
            itemBuilder: (context, index) {
-             return  programWidget(
+             return  eventHistoryWidget(
                  widget.eventHistoryModel[index].url,
                  widget.eventHistoryModel[index].name,
                  widget.eventHistoryModel[index].description,

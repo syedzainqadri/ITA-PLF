@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:PLF/ColorScheme.dart';
 
 import 'eventWidget.dart';
-import 'programWidget.dart';
+import 'eventHistoryWidget.dart';
 
 class AllUpcomingEvents extends StatefulWidget {
   final List<EventModel> eventModel;
@@ -40,7 +40,7 @@ class _AllUpcomingEventsState extends State<AllUpcomingEvents> {
       ListView.builder(
           itemCount: widget.eventModel.length,
           itemBuilder: (context, index) {
-            return  programWidget(
+            return  eventHistoryWidget(
                 widget.eventModel[index].url,
                 widget.eventModel[index].name,
                 widget.eventModel[index].description,

@@ -10,9 +10,8 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: activeBtnColor,
       body: Container(
-        // color: backgroundColor,
+        color: backgroundColor,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [

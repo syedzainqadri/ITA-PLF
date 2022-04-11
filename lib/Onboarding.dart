@@ -33,12 +33,12 @@ VideoPlayerController _controller;
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: backgroundColor,
         body: Column(
           children: [
             Container(
               height: MediaQuery.of(context).size.height*0.35,
               width: MediaQuery.of(context).size.width,
+              color: backgroundColor,
               child: _controller.value.isInitialized
               ? AspectRatio(
                   aspectRatio: _controller.value.aspectRatio,
@@ -68,6 +68,7 @@ VideoPlayerController _controller;
             // ),
              Container(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+               color: backgroundColor,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -90,63 +91,66 @@ VideoPlayerController _controller;
             //           fit: BoxFit.contain)),
             // ),
             Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(
-                    "Pakistan Learning Festival",
-                    style: TextStyle(
-                        fontSize: 24,
-                        fontFamily: 'circe',
-                        fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    "سیکھو سکھاؤ پاکستان",
-                    style: TextStyle(
-                        fontSize: 26,
-                        fontWeight: FontWeight.w700,
-                        fontFamily: 'circe'),
-                    textAlign: TextAlign.center,
-                  ),
-                  Text(
-                    "Onboarding Text sample goes here \n according to client's guidance",
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w300,
-                        fontFamily: 'circe'),
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: 20),
-                  Center(
-                    child: Container(
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            width: 15,
-                            color: Colors.black.withOpacity(0.1),
-                          )),
+              child: Container(
+                color: backgroundColor,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      "Pakistan Learning Festival",
+                      style: TextStyle(
+                          fontSize: 24,
+                          fontFamily: 'circe',
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      "سیکھو سکھاؤ پاکستان",
+                      style: TextStyle(
+                          fontSize: 26,
+                          fontWeight: FontWeight.w700,
+                          fontFamily: 'circe'),
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      "Onboarding Text sample goes here \n according to client's guidance",
+                      style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w300,
+                          fontFamily: 'circe'),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 20),
+                    Center(
                       child: Container(
-                        padding: EdgeInsets.all(5),
                         decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: darkBlue,
-                        ),
-                        child: IconButton(
-                          onPressed: (){
-                            openHomePage();
-                            setState(() {
-                              _controller.pause();
-                            });
-                          },
-                          icon: Icon(
-                            Icons.arrow_forward_ios,
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              width: 15,
+                              color: Colors.black.withOpacity(0.1),
+                            )),
+                        child: Container(
+                          padding: EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
                             color: Colors.white,
+                          ),
+                          child: IconButton(
+                            onPressed: (){
+                              openHomePage();
+                              setState(() {
+                                _controller.pause();
+                              });
+                            },
+                            icon: Icon(
+                              Icons.arrow_forward_ios,
+                              color: Colors.black,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
             )
           ],
