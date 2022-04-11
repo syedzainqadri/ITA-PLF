@@ -53,13 +53,13 @@ class _HomePageState extends State<HomePage> {
       drawer: CustomDrawer(),
       backgroundColor: backgroundColor,
       appBar: AppBar(
-        title: Center(child: Text("PLF")),
+        title: Center(child: Text("PLF", style: TextStyle(color: black),)),
         backgroundColor: appbarColor,
         elevation: 0,
         leading: IconButton(
           icon: Icon(
             Icons.menu,
-            color: Colors.white,
+            color: Colors.black,
             size: 30,
           ),
           onPressed: () {
@@ -70,7 +70,7 @@ class _HomePageState extends State<HomePage> {
           IconButton(
             icon: Icon(
               Icons.notifications_none,
-              color: Colors.white,
+              color: Colors.black,
               size: 30,
             ),
             onPressed: () {},

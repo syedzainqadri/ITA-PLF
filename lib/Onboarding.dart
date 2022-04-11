@@ -31,21 +31,20 @@ VideoPlayerController _controller;
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: lightBlue,
-      body: SafeArea(
-        child: Column(
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: backgroundColor,
+        body: Column(
           children: [
             Container(
               height: MediaQuery.of(context).size.height*0.35,
               width: MediaQuery.of(context).size.width,
-              color: Color.fromARGB(221, 26, 25, 25),
               child: _controller.value.isInitialized
               ? AspectRatio(
                   aspectRatio: _controller.value.aspectRatio,
                   child: VideoPlayer(_controller),
                 )
-              :Center(child: 
+              :Center(child:
               Icon(Icons.play_arrow,size: 70,color: Colors.white,)
               ),
             ),
@@ -68,7 +67,7 @@ VideoPlayerController _controller;
             //   ),
             // ),
              Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -117,6 +116,7 @@ VideoPlayerController _controller;
                         fontFamily: 'circe'),
                     textAlign: TextAlign.center,
                   ),
+                  SizedBox(height: 20),
                   Center(
                     child: Container(
                       decoration: BoxDecoration(
