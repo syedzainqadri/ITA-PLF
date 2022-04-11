@@ -100,28 +100,28 @@ class _EventDetailPageState extends State<EventDetailPage> {
                       SizedBox(
                         height: 5,
                       ),
-                      Text(
-                        "Program Description",
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: darkBlue,
-                            fontFamily: 'circe'),
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            widget.subText,
-                            style: TextStyle(fontFamily: 'circe'),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
+                      // Text(
+                      //   "Program Description",
+                      //   style: TextStyle(
+                      //       fontSize: 16,
+                      //       fontWeight: FontWeight.w500,
+                      //       color: darkBlue,
+                      //       fontFamily: 'circe'),
+                      // ),
+                      // SizedBox(
+                      //   height: 15,
+                      // ),
+                      // Row(
+                      //   children: [
+                      //     Text(
+                      //       widget.subText,
+                      //       // style: TextStyle(fontFamily: 'circe'),
+                      //     )
+                      //   ],
+                      // ),
+                      // SizedBox(
+                      //   height: 10,
+                      // ),
                     ],
                   ),
                 ),
