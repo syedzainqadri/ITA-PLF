@@ -7,7 +7,7 @@ import 'programWidget.dart';
 
 class AllUpcomingEvents extends StatefulWidget {
   final List<EventModel> eventModel;
-  const AllUpcomingEvents({Key key, @required this.eventModel}) : super(key: key);
+  const AllUpcomingEvents({Key key, this.eventModel}) : super(key: key);
 
   @override
   State<AllUpcomingEvents> createState() => _AllUpcomingEventsState();
@@ -45,7 +45,8 @@ class _AllUpcomingEventsState extends State<AllUpcomingEvents> {
                 widget.eventModel[index].name,
                 widget.eventModel[index].description,
                 widget.eventModel[index].description != null ? true : false,
-                context
+                context,
+                widget.eventModel[index]
             );
           })
           : Center(child: Text("No UpComing Events Available",

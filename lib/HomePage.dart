@@ -51,10 +51,10 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       key: _scaffoldKey,
       drawer: CustomDrawer(),
-      backgroundColor: lightBlue,
+      backgroundColor: backgroundColor,
       appBar: AppBar(
         title: Center(child: Text("PLF")),
-        backgroundColor: darkBlue,
+        backgroundColor: appbarColor,
         elevation: 0,
         leading: IconButton(
           icon: Icon(
@@ -86,7 +86,7 @@ class _HomePageState extends State<HomePage> {
               child: Container(
                 padding: EdgeInsets.all(30),
                 width: MediaQuery.of(context).size.width,
-                color: Colors.white,
+                color: backgroundColor,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -179,7 +179,8 @@ class _HomePageState extends State<HomePage> {
                                 eventHistoryModel[index].name,
                                 eventHistoryModel[index].description,
                                 eventHistoryModel[index].description != null ? true : false,
-                                context
+                                context,
+                                eventHistoryModel[index],
                             );
                           })
                           : Center(child: Text("No Events History Available",

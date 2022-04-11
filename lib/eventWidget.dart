@@ -14,12 +14,12 @@ InkWell eventWidget(String img, String name, String subText,context, EventModel 
     child: Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        margin: EdgeInsets.only(top: 20),
+        margin: EdgeInsets.only(top: 10),
           width: MediaQuery.of(context).size.width / 1.3,
           height: MediaQuery.of(context).size.width / 1.2,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(30)),
-            color: lightBlue.withOpacity(0.5)),
+            color: cardColor.withOpacity(0.5)),
         child: Column(
           children: [
             Hero(
@@ -27,7 +27,7 @@ InkWell eventWidget(String img, String name, String subText,context, EventModel 
               child: Padding(
                   padding: EdgeInsets.all(10),
                 child: SizedBox(
-                    height: MediaQuery.of(context).size.width * 0.45,
+                    height: MediaQuery.of(context).size.width * 0.42,
                     width: MediaQuery.of(context).size.width,
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
@@ -39,12 +39,20 @@ InkWell eventWidget(String img, String name, String subText,context, EventModel 
               name,
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
             ),
-            Text(
-              '$subText',
-              style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w500,
-                  color: darkBlue),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  '$subText',
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  softWrap: false,
+                  style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                      color: darkBlue),
+                ),
+              ),
             ),
           ],
         ),

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:PLF/ColorScheme.dart';
 
 import 'models/event_model.dart';
 import 'programWidget.dart';
 
 class EventsHistory extends StatefulWidget {
   final List<EventModel> eventHistoryModel;
-  const EventsHistory({Key key, @required this.eventHistoryModel}) : super(key: key);
+  const EventsHistory({Key key, this.eventHistoryModel}) : super(key: key);
 
   @override
   State<EventsHistory> createState() => _EventsHistoryState();
@@ -44,7 +43,8 @@ class _EventsHistoryState extends State<EventsHistory> {
                  widget.eventHistoryModel[index].name,
                  widget.eventHistoryModel[index].description,
                  widget.eventHistoryModel[index].description != null ? true : false,
-                 context
+                 context,
+                 widget.eventHistoryModel[index],
              );
            })
            : Center(child: Text("No Events History Available",

@@ -111,13 +111,12 @@ class _EventDetailPageState extends State<EventDetailPage> {
                       SizedBox(
                         height: 15,
                       ),
-                      Row(
-                        children: [
-                          Text(
-                            widget.subText,
-                            style: TextStyle(fontFamily: 'circe'),
-                          )
-                        ],
+                      Text(
+                        widget.subText,
+                        maxLines: 4,
+                        overflow: TextOverflow.ellipsis,
+                        softWrap: false,
+                        style: TextStyle(fontFamily: 'circe'),
                       ),
                       SizedBox(
                         height: 10,
