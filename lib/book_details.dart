@@ -1,8 +1,8 @@
 import 'package:PLF/book_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:PLF/ColorScheme.dart';
-import 'package:PLF/HomePage.dart';
+import 'package:PLF/utils/ColorScheme.dart';
+import 'package:PLF/views/Home/HomePage.dart';
 
 import 'SubProgramWidget.dart';
 
@@ -12,8 +12,6 @@ class BookDetials extends StatefulWidget {
 }
 
 class _BookDetialsState extends State<BookDetials> {
-  
-
   int selectedDate = DateTime.now().day;
   @override
   Widget build(BuildContext context) {
@@ -110,7 +108,6 @@ class _BookDetialsState extends State<BookDetials> {
                       SizedBox(
                         height: 10,
                       ),
-                      
                     ],
                   ),
                 ),
@@ -164,26 +161,31 @@ class _BookDetialsState extends State<BookDetials> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                       Padding(
-                         padding: const EdgeInsets.all(8.0),
-                         child: bookWidget("book5.png","Spiderman", lightBlue,darkBlue,context),
-                       ),
-                       Padding(
-                         padding: const EdgeInsets.all(8.0),
-                         child: bookWidget("book4.png","Superman", lightBlue,darkBlue,context),
-                       ),
-                       Padding(
-                         padding: const EdgeInsets.all(8.0),
-                         child: bookWidget("book7.png","Batman", lightBlue,darkBlue,context),
-                       ),
-                       Padding(
-                         padding: const EdgeInsets.all(8.0),
-                         child: bookWidget("book3.png","Flash", lightBlue,darkBlue,context),
-                       ),
-                       Padding(
-                         padding: const EdgeInsets.all(8.0),
-                         child: bookWidget("book1.png","Wonder Woman", lightBlue,darkBlue,context),
-                       ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: bookWidget("book5.png", "Spiderman",
+                                  lightBlue, darkBlue, context),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: bookWidget("book4.png", "Superman",
+                                  lightBlue, darkBlue, context),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: bookWidget("book7.png", "Batman",
+                                  lightBlue, darkBlue, context),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: bookWidget("book3.png", "Flash", lightBlue,
+                                  darkBlue, context),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: bookWidget("book1.png", "Wonder Woman",
+                                  lightBlue, darkBlue, context),
+                            ),
                           ],
                         ),
                       ),
@@ -265,7 +267,7 @@ class _BookDetialsState extends State<BookDetials> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10)),
           color: (selectedDate == tempDate.day)
-              ? yellow
+              ? offWhite
               : lightBlue.withOpacity(0.5),
         ),
         child: Container(
@@ -283,6 +285,4 @@ class _BookDetialsState extends State<BookDetials> {
       ),
     );
   }
-
-
 }

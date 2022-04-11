@@ -1,14 +1,15 @@
+import 'package:PLF/models/event_model.dart';
 import 'package:flutter/material.dart';
+import 'package:PLF/utils/ColorScheme.dart';
 import 'package:get/get.dart';
-import 'package:PLF/ColorScheme.dart';
-import 'package:PLF/ProgramDetailPage.dart';
 
-import 'event_detail_page.dart';
+import '../event_detail_page.dart';
 
-InkWell programWidget(String img, String name, String subText, bool hasSubProgram, context) {
+InkWell eventVerticalListWidget(
+    String img, String name, String subText, context, EventModel eventModel) {
   return InkWell(
     onTap: () {
-      // Get.to(EventDetailPage(img, name, subText, "Date"));
+      Get.to(EventDetailPage(img, name, subText, "Date", eventModel));
     },
     child: Container(
       margin: EdgeInsets.only(top: 20),
@@ -27,11 +28,11 @@ InkWell programWidget(String img, String name, String subText, bool hasSubProgra
                   width: MediaQuery.of(context).size.width / 3,
                   child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: Image.network("https://firebasestorage.googleapis.com/v0/b/plfadminpanel.appspot.com/o/banner.jpeg?alt=media&token=9256c856-cd84-4824-ab31-0a02caaba7f4", fit: BoxFit.fill)
-                  )),
+                      child: Image.network(
+                          "https://firebasestorage.googleapis.com/v0/b/plfadminpanel.appspot.com/o/banner.jpeg?alt=media&token=9256c856-cd84-4824-ab31-0a02caaba7f4",
+                          fit: BoxFit.fill))),
             ),
           ),
-
           Container(
             padding: EdgeInsets.all(15),
             child: Column(
@@ -44,13 +45,13 @@ InkWell programWidget(String img, String name, String subText, bool hasSubProgra
                   name,
                   style: TextStyle(fontSize: 19, fontWeight: FontWeight.w700),
                 ),
-                Text(
-                  '$subText',
-                  style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
-                      color: darkBlue),
-                ),
+                // Text(
+                //   '$subText',
+                //   style: TextStyle(
+                //       fontSize: 13,
+                //       fontWeight: FontWeight.w500,
+                //       color: darkBlue),
+                // ),
                 Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -66,7 +67,6 @@ InkWell programWidget(String img, String name, String subText, bool hasSubProgra
               ],
             ),
           ),
-
         ],
       ),
     ),

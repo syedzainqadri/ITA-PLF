@@ -1,28 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:PLF/ColorScheme.dart';
-import 'package:PLF/LoginPage.dart';
-import 'package:PLF/Onboarding.dart';
+import 'package:PLF/utils/ColorScheme.dart';
+import 'package:PLF/views/OnBoarding/Onboarding.dart';
+import 'package:PLF/views/AuthScreens/SignupPage.dart';
 
-class SignupPage extends StatefulWidget {
-  const SignupPage({Key key}) : super(key: key);
-
-  @override
-  State<SignupPage> createState() => _SignupPageState();
-}
-
-class _SignupPageState extends State<SignupPage> {
-  bool notAnITAStudent = false;
-
-  void _onNotAnITAStudentChanged(bool newValue) => setState(() {
-        notAnITAStudent = newValue;
-
-        if (notAnITAStudent) {
-          // TODO: Here goes your functionality that remembers the user.
-        } else {
-          // TODO: Forget the user
-        }
-      });
+class LoginPage extends StatelessWidget {
+  const LoginPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -66,87 +49,6 @@ class _SignupPageState extends State<SignupPage> {
                       fillColor: Colors.white70),
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20.0),
-                    child: Checkbox(
-                      value: notAnITAStudent,
-                      onChanged: _onNotAnITAStudentChanged,
-                    ),
-                  ),
-                  Text('Not An ITA Student'),
-                ],
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 20.0, left: 20.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(),
-                      borderRadius: BorderRadius.circular(20)),
-                  height: 60,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Icon(Icons.menu),
-                      Text('Please select your District'),
-                      DropdownButton<String>(
-                        items: <String>[
-                          'Lahore',
-                          'Kasur',
-                          'Shaikhupura',
-                          'Lodhran'
-                        ].map((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                        onChanged: (_) {},
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 20.0, left: 20.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(),
-                      borderRadius: BorderRadius.circular(20)),
-                  height: 60,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Icon(Icons.menu),
-                      Text('Please select your School'),
-                      DropdownButton<String>(
-                        items: <String>[
-                          'School Name 1',
-                          'School Name 2',
-                          'School Name 3',
-                          'School Name 4'
-                        ].map((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                        onChanged: (_) {},
-                      ),
-                    ],
-                  ),
-                ),
-              ),
               SizedBox(
                 height: 20,
               ),
@@ -158,7 +60,7 @@ class _SignupPageState extends State<SignupPage> {
                       padding: const EdgeInsets.all(20.0),
                       child: ElevatedButton(
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(yellow),
+                          backgroundColor: MaterialStateProperty.all(offWhite),
                           shape:
                               MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
@@ -167,7 +69,7 @@ class _SignupPageState extends State<SignupPage> {
                           ),
                         ),
                         onPressed: () {
-                          Get.to(LoginPage());
+                          Get.to(OnBoardingPage());
                         },
                         child: Text(
                           'Login',
@@ -196,7 +98,7 @@ class _SignupPageState extends State<SignupPage> {
                           ),
                         ),
                         onPressed: () {
-                          Get.to(OnBoardingPage());
+                          Get.to(SignupPage());
                         },
                         child: Text(
                           'SignUp',

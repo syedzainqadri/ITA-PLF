@@ -1,4 +1,4 @@
-import 'package:PLF/ColorScheme.dart';
+import 'package:PLF/utils/ColorScheme.dart';
 import 'package:PLF/checkout.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -88,7 +88,7 @@ class _CartPageState extends State<CartPage> {
             //       InkWell(
             //         onTap: () {},
             //         child: Container(
-                      
+
             //             width: MediaQuery.of(context).size.width / 6,
             //             height: 55,
             //           decoration: BoxDecoration(
@@ -114,85 +114,84 @@ class _CartPageState extends State<CartPage> {
             //     ],
             //   ),
             // ),
-      
+
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Item Price",
-                    ),
-                    Text(
-                      "11,478 RS",
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Discount",
-                    ),
-                    Text(
-                      "0.00",
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  "- - - - - - - - - - - - - - - - - - - - - - - - - - - -",
-                  style: TextStyle(fontSize: 25),
-                ),
-                
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Subtotal",
-                    ),
-                    Text(
-                      "11,478 RS",
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                InkWell(
-                  onTap: () {
-                    Get.to(CheckOut());
-                  },
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.all(15),
-                    margin: EdgeInsets.only(bottom: 20, right: 30, left: 30),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        color: darkBlue),
-                    child: Center(
-                      child: Text(
-                        "Continue to Checkout",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'circe',
-                            fontWeight: FontWeight.w700,
-                            fontSize: 18),
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Item Price",
+                      ),
+                      Text(
+                        "11,478 RS",
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Discount",
+                      ),
+                      Text(
+                        "0.00",
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    "- - - - - - - - - - - - - - - - - - - - - - - - - - - -",
+                    style: TextStyle(fontSize: 25),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Subtotal",
+                      ),
+                      Text(
+                        "11,478 RS",
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Get.to(CheckOut());
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: EdgeInsets.all(15),
+                      margin: EdgeInsets.only(bottom: 20, right: 30, left: 30),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          color: darkBlue),
+                      child: Center(
+                        child: Text(
+                          "Continue to Checkout",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'circe',
+                              fontWeight: FontWeight.w700,
+                              fontSize: 18),
+                        ),
                       ),
                     ),
                   ),
-                ),
                 ],
               ),
-            ), 
+            ),
           ],
         ),
       ),

@@ -2,7 +2,7 @@ import 'package:PLF/book_details.dart';
 import 'package:PLF/book_widget.dart';
 import 'package:PLF/checkout.dart';
 import 'package:flutter/material.dart';
-import 'package:PLF/ColorScheme.dart';
+import 'package:PLF/utils/ColorScheme.dart';
 import 'package:get/get.dart';
 
 import 'cart.dart';
@@ -102,16 +102,26 @@ class _BookStoreState extends State<BookStore> {
                       mainAxisSpacing: 10,
                       crossAxisCount: 2,
                       children: <Widget>[
-                       bookWidget("book1.png","Book 1", lightBlue,darkBlue,context),
-                       bookWidget("book2.png","Book 2", lightBlue,darkBlue,context),
-                       bookWidget("book3.png","Book 3", lightBlue,darkBlue,context),
-                       bookWidget("book4.png","Book 4", lightBlue,darkBlue,context),
-                       bookWidget("book5.png","Book 5", lightBlue,darkBlue,context),
-                       bookWidget("book6.png","Book 6", lightBlue,darkBlue,context),
-                       bookWidget("book7.png","Book 7", lightBlue,darkBlue,context),
-                       bookWidget("book3.png","Book 8", lightBlue,darkBlue,context),
-                       bookWidget("book2.png","Book 9", lightBlue,darkBlue,context),
-                       bookWidget("book1.png","Book 10", lightBlue,darkBlue,context),
+                        bookWidget("book1.png", "Book 1", lightBlue, darkBlue,
+                            context),
+                        bookWidget("book2.png", "Book 2", lightBlue, darkBlue,
+                            context),
+                        bookWidget("book3.png", "Book 3", lightBlue, darkBlue,
+                            context),
+                        bookWidget("book4.png", "Book 4", lightBlue, darkBlue,
+                            context),
+                        bookWidget("book5.png", "Book 5", lightBlue, darkBlue,
+                            context),
+                        bookWidget("book6.png", "Book 6", lightBlue, darkBlue,
+                            context),
+                        bookWidget("book7.png", "Book 7", lightBlue, darkBlue,
+                            context),
+                        bookWidget("book3.png", "Book 8", lightBlue, darkBlue,
+                            context),
+                        bookWidget("book2.png", "Book 9", lightBlue, darkBlue,
+                            context),
+                        bookWidget("book1.png", "Book 10", lightBlue, darkBlue,
+                            context),
                       ],
                     ),
                   )

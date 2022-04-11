@@ -1,6 +1,6 @@
 import 'package:PLF/book_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:PLF/ColorScheme.dart';
+import 'package:PLF/utils/ColorScheme.dart';
 import 'package:get/get.dart';
 
 import 'add_checkout_address.dart';
@@ -11,7 +11,7 @@ class CheckOut extends StatefulWidget {
 }
 
 class _CheckOutState extends State<CheckOut> {
-  bool cashOnDelivery = true, digitalPayment = false, isActive=true;
+  bool cashOnDelivery = true, digitalPayment = false, isActive = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,15 +86,16 @@ class _CheckOutState extends State<CheckOut> {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                preferrenceContainer("Today", Colors.white, darkBlue,true),
+                preferrenceContainer("Today", Colors.white, darkBlue, true),
                 SizedBox(
                   width: 15,
                 ),
-                preferrenceContainer("Tomorrow", Colors.white, darkBlue,false),
+                preferrenceContainer("Tomorrow", Colors.white, darkBlue, false),
                 SizedBox(
                   width: 15,
                 ),
-                preferrenceContainer("Next Date", Colors.white, darkBlue,false),
+                preferrenceContainer(
+                    "Next Date", Colors.white, darkBlue, false),
               ],
             ),
             SizedBox(
@@ -104,12 +105,12 @@ class _CheckOutState extends State<CheckOut> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 preferrenceContainer(
-                    "05:00 PM - 08:00 PM", Colors.white, darkBlue,true),
+                    "05:00 PM - 08:00 PM", Colors.white, darkBlue, true),
                 SizedBox(
                   width: 15,
                 ),
                 preferrenceContainer(
-                    "02:00 PM - 05:00 PM", Colors.white, darkBlue,false),
+                    "02:00 PM - 05:00 PM", Colors.white, darkBlue, false),
               ],
             ),
             SizedBox(
@@ -232,7 +233,7 @@ class _CheckOutState extends State<CheckOut> {
     );
   }
 
-  preferrenceContainer(text, textColor, containerColor,active) {
+  preferrenceContainer(text, textColor, containerColor, active) {
     return GestureDetector(
       onTap: () {
         setState(() {

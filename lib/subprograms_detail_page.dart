@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:PLF/ColorScheme.dart';
+import 'package:PLF/utils/ColorScheme.dart';
 
 class SubProgramDetailPage extends StatefulWidget {
   String img, name, grade;
-  SubProgramDetailPage(img, name, grade){
-    this.img=img;
-    this.name=name;
-    this.grade=grade;
+  SubProgramDetailPage(img, name, grade) {
+    this.img = img;
+    this.name = name;
+    this.grade = grade;
   }
   @override
   _SubProgramDetailPageState createState() => _SubProgramDetailPageState();
@@ -14,7 +14,6 @@ class SubProgramDetailPage extends StatefulWidget {
 
 class _SubProgramDetailPageState extends State<SubProgramDetailPage> {
   int selectedDate = DateTime.now().day;
-
 
   @override
   Widget build(BuildContext context) {
@@ -65,8 +64,8 @@ class _SubProgramDetailPageState extends State<SubProgramDetailPage> {
                           width: 200,
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image:
-                                      AssetImage('asset/images/${widget.img}.png'))),
+                                  image: AssetImage(
+                                      'asset/images/${widget.img}.png'))),
                         ),
                       ),
                     )
@@ -165,7 +164,7 @@ class _SubProgramDetailPageState extends State<SubProgramDetailPage> {
                     SizedBox(
                       height: 180,
                     ),
-                    
+
                     // Container(
                     //   child: Column(
                     //     mainAxisAlignment: MainAxisAlignment.center,
@@ -261,7 +260,7 @@ class _SubProgramDetailPageState extends State<SubProgramDetailPage> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10)),
           color: (selectedDate == tempDate.day)
-              ? yellow
+              ? offWhite
               : lightBlue.withOpacity(0.5),
         ),
         child: Container(

@@ -1,6 +1,6 @@
 import 'package:video_player/video_player.dart';
 import 'package:flutter/material.dart';
-import 'package:PLF/ColorScheme.dart';
+import 'package:PLF/utils/ColorScheme.dart';
 
 class OnBoardingPage extends StatefulWidget {
   @override
@@ -8,11 +8,9 @@ class OnBoardingPage extends StatefulWidget {
 }
 
 class _OnBoardingPageState extends State<OnBoardingPage> {
+  VideoPlayerController _controller;
 
-VideoPlayerController _controller;
-
-
-@override
+  @override
   void initState() {
     super.initState();
     _controller = VideoPlayerController.network(
@@ -25,10 +23,12 @@ VideoPlayerController _controller;
         });
       });
   }
+
   @override
   void dispose() {
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,17 +37,20 @@ VideoPlayerController _controller;
         child: Column(
           children: [
             Container(
-              height: MediaQuery.of(context).size.height*0.35,
+              height: MediaQuery.of(context).size.height * 0.35,
               width: MediaQuery.of(context).size.width,
               color: Color.fromARGB(221, 26, 25, 25),
               child: _controller.value.isInitialized
-              ? AspectRatio(
-                  aspectRatio: _controller.value.aspectRatio,
-                  child: VideoPlayer(_controller),
-                )
-              :Center(child: 
-              Icon(Icons.play_arrow,size: 70,color: Colors.white,)
-              ),
+                  ? AspectRatio(
+                      aspectRatio: _controller.value.aspectRatio,
+                      child: VideoPlayer(_controller),
+                    )
+                  : Center(
+                      child: Icon(
+                      Icons.play_arrow,
+                      size: 70,
+                      color: Colors.white,
+                    )),
             ),
             // Expanded(
             //   child: Center(
@@ -67,7 +70,7 @@ VideoPlayerController _controller;
             //           ),
             //   ),
             // ),
-             Container(
+            Container(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -132,7 +135,7 @@ VideoPlayerController _controller;
                           color: darkBlue,
                         ),
                         child: IconButton(
-                          onPressed: (){
+                          onPressed: () {
                             openHomePage();
                             setState(() {
                               _controller.pause();

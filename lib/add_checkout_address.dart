@@ -1,6 +1,6 @@
 import 'package:PLF/book_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:PLF/ColorScheme.dart';
+import 'package:PLF/utils/ColorScheme.dart';
 import 'package:get/get.dart';
 
 class AddAddress extends StatefulWidget {
@@ -9,7 +9,6 @@ class AddAddress extends StatefulWidget {
 }
 
 class _AddAddressState extends State<AddAddress> {
-  
   bool cashOnDelivery = true, digitalPayment = false;
   @override
   Widget build(BuildContext context) {
@@ -41,8 +40,8 @@ class _AddAddressState extends State<AddAddress> {
             width: MediaQuery.of(context).size.width,
             height: 180,
             decoration: BoxDecoration(
-              image: DecorationImage(
-                fit: BoxFit.cover,
+                image: DecorationImage(
+                    fit: BoxFit.cover,
                     image: AssetImage("asset/images/map.png"))),
           ),
           SizedBox(

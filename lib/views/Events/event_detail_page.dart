@@ -3,11 +3,11 @@ import 'package:PLF/utils/url_paths.dart';
 import 'package:PLF/webview.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:PLF/ColorScheme.dart';
-import 'package:PLF/HomePage.dart';
+import 'package:PLF/utils/ColorScheme.dart';
+import 'package:PLF/views/Home/HomePage.dart';
 
-import 'SubProgramWidget.dart';
-import 'models/event_model.dart';
+import '../../SubProgramWidget.dart';
+import '../../models/event_model.dart';
 
 class EventDetailPage extends StatefulWidget {
   String img, name, subText, date;
@@ -122,25 +122,6 @@ class _EventDetailPageState extends State<EventDetailPage> {
                       SizedBox(
                         height: 10,
                       ),
-                      // Row(
-                      //   children: [
-                      //     Container(
-                      //       height: 20,
-                      //       width: 20,
-                      //       decoration: BoxDecoration(
-                      //           image: DecorationImage(
-                      //               image: AssetImage(
-                      //                   'asset/images/palette.png'))),
-                      //     ),
-                      //     SizedBox(
-                      //       width: 5,
-                      //     ),
-                      //     Text(
-                      //       "Program History",
-                      //       style: TextStyle(fontFamily: 'circe'),
-                      //     )
-                      //   ],
-                      // ),
                     ],
                   ),
                 ),
@@ -176,34 +157,41 @@ class _EventDetailPageState extends State<EventDetailPage> {
                     SizedBox(
                       height: 60,
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                    Wrap(
+                      runAlignment: WrapAlignment.start,
+                      direction: Axis.horizontal,
+                      alignment: WrapAlignment.start,
+                      spacing: 10.0,
+                      // runSpacing: 0.0,
+                      // mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             widget.eventModel.tarana
                                 ? InkWell(
-                                onTap: () {
-                                  Get.to(WebViewPage(
-                                      title: "Tarana",
-                                      url: UrlBase.buttonURL + UrlPathHelper.getValue(UrlPath.tarana)
-                                  ));
-                                },
-                                child: buttonWidget("Tarana"))
+                                    onTap: () {
+                                      Get.to(WebViewPage(
+                                          title: "Tarana",
+                                          url: UrlBase.buttonURL +
+                                              UrlPathHelper.getValue(
+                                                  UrlPath.tarana)));
+                                    },
+                                    child: buttonWidget("Tarana"))
                                 : buildEmptyContainer(context),
                             SizedBox(
                               width: 10,
                             ),
                             widget.eventModel.poster
                                 ? InkWell(
-                                onTap: () {
-                                  Get.to(WebViewPage(
-                                      title: "Poster",
-                                      url: UrlBase.buttonURL + UrlPathHelper.getValue(UrlPath.poster)
-                                  ));
-                                },
-                                child: buttonWidget("Poster"))
+                                    onTap: () {
+                                      Get.to(WebViewPage(
+                                          title: "Poster",
+                                          url: UrlBase.buttonURL +
+                                              UrlPathHelper.getValue(
+                                                  UrlPath.poster)));
+                                    },
+                                    child: buttonWidget("Poster"))
                                 : buildEmptyContainer(context),
                           ],
                         ),
@@ -215,26 +203,28 @@ class _EventDetailPageState extends State<EventDetailPage> {
                           children: [
                             widget.eventModel.sponsors
                                 ? InkWell(
-                                onTap: () {
-                                  Get.to(WebViewPage(
-                                      title: "Sponsors",
-                                      url: UrlBase.buttonURL + UrlPathHelper.getValue(UrlPath.sponsors)
-                                  ));
-                                },
-                                child: buttonWidget("Sponsors"))
+                                    onTap: () {
+                                      Get.to(WebViewPage(
+                                          title: "Sponsors",
+                                          url: UrlBase.buttonURL +
+                                              UrlPathHelper.getValue(
+                                                  UrlPath.sponsors)));
+                                    },
+                                    child: buttonWidget("Sponsors"))
                                 : buildEmptyContainer(context),
                             SizedBox(
                               width: 10,
                             ),
                             widget.eventModel.program
                                 ? InkWell(
-                                onTap: () {
-                                  Get.to(WebViewPage(
-                                      title: "Program",
-                                      url: UrlBase.buttonURL + UrlPathHelper.getValue(UrlPath.program)
-                                  ));
-                                },
-                                child: buttonWidget("Program"))
+                                    onTap: () {
+                                      Get.to(WebViewPage(
+                                          title: "Program",
+                                          url: UrlBase.buttonURL +
+                                              UrlPathHelper.getValue(
+                                                  UrlPath.program)));
+                                    },
+                                    child: buttonWidget("Program"))
                                 : buildEmptyContainer(context),
                           ],
                         ),
@@ -246,26 +236,28 @@ class _EventDetailPageState extends State<EventDetailPage> {
                           children: [
                             widget.eventModel.resource_Persons
                                 ? InkWell(
-                                onTap: () {
-                                  Get.to(WebViewPage(
-                                      title: "Resource Persons",
-                                      url: UrlBase.buttonURL + UrlPathHelper.getValue(UrlPath.resourcePerson)
-                                  ));
-                                },
-                                child: buttonWidget("Resource Persons"))
+                                    onTap: () {
+                                      Get.to(WebViewPage(
+                                          title: "Resource Persons",
+                                          url: UrlBase.buttonURL +
+                                              UrlPathHelper.getValue(
+                                                  UrlPath.resourcePerson)));
+                                    },
+                                    child: buttonWidget("Resource Persons"))
                                 : buildEmptyContainer(context),
                             SizedBox(
                               width: 10,
                             ),
                             widget.eventModel.gallery
                                 ? InkWell(
-                                onTap: () {
-                                  Get.to(WebViewPage(
-                                      title: "Gallery",
-                                      url: UrlBase.buttonURL + UrlPathHelper.getValue(UrlPath.gallery)
-                                  ));
-                                },
-                                child: buttonWidget("Gallery"))
+                                    onTap: () {
+                                      Get.to(WebViewPage(
+                                          title: "Gallery",
+                                          url: UrlBase.buttonURL +
+                                              UrlPathHelper.getValue(
+                                                  UrlPath.gallery)));
+                                    },
+                                    child: buttonWidget("Gallery"))
                                 : buildEmptyContainer(context),
                           ],
                         ),
@@ -277,26 +269,28 @@ class _EventDetailPageState extends State<EventDetailPage> {
                           children: [
                             widget.eventModel.media
                                 ? InkWell(
-                                onTap: () {
-                                  Get.to(WebViewPage(
-                                      title: "Media",
-                                      url: UrlBase.buttonURL + UrlPathHelper.getValue(UrlPath.media)
-                                  ));
-                                },
-                                child: buttonWidget("Media"))
+                                    onTap: () {
+                                      Get.to(WebViewPage(
+                                          title: "Media",
+                                          url: UrlBase.buttonURL +
+                                              UrlPathHelper.getValue(
+                                                  UrlPath.media)));
+                                    },
+                                    child: buttonWidget("Media"))
                                 : buildEmptyContainer(context),
                             SizedBox(
                               width: 10,
                             ),
                             widget.eventModel.getInvolved
                                 ? InkWell(
-                                onTap: () {
-                                  Get.to(WebViewPage(
-                                      title: "Get Involved",
-                                      url: UrlBase.buttonURL + UrlPathHelper.getValue(UrlPath.getInvolved)
-                                  ));
-                                },
-                                child: buttonWidget("Get Involved"))
+                                    onTap: () {
+                                      Get.to(WebViewPage(
+                                          title: "Get Involved",
+                                          url: UrlBase.buttonURL +
+                                              UrlPathHelper.getValue(
+                                                  UrlPath.getInvolved)));
+                                    },
+                                    child: buttonWidget("Get Involved"))
                                 : buildEmptyContainer(context),
                           ],
                         ),
@@ -308,26 +302,28 @@ class _EventDetailPageState extends State<EventDetailPage> {
                           children: [
                             widget.eventModel.testimonials
                                 ? InkWell(
-                                onTap: () {
-                                  Get.to(WebViewPage(
-                                      title: "Testimonials",
-                                      url: UrlBase.buttonURL + UrlPathHelper.getValue(UrlPath.testimonials)
-                                  ));
-                                },
-                                child: buttonWidget("Testimonials"))
+                                    onTap: () {
+                                      Get.to(WebViewPage(
+                                          title: "Testimonials",
+                                          url: UrlBase.buttonURL +
+                                              UrlPathHelper.getValue(
+                                                  UrlPath.testimonials)));
+                                    },
+                                    child: buttonWidget("Testimonials"))
                                 : buildEmptyContainer(context),
                             SizedBox(
                               width: 10,
                             ),
                             widget.eventModel.venue
                                 ? InkWell(
-                                onTap: () {
-                                  Get.to(WebViewPage(
-                                      title: "Venue",
-                                      url: UrlBase.buttonURL + UrlPathHelper.getValue(UrlPath.venue)
-                                  ));
-                                },
-                                child: buttonWidget("Venue"))
+                                    onTap: () {
+                                      Get.to(WebViewPage(
+                                          title: "Venue",
+                                          url: UrlBase.buttonURL +
+                                              UrlPathHelper.getValue(
+                                                  UrlPath.venue)));
+                                    },
+                                    child: buttonWidget("Venue"))
                                 : buildEmptyContainer(context),
                           ],
                         ),
@@ -339,26 +335,28 @@ class _EventDetailPageState extends State<EventDetailPage> {
                           children: [
                             widget.eventModel.registration
                                 ? InkWell(
-                                onTap: () {
-                                  Get.to(WebViewPage(
-                                      title: "Registration",
-                                      url: UrlBase.buttonURL + UrlPathHelper.getValue(UrlPath.registration)
-                                  ));
-                                },
-                                child: buttonWidget("Registration"))
+                                    onTap: () {
+                                      Get.to(WebViewPage(
+                                          title: "Registration",
+                                          url: UrlBase.buttonURL +
+                                              UrlPathHelper.getValue(
+                                                  UrlPath.registration)));
+                                    },
+                                    child: buttonWidget("Registration"))
                                 : buildEmptyContainer(context),
                             SizedBox(
                               width: 10,
                             ),
                             widget.eventModel.videos
                                 ? InkWell(
-                                onTap: () {
-                                  Get.to(WebViewPage(
-                                      title: "Videos",
-                                      url: UrlBase.buttonURL + UrlPathHelper.getValue(UrlPath.videos)
-                                  ));
-                                },
-                                child: buttonWidget("Videos"))
+                                    onTap: () {
+                                      Get.to(WebViewPage(
+                                          title: "Videos",
+                                          url: UrlBase.buttonURL +
+                                              UrlPathHelper.getValue(
+                                                  UrlPath.videos)));
+                                    },
+                                    child: buttonWidget("Videos"))
                                 : buildEmptyContainer(context),
                           ],
                         ),
@@ -370,13 +368,14 @@ class _EventDetailPageState extends State<EventDetailPage> {
                           children: [
                             widget.eventModel.book_launches
                                 ? InkWell(
-                                onTap: () {
-                                  Get.to(WebViewPage(
-                                      title: "Book Launches",
-                                      url: UrlBase.buttonURL + UrlPathHelper.getValue(UrlPath.bookLaunches)
-                                  ));
-                                },
-                                child: buttonWidget("Book Launches"))
+                                    onTap: () {
+                                      Get.to(WebViewPage(
+                                          title: "Book Launches",
+                                          url: UrlBase.buttonURL +
+                                              UrlPathHelper.getValue(
+                                                  UrlPath.bookLaunches)));
+                                    },
+                                    child: buttonWidget("Book Launches"))
                                 : buildEmptyContainer(context),
                           ],
                         ),
@@ -397,12 +396,13 @@ class _EventDetailPageState extends State<EventDetailPage> {
 
   Container buildEmptyContainer(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width / 2.5,
-      height: 55,
-      padding: EdgeInsets.all(15),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(10)), color: grey)
-    );
+        // width: MediaQuery.of(context).size.width / 2.5,
+        // height: 55,
+        // padding: EdgeInsets.all(15),
+        // decoration: BoxDecoration(
+        //   borderRadius: BorderRadius.all(Radius.circular(10)),
+        // ),
+        );
   }
 
   buttonWidget(buttonName) {
@@ -410,8 +410,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
       width: MediaQuery.of(context).size.width / 2.5,
       padding: EdgeInsets.all(15),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-          color: darkBlue),
+          borderRadius: BorderRadius.all(Radius.circular(10)), color: darkBlue),
       child: Center(
         child: Text(
           buttonName,
@@ -419,7 +418,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
               color: Colors.white,
               fontFamily: 'circe',
               fontWeight: FontWeight.w700,
-              fontSize: 18),
+              fontSize: 14),
         ),
       ),
     );
@@ -463,7 +462,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10)),
           color: (selectedDate == tempDate.day)
-              ? yellow
+              ? offWhite
               : lightBlue.withOpacity(0.5),
         ),
         child: Container(

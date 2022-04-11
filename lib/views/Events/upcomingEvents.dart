@@ -1,13 +1,11 @@
 import 'package:PLF/models/event_model.dart';
 import 'package:flutter/material.dart';
-import 'package:PLF/ColorScheme.dart';
-
-import 'eventWidget.dart';
-import 'programWidget.dart';
+import 'widget/eventVerticalListWidget.dart';
 
 class AllUpcomingEvents extends StatefulWidget {
   final List<EventModel> eventModel;
-  const AllUpcomingEvents({Key key, @required this.eventModel}) : super(key: key);
+  const AllUpcomingEvents({Key key, @required this.eventModel})
+      : super(key: key);
 
   @override
   State<AllUpcomingEvents> createState() => _AllUpcomingEventsState();
@@ -36,21 +34,23 @@ class _AllUpcomingEventsState extends State<AllUpcomingEvents> {
           },
         ),
       ),
-      body: widget.eventModel.isNotEmpty ?
-      ListView.builder(
-          itemCount: widget.eventModel.length,
-          itemBuilder: (context, index) {
-            return  programWidget(
-                widget.eventModel[index].url,
-                widget.eventModel[index].name,
-                widget.eventModel[index].description,
-                widget.eventModel[index].description != null ? true : false,
-                context
-            );
-          })
-          : Center(child: Text("No UpComing Events Available",
-        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-      ),),
+      body: widget.eventModel.isNotEmpty
+          ? ListView.builder(
+              itemCount: widget.eventModel.length,
+              itemBuilder: (context, index) {
+                return eventVerticalListWidget(
+                    widget.eventModel[index].url,
+                    widget.eventModel[index].name,
+                    widget.eventModel[index].description,
+                    context,
+                    widget.eventModel[index]);
+              })
+          : Center(
+              child: Text(
+                "No UpComing Events Available",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              ),
+            ),
     );
   }
 }
