@@ -12,14 +12,14 @@ class _DonationsState extends State<Donations> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: lightBlue,
+      backgroundColor: backgroundColor,
       appBar: AppBar(
         title: Text(
           "Donate Now",
           style: TextStyle(color: Color.fromARGB(255, 34, 33, 33)),
         ),
         elevation: 0.0,
-        backgroundColor: Colors.transparent,
+        backgroundColor: white,
         leading: IconButton(
           icon: Icon(
             Icons.navigate_before,
