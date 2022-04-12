@@ -4,7 +4,8 @@ import 'package:get/get.dart';
 import 'package:PLF/ColorScheme.dart';
 import 'event_detail_page.dart';
 
-InkWell eventHistoryWidget(String img, String name, String subText, bool hasSubProgram, context, EventModel eventModel) {
+InkWell eventHistoryWidget(String img, String name, String subText,
+    bool hasSubProgram, context, EventModel eventModel) {
   return InkWell(
     onTap: () {
       Get.to(EventDetailPage(img, name, subText, "Date", eventModel));
@@ -13,8 +14,8 @@ InkWell eventHistoryWidget(String img, String name, String subText, bool hasSubP
       margin: EdgeInsets.only(top: 20),
       height: MediaQuery.of(context).size.width * 0.3,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(30)),
-          color: white,
+        borderRadius: BorderRadius.all(Radius.circular(30)),
+        color: white,
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.2),
@@ -23,21 +24,21 @@ InkWell eventHistoryWidget(String img, String name, String subText, bool hasSubP
             offset: Offset(1, 4),
           ),
         ],
-
       ),
       child: Row(
         children: [
           Hero(
             tag: img,
-            child: SizedBox(
-                height: MediaQuery.of(context).size.width * 0.28,
-                width: MediaQuery.of(context).size.width / 3,
-                child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Image.network(img, fit: BoxFit.fill)
-                )),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                  height: MediaQuery.of(context).size.width * 0.28,
+                  width: MediaQuery.of(context).size.width / 3,
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.network(img, fit: BoxFit.fill))),
+            ),
           ),
-
           Expanded(
             child: Container(
               padding: EdgeInsets.all(15),
@@ -54,7 +55,8 @@ InkWell eventHistoryWidget(String img, String name, String subText, bool hasSubP
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       softWrap: false,
-                      style: TextStyle(fontSize: 19, fontWeight: FontWeight.w700),
+                      style:
+                          TextStyle(fontSize: 19, fontWeight: FontWeight.w700),
                     ),
                   ),
                   SizedBox(height: 10),
@@ -68,7 +70,10 @@ InkWell eventHistoryWidget(String img, String name, String subText, bool hasSubP
                         SizedBox(width: 5),
                         Text(
                           "22-12-2022",
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, decoration: TextDecoration.underline),
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                              decoration: TextDecoration.underline),
                         ),
                       ],
                     ),
@@ -77,7 +82,6 @@ InkWell eventHistoryWidget(String img, String name, String subText, bool hasSubP
               ),
             ),
           ),
-
         ],
       ),
     ),
