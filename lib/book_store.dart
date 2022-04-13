@@ -1,6 +1,5 @@
-import 'package:PLF/book_details.dart';
+
 import 'package:PLF/book_widget.dart';
-import 'package:PLF/checkout.dart';
 import 'package:flutter/material.dart';
 import 'package:PLF/ColorScheme.dart';
 import 'package:get/get.dart';

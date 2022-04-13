@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:PLF/ColorScheme.dart';
 
-class Donations extends StatefulWidget {
-  const Donations({Key key}) : super(key: key);
+class DonationsScreen extends StatefulWidget {
+  const DonationsScreen({Key key}) : super(key: key);
 
   @override
-  State<Donations> createState() => _DonationsState();
+  State<DonationsScreen> createState() => _DonationsScreenState();
 }
 
-class _DonationsState extends State<Donations> {
+class _DonationsScreenState extends State<DonationsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,7 +1,7 @@
-import 'package:PLF/donations.dart';
+import 'package:PLF/bottombar/donations.dart';
 import 'package:PLF/utils/url_base.dart';
 import 'package:PLF/utils/url_paths.dart';
-import 'package:PLF/volenteer.dart';
+import 'package:PLF/bottombar/volenteer.dart';
 import 'package:PLF/webview.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -287,7 +287,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                             ),
                             InkWell(
                                 onTap: () {
-                                  Get.to(Volenteer());
+                                  Get.to(VolunteerScreen());
                                 },
                                 child: staticButtonWidget("Volunteer")),
                             SizedBox(
@@ -295,7 +295,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                             ),
                             InkWell(
                                 onTap: () {
-                                  Get.to(Donations());
+                                  Get.to(DonationsScreen());
                                 },
                                 child: staticButtonWidget("Donation")),
                           ],

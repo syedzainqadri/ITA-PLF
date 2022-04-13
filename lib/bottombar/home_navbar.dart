@@ -2,9 +2,10 @@
 import 'package:PLF/ColorScheme.dart';
 import 'package:PLF/bottombar/HomePage.dart';
 import 'package:PLF/bottombar/books_screen.dart';
-import 'package:PLF/bottombar/donation_screen.dart';
-import 'package:PLF/bottombar/voulanteer_screen.dart';
+import 'package:PLF/bottombar/volenteer.dart';
 import 'package:flutter/material.dart';
+
+import 'donations.dart';
 
 class HomeNavbar extends StatefulWidget {
   _HomeNavbarState createState() => _HomeNavbarState();
@@ -15,7 +16,7 @@ class _HomeNavbarState extends State<HomeNavbar> {
   int _currentIndex = 0;
   List<Widget> tabs = [
     HomePage(),
-    DonationScreen(),
+    DonationsScreen(),
     VolunteerScreen(),
     BookScreen(),
   ];
@@ -24,7 +25,7 @@ class _HomeNavbarState extends State<HomeNavbar> {
   void initState() {
     tabs = [
       HomePage(),
-      DonationScreen(),
+      DonationsScreen(),
       VolunteerScreen(),
       BookScreen(),
     ];

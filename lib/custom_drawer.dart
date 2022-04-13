@@ -5,7 +5,7 @@ import 'ColorScheme.dart';
 import 'LoginPage.dart';
 import 'allEvent.dart';
 import 'book_store.dart';
-import 'donations.dart';
+import 'bottombar/donations.dart';
 import 'event_history.dart';
 import 'feedback.dart';
 import 'webview.dart';
@@ -1143,7 +1143,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     PageRouteBuilder(
                         opaque: false,
                         pageBuilder: (context, _, __) {
-                          return Donations();
+                          return DonationsScreen();
                         },
                         transitionsBuilder: (_, __, ___, Widget child) {
                           return child;

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:PLF/ColorScheme.dart';
 
-class Volenteer extends StatefulWidget {
-  const Volenteer({Key key}) : super(key: key);
+class VolunteerScreen extends StatefulWidget {
+  const VolunteerScreen({Key key}) : super(key: key);
 
   @override
-  State<Volenteer> createState() => _VolenteerState();
+  State<VolunteerScreen> createState() => _VolunteerScreenState();
 }
 
-class _VolenteerState extends State<Volenteer> {
+class _VolunteerScreenState extends State<VolunteerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
