@@ -1,14 +1,12 @@
 import 'dart:ui';
-
-import 'package:PLF/event_detail_page.dart';
+import 'package:PLF/views/Events/event_detail_page.dart';
 import 'package:PLF/models/event_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:PLF/ColorScheme.dart';
-import 'package:PLF/ProgramDetailPage.dart';
+import 'package:PLF/utils/ColorScheme.dart';
 
-InkWell eventWidget(String img, String name, String subText,context, EventModel eventModel) {
+InkWell eventWidget(
+    String img, String name, String subText, context, EventModel eventModel) {
   return InkWell(
     onTap: () {
       Get.to(EventDetailPage(img, name, subText, "Date", eventModel));
@@ -17,10 +15,10 @@ InkWell eventWidget(String img, String name, String subText,context, EventModel 
       padding: const EdgeInsets.all(8.0),
       child: Container(
         margin: EdgeInsets.only(top: 10),
-          width: MediaQuery.of(context).size.width / 1.3,
-          height: MediaQuery.of(context).size.height / 0.8,
+        width: MediaQuery.of(context).size.width / 1.3,
+        height: MediaQuery.of(context).size.height / 0.8,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
           color: white,
           boxShadow: [
             BoxShadow(
@@ -30,11 +28,10 @@ InkWell eventWidget(String img, String name, String subText,context, EventModel 
               offset: Offset(1, 4),
             ),
           ],
-            ),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
             Hero(
               tag: img,
               child: SizedBox(
@@ -42,8 +39,7 @@ InkWell eventWidget(String img, String name, String subText,context, EventModel 
                   width: MediaQuery.of(context).size.width,
                   child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: Image.network(img, fit: BoxFit.fill)
-                  )),
+                      child: Image.network(img, fit: BoxFit.fill))),
             ),
             SizedBox(height: 10),
             Padding(
@@ -67,7 +63,10 @@ InkWell eventWidget(String img, String name, String subText,context, EventModel 
                   SizedBox(width: 5),
                   Text(
                     "22-12-2022",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, decoration: TextDecoration.underline),
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        decoration: TextDecoration.underline),
                   ),
                 ],
               ),
@@ -93,4 +92,3 @@ InkWell eventWidget(String img, String name, String subText,context, EventModel 
     ),
   );
 }
-
