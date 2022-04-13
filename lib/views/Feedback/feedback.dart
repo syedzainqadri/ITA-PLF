@@ -2,6 +2,9 @@ import 'package:PLF/utils/ColorScheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
+import '../../utils/url_base.dart';
+import '../Webview/webview.dart';
+
 class FeedbackPage extends StatefulWidget {
   @override
   State<FeedbackPage> createState() => _FeedbackPageState();
@@ -13,7 +16,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: AppBar(
-        backgroundColor: white,
+        backgroundColor: Colors.transparent,
         title: Text(
           "Feedback",
           style: TextStyle(
@@ -39,6 +42,33 @@ class _FeedbackPageState extends State<FeedbackPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          PageRouteBuilder(
+                              opaque: false,
+                              pageBuilder: (context, _, __) {
+                                return WebViewPage(
+                                    title: "Ad",
+                                    url: UrlBase.baseWebURL);
+                              },
+                              transitionsBuilder:
+                                  (_, __, ___, Widget child) {
+                                return child;
+                              }));
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Image.network(
+                          "https://childrensliteraturefestival.com/wp-content/uploads/2021/03/Peace-ing_Together.gif"),
+                    )),
+              ),
+              SizedBox(height: 20),
+
               Padding(
                 padding: const EdgeInsets.only(right: 20.0, left: 20.0),
                 child: Container(

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:PLF/utils/ColorScheme.dart';
 
+import '../../utils/url_base.dart';
+import '../Webview/webview.dart';
+
 class VolunteerScreen extends StatefulWidget {
   const VolunteerScreen({Key key}) : super(key: key);
 
@@ -15,11 +18,11 @@ class _VolunteerScreenState extends State<VolunteerScreen> {
       backgroundColor: backgroundColor,
       appBar: AppBar(
         title: Text(
-          "Volenteer Now",
+          "Volunteer Now",
           style: TextStyle(color: Color.fromARGB(255, 34, 33, 33)),
         ),
         elevation: 0.0,
-        backgroundColor: white,
+        backgroundColor: Colors.transparent,
         leading: IconButton(
           icon: Icon(
             Icons.navigate_before,
@@ -35,7 +38,34 @@ class _VolunteerScreenState extends State<VolunteerScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Column(mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                  opaque: false,
+                                  pageBuilder: (context, _, __) {
+                                    return WebViewPage(
+                                        title: "Ad",
+                                        url: UrlBase.baseWebURL);
+                                  },
+                                  transitionsBuilder:
+                                      (_, __, ___, Widget child) {
+                                    return child;
+                                  }));
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Image.network(
+                              "https://childrensliteraturefestival.com/wp-content/uploads/2021/03/Peace-ing_Together.gif"),
+                        )),
+                  ),
+                  SizedBox(height: 20),
               Padding(
                 padding: EdgeInsets.only(left: 20, right: 20),
                 child: TextField(

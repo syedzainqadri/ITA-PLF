@@ -13,7 +13,7 @@ class _AddAddressState extends State<AddAddress> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: lightBlue,
+      backgroundColor: backgroundColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -36,14 +36,14 @@ class _AddAddressState extends State<AddAddress> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: 180,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage("asset/images/map.png"))),
-          ),
+          // Container(
+          //   width: MediaQuery.of(context).size.width,
+          //   height: 180,
+          //   decoration: BoxDecoration(
+          //       image: DecorationImage(
+          //           fit: BoxFit.cover,
+          //           image: AssetImage("asset/images/map.png"))),
+          // ),
           SizedBox(
             height: 5,
           ),
@@ -53,22 +53,22 @@ class _AddAddressState extends State<AddAddress> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Label As"),
-                SizedBox(
-                  height: 15,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    preferrenceContainer("Home", Colors.white, darkBlue, true),
-                    SizedBox(width: 15),
-                    preferrenceContainer(
-                        "Workplace", Colors.white, darkBlue, false),
-                    SizedBox(width: 15),
-                    preferrenceContainer(
-                        "Other", Colors.white, darkBlue, false),
-                  ],
-                ),
+                // Text("Label As"),
+                // SizedBox(
+                //   height: 15,
+                // ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.start,
+                //   children: [
+                //     preferrenceContainer("Home", Colors.white, darkBlue, true),
+                //     SizedBox(width: 15),
+                //     preferrenceContainer(
+                //         "Workplace", Colors.white, darkBlue, false),
+                //     SizedBox(width: 15),
+                //     preferrenceContainer(
+                //         "Other", Colors.white, darkBlue, false),
+                //   ],
+                // ),
                 SizedBox(
                   height: 15,
                 ),
@@ -182,4 +182,6 @@ class _AddAddressState extends State<AddAddress> {
       ),
     );
   }
+
+
 }

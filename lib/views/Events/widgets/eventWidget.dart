@@ -14,9 +14,9 @@ InkWell eventWidget(
     child: Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        margin: EdgeInsets.only(top: 10),
+        // margin: EdgeInsets.only(top: 10),
         width: MediaQuery.of(context).size.width / 1.3,
-        height: MediaQuery.of(context).size.height / 0.8,
+        height: MediaQuery.of(context).size.height / 0.5,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10)),
           color: white,

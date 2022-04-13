@@ -14,18 +14,18 @@ class _BookStoreState extends State<BookStore> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: lightBlue,
+      backgroundColor: backgroundColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(
-            Icons.menu,
-            color: Colors.black,
-            size: 30,
-          ),
-          onPressed: () {},
-        ),
+        // leading: IconButton(
+        //   icon: Icon(
+        //     Icons.menu,
+        //     color: Colors.black,
+        //     size: 30,
+        //   ),
+        //   onPressed: () {},
+        // ),
         actions: [
           IconButton(
             icon: Icon(
@@ -34,7 +34,7 @@ class _BookStoreState extends State<BookStore> {
               size: 30,
             ),
             onPressed: () {
-              Get.to(Cart());
+              Get.to(CartScreen());
             },
           )
         ],
@@ -46,9 +46,9 @@ class _BookStoreState extends State<BookStore> {
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage("asset/images/bookGuy.png"))),
+                    image: NetworkImage("https://childrensliteraturefestival.com/wp-content/uploads/2022/02/ssp-gray.png"))),
             child: Container(
-              padding: EdgeInsets.all(20),
+              padding: EdgeInsets.only(left: 20, right: 30, top: 70),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -80,7 +80,7 @@ class _BookStoreState extends State<BookStore> {
                     ),
                   ),
                   SizedBox(
-                    height: 30,
+                    height: 10,
                   )
                 ],
               ),
@@ -100,25 +100,21 @@ class _BookStoreState extends State<BookStore> {
                       mainAxisSpacing: 10,
                       crossAxisCount: 2,
                       children: <Widget>[
-                        bookWidget("book1.png", "Book 1", lightBlue, darkBlue,
+                        bookWidget("book1.jpg", "Book 1", backgroundColor, darkBlue,
                             context),
-                        bookWidget("book2.png", "Book 2", lightBlue, darkBlue,
+                        bookWidget("book2.png", "Book 2", backgroundColor, darkBlue,
                             context),
-                        bookWidget("book3.png", "Book 3", lightBlue, darkBlue,
+                        bookWidget("book3.jpg", "Book 3", backgroundColor, darkBlue,
                             context),
-                        bookWidget("book4.png", "Book 4", lightBlue, darkBlue,
+                        bookWidget("book4.jpg", "Book 4", backgroundColor, darkBlue,
                             context),
-                        bookWidget("book5.png", "Book 5", lightBlue, darkBlue,
+                        bookWidget("book1.jpg", "Book 5", backgroundColor, darkBlue,
                             context),
-                        bookWidget("book6.png", "Book 6", lightBlue, darkBlue,
+                        bookWidget("book2.png", "Book 6", backgroundColor, darkBlue,
                             context),
-                        bookWidget("book7.png", "Book 7", lightBlue, darkBlue,
+                        bookWidget("book3.jpg", "Book 7", backgroundColor, darkBlue,
                             context),
-                        bookWidget("book3.png", "Book 8", lightBlue, darkBlue,
-                            context),
-                        bookWidget("book2.png", "Book 9", lightBlue, darkBlue,
-                            context),
-                        bookWidget("book1.png", "Book 10", lightBlue, darkBlue,
+                        bookWidget("book4.jpg", "Book 8", backgroundColor, darkBlue,
                             context),
                       ],
                     ),

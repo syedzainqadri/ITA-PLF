@@ -15,7 +15,7 @@ class _CheckOutState extends State<CheckOut> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: lightBlue,
+      backgroundColor: backgroundColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -79,43 +79,43 @@ class _CheckOutState extends State<CheckOut> {
             SizedBox(
               height: 15,
             ),
-            Text("Preference Time"),
-            SizedBox(
-              height: 15,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                preferrenceContainer("Today", Colors.white, darkBlue, true),
-                SizedBox(
-                  width: 15,
-                ),
-                preferrenceContainer("Tomorrow", Colors.white, darkBlue, false),
-                SizedBox(
-                  width: 15,
-                ),
-                preferrenceContainer(
-                    "Next Date", Colors.white, darkBlue, false),
-              ],
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                preferrenceContainer(
-                    "05:00 PM - 08:00 PM", Colors.white, darkBlue, true),
-                SizedBox(
-                  width: 15,
-                ),
-                preferrenceContainer(
-                    "02:00 PM - 05:00 PM", Colors.white, darkBlue, false),
-              ],
-            ),
-            SizedBox(
-              height: 15,
-            ),
+            // Text("Preference Time"),
+            // SizedBox(
+            //   height: 15,
+            // ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.start,
+            //   children: [
+            //     preferrenceContainer("Today", Colors.white, darkBlue, true),
+            //     SizedBox(
+            //       width: 15,
+            //     ),
+            //     preferrenceContainer("Tomorrow", Colors.white, darkBlue, false),
+            //     SizedBox(
+            //       width: 15,
+            //     ),
+            //     preferrenceContainer(
+            //         "Next Date", Colors.white, darkBlue, false),
+            //   ],
+            // ),
+            // SizedBox(
+            //   height: 15,
+            // ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.start,
+            //   children: [
+            //     preferrenceContainer(
+            //         "05:00 PM - 08:00 PM", Colors.white, darkBlue, true),
+            //     SizedBox(
+            //       width: 15,
+            //     ),
+            //     preferrenceContainer(
+            //         "02:00 PM - 05:00 PM", Colors.white, darkBlue, false),
+            //   ],
+            // ),
+            // SizedBox(
+            //   height: 15,
+            // ),
             Text(
               "Payment Method",
             ),
@@ -142,26 +142,24 @@ class _CheckOutState extends State<CheckOut> {
                         cashOnDelivery = false;
                       });
                     }),
-                Text("Digital Payment"),
+                Text("Jazz Cash"),
               ],
             ),
-            Expanded(
-              child: TextField(
-                style: TextStyle(fontSize: 18, fontFamily: 'circe'),
-                decoration: InputDecoration(
-                    focusedBorder: OutlineInputBorder(
+            TextField(
+              style: TextStyle(fontSize: 18, fontFamily: 'circe'),
+              decoration: InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(
+                      color: Colors.black87,
+                    ),
+                  ),
+                  border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide(
-                        color: Colors.black87,
-                      ),
-                    ),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(
-                          color: Colors.grey,
-                        )),
-                    hintText: "Additional note"),
-              ),
+                        color: Colors.grey,
+                      )),
+                  hintText: "Additional note"),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -174,9 +172,6 @@ class _CheckOutState extends State<CheckOut> {
                 ),
               ],
             ),
-            SizedBox(
-              height: 5,
-            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -187,9 +182,6 @@ class _CheckOutState extends State<CheckOut> {
                   "Not Available",
                 ),
               ],
-            ),
-            SizedBox(
-              height: 5,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -202,9 +194,11 @@ class _CheckOutState extends State<CheckOut> {
                 ),
               ],
             ),
-            Text(
-              "- - - - - - - - - - - - - - - - - - - - - - - - - - - -",
-              style: TextStyle(fontSize: 25),
+            Center(
+              child: Text(
+                "- - - - - - - - - - - - - - - - - - - - - - - - - - - -",
+                style: TextStyle(fontSize: 25),
+              ),
             ),
             InkWell(
               onTap: () {},

@@ -120,7 +120,31 @@ class _EventDetailPageState extends State<EventDetailPage> {
                           ),
                         ),
                         SizedBox(
-                          height: 60,
+                          height: 30,
+                        ),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    PageRouteBuilder(
+                                        opaque: false,
+                                        pageBuilder: (context, _, __) {
+                                          return WebViewPage(
+                                              title: "Ad",
+                                              url: UrlBase.baseWebURL);
+                                        },
+                                        transitionsBuilder:
+                                            (_, __, ___, Widget child) {
+                                          return child;
+                                        }));
+                              },
+                              child: Image.network(
+                                  "https://childrensliteraturefestival.com/wp-content/uploads/2021/03/Peace-ing_Together.gif")),
+                        ),
+                        SizedBox(
+                          height: 30,
                         ),
                         Center(
                           child: Wrap(

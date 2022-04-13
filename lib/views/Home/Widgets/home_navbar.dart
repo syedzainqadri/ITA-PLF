@@ -1,9 +1,9 @@
 import 'package:PLF/utils/ColorScheme.dart';
 import 'package:PLF/views/Home/HomePage.dart';
-import 'package:PLF/views/Books/books_screen.dart';
 import 'package:PLF/views/Volenteer/volenteer.dart';
 import 'package:flutter/material.dart';
 
+import '../../Books/book_store.dart';
 import '../../Donation/donations.dart';
 
 class HomeNavbar extends StatefulWidget {
@@ -16,7 +16,7 @@ class _HomeNavbarState extends State<HomeNavbar> {
     HomePage(),
     DonationsScreen(),
     VolunteerScreen(),
-    BookScreen(),
+    BookStore(),
   ];
 
   @override
@@ -25,7 +25,7 @@ class _HomeNavbarState extends State<HomeNavbar> {
       HomePage(),
       DonationsScreen(),
       VolunteerScreen(),
-      BookScreen(),
+      BookStore(),
     ];
     super.initState();
   }

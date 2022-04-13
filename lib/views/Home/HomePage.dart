@@ -130,7 +130,7 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                       SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.4,
+                        height: MediaQuery.of(context).size.height * 0.33,
                         width: double.infinity,
                         child: upComingEventModel.isNotEmpty
                             ? ListView.builder(

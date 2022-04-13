@@ -3,10 +3,11 @@ import 'package:PLF/views/Chekout/checkout.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class Cart extends StatelessWidget {
+class CartScreen extends StatelessWidget {
   @override
   Widget build(context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: CartPage(),
     );
   }
@@ -21,7 +22,7 @@ class _CartPageState extends State<CartPage> {
   @override
   Widget build(context) {
     return Scaffold(
-      backgroundColor: lightBlue,
+      backgroundColor: backgroundColor,
       appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0.0,
@@ -56,8 +57,7 @@ class _CartPageState extends State<CartPage> {
               Colors.white,
               "Book 1",
               "11,34",
-              "A4",
-              "2",
+              2,
               darkBlue,
             ),
             itemsCard(
@@ -65,8 +65,7 @@ class _CartPageState extends State<CartPage> {
               Colors.white,
               "Book 2",
               "9,34",
-              "Small",
-              "5",
+              5,
               darkBlue,
             ),
             itemsCard(
@@ -74,8 +73,7 @@ class _CartPageState extends State<CartPage> {
               Colors.white,
               "Book Name",
               "11,34",
-              "A4",
-              "1",
+              1,
               darkBlue,
             ),
             // Padding(
@@ -199,7 +197,7 @@ class _CartPageState extends State<CartPage> {
   }
 
   itemsCard(
-      img, cardColor, itemName, itemPrice, pageSize, totalItems, darkColor) {
+      img, cardColor, itemName, itemPrice, totalItems, darkColor) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -249,11 +247,8 @@ class _CartPageState extends State<CartPage> {
                         height: 15,
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            pageSize,
-                          ),
                           Row(
                             children: [
                               IconButton(
@@ -261,13 +256,19 @@ class _CartPageState extends State<CartPage> {
                                   Icons.remove,
                                   color: darkColor,
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  setState(() {
+                                    if(totalItems != 0){
+                                      totalItems --;
+                                    }
+                                  });
+                                },
                               ),
                               const SizedBox(
                                 width: 5,
                               ),
                               Text(
-                                totalItems,
+                                totalItems.toString(),
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 24,
@@ -282,7 +283,11 @@ class _CartPageState extends State<CartPage> {
                                   Icons.add,
                                   color: darkColor,
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  setState(() {
+                                    totalItems ++;
+                                  });
+                                },
                               ),
                             ],
                           ),
