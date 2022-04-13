@@ -14,7 +14,7 @@ InkWell eventHistoryWidget(String img, String name, String subText,
       margin: EdgeInsets.only(top: 20),
       height: MediaQuery.of(context).size.width * 0.3,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(30)),
+        borderRadius: BorderRadius.all(Radius.circular(10)),
         color: white,
         boxShadow: [
           BoxShadow(
@@ -29,15 +29,12 @@ InkWell eventHistoryWidget(String img, String name, String subText,
         children: [
           Hero(
             tag: img,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                  height: MediaQuery.of(context).size.width * 0.28,
-                  width: MediaQuery.of(context).size.width / 3,
-                  child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.network(img, fit: BoxFit.fill))),
-            ),
+            child: SizedBox(
+                height: MediaQuery.of(context).size.width * 0.28,
+                width: MediaQuery.of(context).size.width / 3,
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.network(img, fit: BoxFit.fill))),
           ),
           Expanded(
             child: Container(
@@ -55,8 +52,7 @@ InkWell eventHistoryWidget(String img, String name, String subText,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       softWrap: false,
-                      style:
-                          TextStyle(fontSize: 19, fontWeight: FontWeight.w700),
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
                     ),
                   ),
                   SizedBox(height: 10),
@@ -66,7 +62,7 @@ InkWell eventHistoryWidget(String img, String name, String subText,
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Icon(Icons.calendar_today),
+                        Icon(Icons.calendar_today, size: 15),
                         SizedBox(width: 5),
                         Text(
                           "22-12-2022",

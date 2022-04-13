@@ -2,7 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:PLF/SplashScreen.dart';
-import 'HomePage.dart';
+import 'bottombar/HomePage.dart';
+import 'bottombar/home_navbar.dart';
 import 'firebase_options.dart';
 
 void main() async{
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: SplashScreen(),
       routes: {
-        '/HomePage': (context) => HomePage(),
+        '/HomePage': (context) => HomeNavbar(),
       },
     );
   }

@@ -18,9 +18,9 @@ InkWell eventWidget(String img, String name, String subText,context, EventModel 
       child: Container(
         margin: EdgeInsets.only(top: 10),
           width: MediaQuery.of(context).size.width / 1.3,
-          height: MediaQuery.of(context).size.width / 1.2,
+          height: MediaQuery.of(context).size.height / 0.8,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(30)),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
           color: white,
           boxShadow: [
             BoxShadow(
@@ -47,23 +47,23 @@ InkWell eventWidget(String img, String name, String subText,context, EventModel 
             ),
             SizedBox(height: 10),
             Padding(
-              padding: const EdgeInsets.only(left: 5),
+              padding: const EdgeInsets.only(left: 15),
               child: Text(
                 name,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 softWrap: false,
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
               ),
             ),
             SizedBox(height: 10),
             Padding(
-              padding: const EdgeInsets.only(bottom: 5, left: 5),
+              padding: const EdgeInsets.only(bottom: 5, left: 15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Icon(Icons.calendar_today),
+                  Icon(Icons.calendar_today, size: 15),
                   SizedBox(width: 5),
                   Text(
                     "22-12-2022",
