@@ -1,11 +1,10 @@
-
-import 'package:PLF/ColorScheme.dart';
+import 'package:PLF/utils/ColorScheme.dart';
 import 'package:get/get.dart';
-
 
 successToast(String title, String msg) {
   Get.snackbar(
-    title, msg,
+    title,
+    msg,
     backgroundColor: darkBlue,
     colorText: white,
     snackPosition: SnackPosition.BOTTOM,
@@ -14,7 +13,8 @@ successToast(String title, String msg) {
 
 errorToast(String title, String msg) {
   Get.snackbar(
-    title, msg,
+    title,
+    msg,
     backgroundColor: red,
     colorText: white,
     snackPosition: SnackPosition.BOTTOM,
