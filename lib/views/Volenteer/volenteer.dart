@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:PLF/utils/ColorScheme.dart';
-
+import 'package:get/get.dart';
 import '../../utils/url_base.dart';
 import '../Webview/webview.dart';
 
@@ -30,7 +30,7 @@ class _VolunteerScreenState extends State<VolunteerScreen> {
             size: 30,
           ),
           onPressed: () {
-            Navigator.pop(context);
+            Get.back();
           },
         ),
       ),
@@ -38,34 +38,30 @@ class _VolunteerScreenState extends State<VolunteerScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Column(mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              PageRouteBuilder(
-                                  opaque: false,
-                                  pageBuilder: (context, _, __) {
-                                    return WebViewPage(
-                                        title: "Ad",
-                                        url: UrlBase.baseWebURL);
-                                  },
-                                  transitionsBuilder:
-                                      (_, __, ___, Widget child) {
-                                    return child;
-                                  }));
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Image.network(
-                              "https://childrensliteraturefestival.com/wp-content/uploads/2021/03/Peace-ing_Together.gif"),
-                        )),
-                  ),
-                  SizedBox(height: 20),
+            Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          PageRouteBuilder(
+                              opaque: false,
+                              pageBuilder: (context, _, __) {
+                                return WebViewPage(
+                                    title: "Ad", url: UrlBase.baseWebURL);
+                              },
+                              transitionsBuilder: (_, __, ___, Widget child) {
+                                return child;
+                              }));
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Image.network(
+                          "https://childrensliteraturefestival.com/wp-content/uploads/2021/03/Peace-ing_Together.gif"),
+                    )),
+              ),
+              SizedBox(height: 20),
               Padding(
                 padding: EdgeInsets.only(left: 20, right: 20),
                 child: TextField(
@@ -136,7 +132,7 @@ class _VolunteerScreenState extends State<VolunteerScreen> {
                   decoration: BoxDecoration(
                       color: Colors.white,
                       border: Border.all(),
-                      borderRadius: BorderRadius.circular(20)),
+                      borderRadius: BorderRadius.circular(10)),
                   height: 60,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,

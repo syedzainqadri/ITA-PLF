@@ -51,43 +51,53 @@ class _BookDetailsState extends State<BookDetails> {
             ),
           ),
           actions: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: InkWell(
-                onTap: () {
-                  showDialog(
-                    barrierColor: Colors.black26,
-                    context: context,
-                    builder: (context) {
-                      return AddReviewDialog();
-                    },
-                  );
-                },
-                child: Container(
-                  height: 30,
-                  width: 45,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(40),
-                    color: white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 3,
-                        blurRadius: 3,
-                        offset: Offset(4, 4),
-                      ),
-                    ],
-                  ),
-                  child: Center(
-                    child: Icon(
-                      Icons.add_box,
-                      size: 30,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
+            IconButton(
+              icon: Icon(
+                Icons.shopping_cart,
+                color: Colors.black,
+                size: 30,
               ),
-            )
+              onPressed: () {
+                Get.to(CartScreen());
+              },
+            ),
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: InkWell(
+            //     onTap: () {
+            //       showDialog(
+            //         barrierColor: Colors.black26,
+            //         context: context,
+            //         builder: (context) {
+            //           return AddReviewDialog();
+            //         },
+            //       );
+            //     },
+            //     child: Container(
+            //       height: 30,
+            //       width: 45,
+            //       decoration: BoxDecoration(
+            //         borderRadius: BorderRadius.circular(40),
+            //         color: white,
+            //         boxShadow: [
+            //           BoxShadow(
+            //             color: Colors.grey.withOpacity(0.5),
+            //             spreadRadius: 3,
+            //             blurRadius: 3,
+            //             offset: Offset(4, 4),
+            //           ),
+            //         ],
+            //       ),
+            //       child: Center(
+            //         child: Icon(
+            //           Icons.add_box,
+            //           size: 30,
+            //           color: Colors.black,
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // )
           ],
         ),
         extendBodyBehindAppBar: true,
@@ -122,7 +132,6 @@ class _BookDetailsState extends State<BookDetails> {
                                 fontSize: 22,
                                 fontFamily: 'product'),
                           ),
-
                           Text(
                             "Rs. 450",
                             style: TextStyle(
@@ -135,7 +144,6 @@ class _BookDetailsState extends State<BookDetails> {
                       SizedBox(
                         height: 10,
                       ),
-
                       Text(
                         "About the Book",
                         style: TextStyle(
@@ -171,22 +179,22 @@ class _BookDetailsState extends State<BookDetails> {
                         width: MediaQuery.of(context).size.width,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: SizedBox(
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: SizedBox(
                                   height: 140,
-                                    width: 200,
-                                    child: bookWidget("book1.jpg", "Spiderman", backgroundColor, darkBlue, context)),
-                              );
-                            },
-                            itemCount: 6,
-                        )
+                                  width: 200,
+                                  child: bookWidget("book1.jpg", "Spiderman",
+                                      backgroundColor, darkBlue, context)),
+                            );
+                          },
+                          itemCount: 6,
+                        ),
                       ),
                       SizedBox(
                         height: 10,
                       ),
-
                     ],
                   ),
                 ),

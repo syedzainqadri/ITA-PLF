@@ -1,5 +1,7 @@
+import 'package:PLF/views/Home/HomePage.dart';
 import 'package:flutter/material.dart';
 import 'package:PLF/utils/ColorScheme.dart';
+import 'package:get/get.dart';
 
 import '../../utils/url_base.dart';
 import '../Webview/webview.dart';
@@ -30,7 +32,7 @@ class _DonationsScreenState extends State<DonationsScreen> {
             size: 30,
           ),
           onPressed: () {
-            Navigator.pop(context);
+            Get.to(HomePage());
           },
         ),
       ),
@@ -38,41 +40,36 @@ class _DonationsScreenState extends State<DonationsScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Column(mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              PageRouteBuilder(
-                                  opaque: false,
-                                  pageBuilder: (context, _, __) {
-                                    return WebViewPage(
-                                        title: "Ad",
-                                        url: UrlBase.baseWebURL);
-                                  },
-                                  transitionsBuilder:
-                                      (_, __, ___, Widget child) {
-                                    return child;
-                                  }));
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Image.network(
-                              "https://childrensliteraturefestival.com/wp-content/uploads/2021/03/Peace-ing_Together.gif"),
-                        )),
-                  ),
+            Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          PageRouteBuilder(
+                              opaque: false,
+                              pageBuilder: (context, _, __) {
+                                return WebViewPage(
+                                    title: "Ad", url: UrlBase.baseWebURL);
+                              },
+                              transitionsBuilder: (_, __, ___, Widget child) {
+                                return child;
+                              }));
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Image.network(
+                          "https://childrensliteraturefestival.com/wp-content/uploads/2021/03/Peace-ing_Together.gif"),
+                    )),
+              ),
               SizedBox(height: 20),
-
               Padding(
                 padding: EdgeInsets.only(left: 20, right: 20),
                 child: TextField(
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                       filled: true,
                       hintStyle: TextStyle(color: Colors.grey[800]),
@@ -89,10 +86,10 @@ class _DonationsScreenState extends State<DonationsScreen> {
                   decoration: BoxDecoration(
                       color: Colors.white,
                       border: Border.all(),
-                      borderRadius: BorderRadius.circular(20)),
+                      borderRadius: BorderRadius.circular(10)),
                   height: 60,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Icon(Icons.menu),
                       Text('Project'),
@@ -101,8 +98,8 @@ class _DonationsScreenState extends State<DonationsScreen> {
                           'YAA',
                           'Incredible Libraries',
                           'Online Book Club',
-                          'Story Bytes'
-                              'Art & Craft Therapy',
+                          'Story Bytes',
+                          'Art & Craft Therapy',
                           'Digital Learning Festival',
                           'PLP Publications',
                         ].map((String value) {
@@ -125,7 +122,7 @@ class _DonationsScreenState extends State<DonationsScreen> {
                 child: TextField(
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                       filled: true,
                       hintStyle: TextStyle(color: Colors.grey[800]),
@@ -141,7 +138,7 @@ class _DonationsScreenState extends State<DonationsScreen> {
                 child: TextField(
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                       filled: true,
                       hintStyle: TextStyle(color: Colors.grey[800]),
@@ -158,10 +155,10 @@ class _DonationsScreenState extends State<DonationsScreen> {
                   decoration: BoxDecoration(
                       color: Colors.white,
                       border: Border.all(),
-                      borderRadius: BorderRadius.circular(20)),
+                      borderRadius: BorderRadius.circular(10)),
                   height: 60,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Icon(Icons.menu),
                       Text('Payment Method'),

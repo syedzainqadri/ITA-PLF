@@ -28,7 +28,7 @@ class _SignupPageState extends State<SignupPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: lightBlue,
+        color: backgroundColor,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -47,7 +47,7 @@ class _SignupPageState extends State<SignupPage> {
                       filled: true,
                       hintStyle: TextStyle(color: Colors.grey[800]),
                       hintText: "Email",
-                      fillColor: Colors.white70),
+                      fillColor: white),
                 ),
               ),
               SizedBox(
@@ -63,7 +63,7 @@ class _SignupPageState extends State<SignupPage> {
                       filled: true,
                       hintStyle: TextStyle(color: Colors.grey[800]),
                       hintText: "Password",
-                      fillColor: Colors.white70),
+                      fillColor: white),
                 ),
               ),
               Row(
@@ -86,9 +86,9 @@ class _SignupPageState extends State<SignupPage> {
                 padding: const EdgeInsets.only(right: 20.0, left: 20.0),
                 child: Container(
                   decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(),
-                      borderRadius: BorderRadius.circular(20)),
+                      color: white,
+                      border: Border.all(width: 0.5),
+                      borderRadius: BorderRadius.circular(10)),
                   height: 60,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -120,9 +120,9 @@ class _SignupPageState extends State<SignupPage> {
                 padding: const EdgeInsets.only(right: 20.0, left: 20.0),
                 child: Container(
                   decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(),
-                      borderRadius: BorderRadius.circular(20)),
+                      color: white,
+                      border: Border.all(width: 0.5),
+                      borderRadius: BorderRadius.circular(10)),
                   height: 60,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -1,3 +1,5 @@
+import 'package:PLF/views/Home/HomePage.dart';
+import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:PLF/utils/ColorScheme.dart';
@@ -14,7 +16,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   void initState() {
     super.initState();
     _controller = VideoPlayerController.network(
-        'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4')
+        'https://firebasestorage.googleapis.com/v0/b/plfadminpanel.appspot.com/o/video%2FY2Mate.is%20-%20Fun%20k%20Rang%20Bachon%20k%20sang%20-%207th%20Episode-xH2v0xVFEuA-720p-1649895700077.mp4?alt=media&token=50f8ee90-91c7-46a5-b905-e0dab795b67b')
       ..initialize().then((_) {
         setState(() {
           _controller.play();
@@ -75,12 +77,17 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text(
-                    "Skip",
-                    style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        fontFamily: 'circe'),
+                  InkWell(
+                    onTap: () {
+                      Get.to(HomePage());
+                    },
+                    child: Text(
+                      "Skip",
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          fontFamily: 'circe'),
+                    ),
                   )
                 ],
               ),

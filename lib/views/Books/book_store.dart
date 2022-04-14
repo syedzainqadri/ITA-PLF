@@ -18,14 +18,32 @@ class _BookStoreState extends State<BookStore> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        // leading: IconButton(
-        //   icon: Icon(
-        //     Icons.menu,
-        //     color: Colors.black,
-        //     size: 30,
-        //   ),
-        //   onPressed: () {},
-        // ),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              color: white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 3,
+                  blurRadius: 3,
+                  offset: Offset(4, 4),
+                ),
+              ],
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Icon(
+                Icons.arrow_back,
+                color: Colors.black,
+              ),
+            ),
+          ),
+        ),
         actions: [
           IconButton(
             icon: Icon(
@@ -36,7 +54,7 @@ class _BookStoreState extends State<BookStore> {
             onPressed: () {
               Get.to(CartScreen());
             },
-          )
+          ),
         ],
       ),
       body: Column(
@@ -46,7 +64,8 @@ class _BookStoreState extends State<BookStore> {
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: NetworkImage("https://childrensliteraturefestival.com/wp-content/uploads/2022/02/ssp-gray.png"))),
+                    image: NetworkImage(
+                        "https://childrensliteraturefestival.com/wp-content/uploads/2022/02/ssp-gray.png"))),
             child: Container(
               padding: EdgeInsets.only(left: 20, right: 30, top: 70),
               child: Column(
@@ -100,22 +119,22 @@ class _BookStoreState extends State<BookStore> {
                       mainAxisSpacing: 10,
                       crossAxisCount: 2,
                       children: <Widget>[
-                        bookWidget("book1.jpg", "Book 1", backgroundColor, darkBlue,
-                            context),
-                        bookWidget("book2.png", "Book 2", backgroundColor, darkBlue,
-                            context),
-                        bookWidget("book3.jpg", "Book 3", backgroundColor, darkBlue,
-                            context),
-                        bookWidget("book4.jpg", "Book 4", backgroundColor, darkBlue,
-                            context),
-                        bookWidget("book1.jpg", "Book 5", backgroundColor, darkBlue,
-                            context),
-                        bookWidget("book2.png", "Book 6", backgroundColor, darkBlue,
-                            context),
-                        bookWidget("book3.jpg", "Book 7", backgroundColor, darkBlue,
-                            context),
-                        bookWidget("book4.jpg", "Book 8", backgroundColor, darkBlue,
-                            context),
+                        bookWidget("book1.jpg", "Book 1", backgroundColor,
+                            darkBlue, context),
+                        bookWidget("book2.png", "Book 2", backgroundColor,
+                            darkBlue, context),
+                        bookWidget("book3.jpg", "Book 3", backgroundColor,
+                            darkBlue, context),
+                        bookWidget("book4.jpg", "Book 4", backgroundColor,
+                            darkBlue, context),
+                        bookWidget("book1.jpg", "Book 5", backgroundColor,
+                            darkBlue, context),
+                        bookWidget("book2.png", "Book 6", backgroundColor,
+                            darkBlue, context),
+                        bookWidget("book3.jpg", "Book 7", backgroundColor,
+                            darkBlue, context),
+                        bookWidget("book4.jpg", "Book 8", backgroundColor,
+                            darkBlue, context),
                       ],
                     ),
                   )
