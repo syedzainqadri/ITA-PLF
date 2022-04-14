@@ -15,8 +15,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.network(
-        'https://firebasestorage.googleapis.com/v0/b/plfadminpanel.appspot.com/o/video%2FY2Mate.is%20-%20Fun%20k%20Rang%20Bachon%20k%20sang%20-%207th%20Episode-xH2v0xVFEuA-720p-1649895700077.mp4?alt=media&token=50f8ee90-91c7-46a5-b905-e0dab795b67b')
+    _controller = VideoPlayerController.network('')
       ..initialize().then((_) {
         setState(() {
           _controller.play();
@@ -79,7 +78,10 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                 children: [
                   InkWell(
                     onTap: () {
-                      Get.to(HomePage());
+                      openHomePage();
+                      setState(() {
+                        _controller.pause();
+                      });
                     },
                     child: Text(
                       "Skip",

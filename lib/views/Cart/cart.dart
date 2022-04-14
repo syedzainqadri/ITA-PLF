@@ -1,5 +1,6 @@
 import 'package:PLF/utils/ColorScheme.dart';
 import 'package:PLF/views/Chekout/checkout.dart';
+import 'package:PLF/views/Home/HomePage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -28,7 +29,7 @@ class _CartPageState extends State<CartPage> {
           elevation: 0.0,
           leading: IconButton(
             onPressed: () {
-              Navigator.pop(context);
+              Get.to(HomePage());
             },
             icon: Container(
               decoration: BoxDecoration(
@@ -83,7 +84,7 @@ class _CartPageState extends State<CartPage> {
               darkBlue,
             ),
             itemsCard(
-              "book2",
+              "book4",
               Colors.white,
               "Book 2",
               "9,34",
@@ -240,7 +241,7 @@ class _CartPageState extends State<CartPage> {
                   height: 60,
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage("asset/images/${img}.png"))),
+                          image: AssetImage("asset/books/${img}.jpg"))),
                 ),
               ),
               SizedBox(

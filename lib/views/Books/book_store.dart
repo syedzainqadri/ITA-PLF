@@ -18,6 +18,14 @@ class _BookStoreState extends State<BookStore> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        // leading: IconButton(
+        //   icon: Icon(
+        //     Icons.menu,
+        //     color: Colors.black,
+        //     size: 30,
+        //   ),
+        //   onPressed: () {},
+        // ),
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -54,7 +62,7 @@ class _BookStoreState extends State<BookStore> {
             onPressed: () {
               Get.to(CartScreen());
             },
-          ),
+          )
         ],
       ),
       body: Column(
@@ -126,14 +134,6 @@ class _BookStoreState extends State<BookStore> {
                         bookWidget("book3.jpg", "Book 3", backgroundColor,
                             darkBlue, context),
                         bookWidget("book4.jpg", "Book 4", backgroundColor,
-                            darkBlue, context),
-                        bookWidget("book1.jpg", "Book 5", backgroundColor,
-                            darkBlue, context),
-                        bookWidget("book2.png", "Book 6", backgroundColor,
-                            darkBlue, context),
-                        bookWidget("book3.jpg", "Book 7", backgroundColor,
-                            darkBlue, context),
-                        bookWidget("book4.jpg", "Book 8", backgroundColor,
                             darkBlue, context),
                       ],
                     ),
