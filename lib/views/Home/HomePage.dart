@@ -2,6 +2,7 @@ import 'package:PLF/views/Events/allEvent.dart';
 import 'package:PLF/utils/custom_drawer.dart';
 import 'package:PLF/views/Events/widgets/eventWidget.dart';
 import 'package:PLF/utils/url_base.dart';
+import 'package:PLF/views/Home/Widgets/home_navbar.dart';
 import 'package:PLF/views/Webview/webview.dart';
 import 'package:flutter/material.dart';
 import 'package:PLF/utils/ColorScheme.dart';
@@ -29,6 +30,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   initState() {
+    appBarTitle = "Pakistan Learning Festival";
     super.initState();
     getData();
   }
@@ -50,36 +52,36 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      drawer: CustomDrawer(),
-      appBar: AppBar(
-        title: Center(
-            child: Text(
-          "Pakistan Learning Festival",
-          style: TextStyle(color: black),
-        )),
-        backgroundColor: white,
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(
-            Icons.menu,
-            color: Colors.black,
-            size: 30,
-          ),
-          onPressed: () {
-            _scaffoldKey.currentState.openDrawer();
-          },
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(
-              Icons.notifications_none,
-              color: Colors.black,
-              size: 30,
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
+      // drawer: CustomDrawer(),
+      // appBar: AppBar(
+      //   title: Center(
+      //       child: Text(
+      //     "Pakistan Learning Festival",
+      //     style: TextStyle(color: black),
+      //   )),
+      //   backgroundColor: white,
+      //   elevation: 0,
+      //   leading: IconButton(
+      //     icon: Icon(
+      //       Icons.menu,
+      //       color: Colors.black,
+      //       size: 30,
+      //     ),
+      //     onPressed: () {
+      //       _scaffoldKey.currentState.openDrawer();
+      //     },
+      //   ),
+      //   actions: [
+      //     IconButton(
+      //       icon: Icon(
+      //         Icons.notifications_none,
+      //         color: Colors.black,
+      //         size: 30,
+      //       ),
+      //       onPressed: () {},
+      //     )
+      //   ],
+      // ),
       body: Obx(() {
         return _eventController.isLoadingEvents.isTrue
             ? const Center(child: CircularProgressIndicator())

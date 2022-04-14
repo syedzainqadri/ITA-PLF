@@ -15,56 +15,6 @@ class _BookStoreState extends State<BookStore> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgroundColor,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        // leading: IconButton(
-        //   icon: Icon(
-        //     Icons.menu,
-        //     color: Colors.black,
-        //     size: 30,
-        //   ),
-        //   onPressed: () {},
-        // ),
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30),
-              color: white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 3,
-                  blurRadius: 3,
-                  offset: Offset(4, 4),
-                ),
-              ],
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Icon(
-                Icons.arrow_back,
-                color: Colors.black,
-              ),
-            ),
-          ),
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(
-              Icons.shopping_cart,
-              color: Colors.black,
-              size: 30,
-            ),
-            onPressed: () {
-              Get.to(CartScreen());
-            },
-          )
-        ],
-      ),
       body: Column(
         children: [
           Container(

@@ -29,7 +29,7 @@ class _CartPageState extends State<CartPage> {
           elevation: 0.0,
           leading: IconButton(
             onPressed: () {
-              Get.to(HomePage());
+              Get.back();
             },
             icon: Container(
               decoration: BoxDecoration(

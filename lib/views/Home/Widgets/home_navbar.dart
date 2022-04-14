@@ -1,10 +1,16 @@
 import 'package:PLF/utils/ColorScheme.dart';
+import 'package:PLF/utils/custom_drawer.dart';
+import 'package:PLF/views/Cart/cart.dart';
 import 'package:PLF/views/Home/HomePage.dart';
 import 'package:PLF/views/Volenteer/volenteer.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 import '../../Books/book_store.dart';
 import '../../Donation/donations.dart';
+
+String appBarTitle = "Pakistan Learning Festival";
 
 class HomeNavbar extends StatefulWidget {
   _HomeNavbarState createState() => _HomeNavbarState();
@@ -21,18 +27,80 @@ class _HomeNavbarState extends State<HomeNavbar> {
 
   @override
   void initState() {
-    tabs = [
-      HomePage(),
-      DonationsScreen(),
-      VolunteerScreen(),
-      BookStore(),
-    ];
     super.initState();
   }
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        drawer: CustomDrawer(),
+        key: _scaffoldKey,
+        appBar: _currentIndex == 3
+            ? AppBar(
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                centerTitle: true,
+                leading: IconButton(
+                  icon: Icon(
+                    Icons.menu,
+                    color: Colors.black,
+                    size: 30,
+                  ),
+                  onPressed: () {
+                    _scaffoldKey.currentState.openDrawer();
+                  },
+                ),
+                title: Text(
+                  "Bay Book",
+                  style: TextStyle(color: black),
+                ),
+                actions: [
+                  IconButton(
+                    icon: Icon(
+                      Icons.shopping_cart,
+                      color: Colors.black,
+                      size: 30,
+                    ),
+                    onPressed: () {
+                      Get.to(CartScreen());
+                    },
+                  )
+                ],
+              )
+            : AppBar(
+                title: Center(
+                    child: Text(
+                  _currentIndex == 0
+                      ? "Pakistan Learning Festival"
+                      : _currentIndex == 1
+                          ? "Donate"
+                          : "Volunteer Now",
+                  style: TextStyle(color: black),
+                )),
+                backgroundColor: white,
+                elevation: 0,
+                leading: IconButton(
+                  icon: Icon(
+                    Icons.menu,
+                    color: Colors.black,
+                    size: 30,
+                  ),
+                  onPressed: () {
+                    _scaffoldKey.currentState.openDrawer();
+                  },
+                ),
+                actions: [
+                  IconButton(
+                    icon: Icon(
+                      Icons.notifications_none,
+                      color: Colors.black,
+                      size: 30,
+                    ),
+                    onPressed: () {},
+                  )
+                ],
+              ),
         body: tabs[_currentIndex],
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _currentIndex,
