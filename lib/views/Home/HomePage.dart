@@ -1,3 +1,4 @@
+import 'package:PLF/controllers/get_products.dart';
 import 'package:PLF/views/Events/allEvent.dart';
 import 'package:PLF/utils/custom_drawer.dart';
 import 'package:PLF/views/Events/widgets/eventWidget.dart';
@@ -27,10 +28,11 @@ class _HomePageState extends State<HomePage> {
   List<EventModel> eventModel = [];
   List<EventModel> upComingEventModel = [];
   List<EventModel> eventHistoryModel = [];
-
+  var productController = Get.put(BookController());
   @override
   initState() {
     appBarTitle = "Pakistan Learning Festival";
+    productController.getProducts();
     super.initState();
     getData();
   }
