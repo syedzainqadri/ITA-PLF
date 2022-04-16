@@ -16,7 +16,7 @@ class _EventsHistoryState extends State<EventsHistory> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
           "Events History",

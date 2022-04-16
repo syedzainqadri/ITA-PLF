@@ -20,7 +20,7 @@ class _AllUpcomingEventsState extends State<AllUpcomingEvents> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: backgroundColor,
+        backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text(
             "Upcoming Events",

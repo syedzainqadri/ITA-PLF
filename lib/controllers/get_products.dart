@@ -14,9 +14,9 @@ class BookController extends GetxController {
   getProducts() async {
     WooCommerce woocommerce = WooCommerce(
         baseUrl: url,
-        isDebug: true,
-        consumerKey: "ck_8bea2a3583ea01e97e16eba0b2ba73228bbec6a1",
-        consumerSecret: "cs_441648c8ac15c862be1df5d055a41c96ba130b87");
+        // isDebug: true,
+        consumerKey: "ck_54241d87566696586ecd54b1ed72a7c69eb07f86",
+        consumerSecret: "cs_d7dd31edbb0125fc1c9e54e96a6731b5d96f7788");
     List<WooProduct> products = await woocommerce.getProducts();
     print("api called");
     print(products.toString());

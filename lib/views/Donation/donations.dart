@@ -25,7 +25,7 @@ class _DonationsScreenState extends State<DonationsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor,
+      backgroundColor: Colors.white,
       body: Container(
         child: SingleChildScrollView(
           child: Column(

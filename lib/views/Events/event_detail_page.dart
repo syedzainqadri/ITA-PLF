@@ -33,7 +33,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: backgroundColor,
+        backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -321,6 +321,9 @@ class _EventDetailPageState extends State<EventDetailPage> {
                                 },
                                 child: staticButtonWidget("Donation")),
                           ],
+                        ),
+                        SizedBox(
+                          height: 15,
                         ),
                       ],
                     ),

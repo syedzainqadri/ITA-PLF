@@ -15,7 +15,7 @@ class _CheckOutState extends State<CheckOut> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -36,192 +36,195 @@ class _CheckOutState extends State<CheckOut> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("Delivery Address"),
-                GestureDetector(
-                    onTap: () {
-                      Get.to(AddAddress());
-                    },
-                    child: Text(
-                      "+ Add",
-                      style: TextStyle(
-                        color: Colors.blue,
-                      ),
-                    )),
-              ],
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Center(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                width: MediaQuery.of(context).size.width / 1.2,
-                child: Padding(
-                  padding: const EdgeInsets.all(18.0),
-                  child: Center(
-                    child: Text("No Address Available"),
-                  ),
-                ),
+      body: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height * 0.9,
+          padding: const EdgeInsets.all(12.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Delivery Address"),
+                  GestureDetector(
+                      onTap: () {
+                        Get.to(AddAddress());
+                      },
+                      child: Text(
+                        "+ Add",
+                        style: TextStyle(
+                          color: Colors.blue,
+                        ),
+                      )),
+                ],
               ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            // Text("Preference Time"),
-            // SizedBox(
-            //   height: 15,
-            // ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.start,
-            //   children: [
-            //     preferrenceContainer("Today", Colors.white, darkBlue, true),
-            //     SizedBox(
-            //       width: 15,
-            //     ),
-            //     preferrenceContainer("Tomorrow", Colors.white, darkBlue, false),
-            //     SizedBox(
-            //       width: 15,
-            //     ),
-            //     preferrenceContainer(
-            //         "Next Date", Colors.white, darkBlue, false),
-            //   ],
-            // ),
-            // SizedBox(
-            //   height: 15,
-            // ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.start,
-            //   children: [
-            //     preferrenceContainer(
-            //         "05:00 PM - 08:00 PM", Colors.white, darkBlue, true),
-            //     SizedBox(
-            //       width: 15,
-            //     ),
-            //     preferrenceContainer(
-            //         "02:00 PM - 05:00 PM", Colors.white, darkBlue, false),
-            //   ],
-            // ),
-            // SizedBox(
-            //   height: 15,
-            // ),
-            Text(
-              "Payment Method",
-            ),
-            Row(
-              children: [
-                Checkbox(
-                    value: cashOnDelivery,
-                    onChanged: (value) {
-                      setState(() {
-                        cashOnDelivery = value;
-                        digitalPayment = false;
-                      });
-                    }),
-                Text("Cash On Delivery"),
-              ],
-            ),
-            Row(
-              children: [
-                Checkbox(
-                    value: digitalPayment,
-                    onChanged: (value) {
-                      setState(() {
-                        digitalPayment = value;
-                        cashOnDelivery = false;
-                      });
-                    }),
-                Text("Jazz Cash"),
-              ],
-            ),
-            TextField(
-              style: TextStyle(fontSize: 18, fontFamily: 'circe'),
-              decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
+              SizedBox(
+                height: 15,
+              ),
+              Center(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(
-                      color: Colors.black87,
+                  ),
+                  width: MediaQuery.of(context).size.width / 1.2,
+                  child: Padding(
+                    padding: const EdgeInsets.all(18.0),
+                    child: Center(
+                      child: Text("No Address Available"),
                     ),
                   ),
-                  border: OutlineInputBorder(
+                ),
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              // Text("Preference Time"),
+              // SizedBox(
+              //   height: 15,
+              // ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.start,
+              //   children: [
+              //     preferrenceContainer("Today", Colors.white, darkBlue, true),
+              //     SizedBox(
+              //       width: 15,
+              //     ),
+              //     preferrenceContainer("Tomorrow", Colors.white, darkBlue, false),
+              //     SizedBox(
+              //       width: 15,
+              //     ),
+              //     preferrenceContainer(
+              //         "Next Date", Colors.white, darkBlue, false),
+              //   ],
+              // ),
+              // SizedBox(
+              //   height: 15,
+              // ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.start,
+              //   children: [
+              //     preferrenceContainer(
+              //         "05:00 PM - 08:00 PM", Colors.white, darkBlue, true),
+              //     SizedBox(
+              //       width: 15,
+              //     ),
+              //     preferrenceContainer(
+              //         "02:00 PM - 05:00 PM", Colors.white, darkBlue, false),
+              //   ],
+              // ),
+              // SizedBox(
+              //   height: 15,
+              // ),
+              Text(
+                "Payment Method",
+              ),
+              Row(
+                children: [
+                  Checkbox(
+                      value: cashOnDelivery,
+                      onChanged: (value) {
+                        setState(() {
+                          cashOnDelivery = value;
+                          digitalPayment = false;
+                        });
+                      }),
+                  Text("Cash On Delivery"),
+                ],
+              ),
+              Row(
+                children: [
+                  Checkbox(
+                      value: digitalPayment,
+                      onChanged: (value) {
+                        setState(() {
+                          digitalPayment = value;
+                          cashOnDelivery = false;
+                        });
+                      }),
+                  Text("Jazz Cash"),
+                ],
+              ),
+              TextField(
+                style: TextStyle(fontSize: 18, fontFamily: 'circe'),
+                decoration: InputDecoration(
+                    focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide(
-                        color: Colors.grey,
-                      )),
-                  hintText: "Additional note"),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Subtotal",
-                ),
-                Text(
-                  "11,478 RS",
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Delivery Fee",
-                ),
-                Text(
-                  "Not Available",
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Total Ammount",
-                ),
-                Text(
-                  "11,478 RS",
-                ),
-              ],
-            ),
-            Center(
-              child: Text(
-                "- - - - - - - - - - - - - - - - - - - - - - - - - - - -",
-                style: TextStyle(fontSize: 25),
+                        color: Colors.black87,
+                      ),
+                    ),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide(
+                          color: Colors.grey,
+                        )),
+                    hintText: "Additional note"),
               ),
-            ),
-            InkWell(
-              onTap: () {},
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.all(15),
-                margin: EdgeInsets.only(bottom: 20, right: 30, left: 30),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    color: darkBlue),
-                child: Center(
-                  child: Text(
-                    "Place Order",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'circe',
-                        fontWeight: FontWeight.w700,
-                        fontSize: 18),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Subtotal",
+                  ),
+                  Text(
+                    "11,478 RS",
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Delivery Fee",
+                  ),
+                  Text(
+                    "Not Available",
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Total Ammount",
+                  ),
+                  Text(
+                    "11,478 RS",
+                  ),
+                ],
+              ),
+              Center(
+                child: Text(
+                  "- - - - - - - - - - - - - - - - - - - - - - - - - - - -",
+                  style: TextStyle(fontSize: 25),
+                ),
+              ),
+              InkWell(
+                onTap: () {},
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.all(15),
+                  margin: EdgeInsets.only(bottom: 20, right: 30, left: 30),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      color: darkBlue),
+                  child: Center(
+                    child: Text(
+                      "Place Order",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'circe',
+                          fontWeight: FontWeight.w700,
+                          fontSize: 18),
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

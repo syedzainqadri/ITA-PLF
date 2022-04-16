@@ -14,7 +14,7 @@ class _BookStoreState extends State<BookStore> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor,
+      backgroundColor: Colors.white,
       body: Column(
         children: [
           Container(

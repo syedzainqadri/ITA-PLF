@@ -22,7 +22,8 @@ class _CustomDrawerState extends State<CustomDrawer> {
   Widget build(BuildContext context) {
     return Container(
       child: Drawer(
-        backgroundColor: Color.fromRGBO(255, 243, 228, 10),
+        // backgroundColor: Color.fromRGBO(255, 243, 228, 10),
+        backgroundColor: Colors.white,
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
@@ -53,6 +54,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   ),
                 ],
               )),
+            ),
+            Divider(
+              color: Colors.grey.shade300,
+              height: 1,
             ),
             GestureDetector(
               onTap: () {

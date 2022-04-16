@@ -1,3 +1,4 @@
+import 'package:PLF/utils/ColorScheme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -87,7 +88,7 @@ Widget bookWidget(img, name, color, darkBlue, context) {
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: color,
+        color: cardColor,
       ),
     ),
   );

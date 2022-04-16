@@ -14,8 +14,10 @@ Color grey = Colors.grey[300];
 // Color activeBtnColor = Color(0xffFFFDED);
 // Color nonActiveBtnColor = Color(0xffFFF7E8);
 
-Color backgroundColor = Color.fromRGBO(255, 243, 228, 10);
+// Color backgroundColor = Color.fromRGBO(255, 243, 228, 10);
+Color backgroundColor = Colors.white;
 Color appbarColor = Color.fromRGBO(255, 246, 221, 100);
-Color cardColor = Color.fromRGBO(245, 245, 239, 0);
+// Color cardColor = Color.fromRGBO(245, 245, 239, 0);
+Color cardColor = Color(0xffeff9ff);
 Color activeBtnColor = Color.fromRGBO(255, 253, 237, 100);
 Color nonActiveBtnColor = Color.fromRGBO(255, 247, 232, 0);

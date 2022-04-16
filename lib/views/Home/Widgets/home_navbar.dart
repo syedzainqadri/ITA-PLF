@@ -35,6 +35,7 @@ class _HomeNavbarState extends State<HomeNavbar> {
   Widget build(BuildContext context) {
     return Scaffold(
         drawer: CustomDrawer(),
+        backgroundColor: Colors.white,
         key: _scaffoldKey,
         appBar: _currentIndex == 3
             ? AppBar(
@@ -109,9 +110,9 @@ class _HomeNavbarState extends State<HomeNavbar> {
           unselectedFontSize: 8,
           showUnselectedLabels: true,
           elevation: 6,
-          backgroundColor: backgroundColor,
-          selectedItemColor: black,
-          unselectedItemColor: Colors.grey,
+          backgroundColor: Colors.white,
+          selectedItemColor: darkBlue,
+          unselectedItemColor: Colors.grey.shade600,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.home),

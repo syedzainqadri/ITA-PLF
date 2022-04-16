@@ -90,7 +90,7 @@ class _HomePageState extends State<HomePage> {
             : Container(
                 padding: EdgeInsets.all(30),
                 width: MediaQuery.of(context).size.width,
-                color: backgroundColor,
+                color: white,
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,

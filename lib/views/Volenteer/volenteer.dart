@@ -23,7 +23,7 @@ class _VolunteerScreenState extends State<VolunteerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor,
+      backgroundColor: Colors.white,
       // appBar: AppBar(
       //   title: Text(
       //     "Volunteer Now",
