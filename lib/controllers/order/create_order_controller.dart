@@ -1,0 +1,116 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:PLF/models/product.dart';
+import 'package:PLF/network/api_service.dart';
+import 'package:PLF/utils/url_paths.dart';
+import 'package:PLF/widgets/custom_snackbar.dart';
+import 'package:get/get.dart';
+
+class LineItem {
+  final product_id;
+  final quantity;
+
+  LineItem(this.product_id, this.quantity);
+}
+
+class CreateOrderController extends GetxController {
+  var productsResponse = {}.obs;
+
+  var isLoading = false.obs;
+  var isListNull = false.obs;
+
+  createOrder(
+      {firstName,
+      lastName,
+      address1,
+      address2,
+      city,
+      state,
+      postCode,
+      country,
+      email,
+      phone,
+      productId,
+      district,
+      school,
+      total,
+      methodTitle,
+      methodId,
+      paymentMethod,
+      paymentMethodTitle,
+      List<LineItem> lineItems}) async {
+    isLoading(true).obs;
+    var data = {
+      "payment_method": paymentMethod,
+      "payment_method_title": paymentMethodTitle,
+      "set_paid": true,
+      "billing": {
+        "first_name": firstName,
+        "last_name": lastName,
+        "address_1": address1,
+        "address_2": address2,
+        "city": city,
+        "state": state,
+        "postcode": postCode,
+        "country": country,
+        "email": email,
+        "phone": phone
+      },
+      "shipping": {
+        "first_name": firstName,
+        "last_name": lastName,
+        "address_1": address1,
+        "address_2": address2,
+        "city": city,
+        "state": state,
+        "postcode": postCode,
+        "country": country,
+      },
+      "line_items": List.generate(
+          lineItems.length,
+          (index) => {
+                "product_id": lineItems[index].product_id,
+                "quantity": lineItems[index].quantity
+              })
+      // [
+      //   {
+      //     "product_id": 93,
+      //     "quantity": 2
+      //   },
+      //   {
+      //     "product_id": 22,
+      //     "variation_id": 23,
+      //     "quantity": 1
+      //   }
+      // ]
+      ,
+      "shipping_lines": [
+        {"method_id": methodId, "method_title": methodTitle, "total": total}
+      ]
+    };
+    var detail = await APIService().postRequest(
+        apiName: makeOrder, isJson: false, mapData: data, isAuth: false);
+    print(' api response is: ${detail}');
+
+    if (detail != null) {
+      try {
+        final resposeData = jsonDecode(detail);
+
+        print(" order id is : ${resposeData["id"]} ");
+        isLoading(false).obs;
+        successSnackbar("${resposeData["Ordered Successfully"]}");
+        return resposeData;
+      } catch (e) {
+        isLoading(false).obs;
+        var response = json.decode(detail.toString());
+
+        if (response["success"] == false) {
+        } else {}
+      }
+    } else {
+      errorSnackbar("something went wrong");
+      isLoading(false).obs;
+    }
+  }
+}

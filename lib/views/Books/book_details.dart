@@ -185,8 +185,13 @@ class _BookDetailsState extends State<BookDetails> {
                               child: SizedBox(
                                   height: 140,
                                   width: 200,
-                                  child: bookWidget("book1.jpg", "Spiderman",
-                                      backgroundColor, darkBlue, context)),
+                                  child: bookWidget(
+                                      img: "book1.jpg",
+                                      name: "Spiderman",
+                                      color: backgroundColor,
+                                      darkBlue: darkBlue,
+                                      context: context,
+                                      bookId: "1")),
                             );
                           },
                           itemCount: 6,

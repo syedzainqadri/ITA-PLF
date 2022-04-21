@@ -1,3 +1,9 @@
+const basUrl =
+    "https://clfbooks.childrensliteraturefestival.com/wp-json/wc/v3/";
+
+const getProducts = "products";
+const createUserApi = "users";
+const makeOrder = "orders";
 enum UrlPath {
   about,
   plfAdvisor,

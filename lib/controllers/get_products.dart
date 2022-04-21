@@ -1,38 +1,57 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:PLF/models/product.dart';
+import 'package:PLF/network/api_service.dart';
+import 'package:PLF/utils/url_paths.dart';
 import 'package:get/get.dart';
-import 'package:woocommerce/woocommerce.dart';
 
-final url = 'https://clfbooks.childrensliteraturefestival.com/wp-json/wc/v3';
+class ProductsController extends GetxController {
+  var productsResponse = {}.obs;
 
-class BookController extends GetxController {
   var isLoading = true.obs;
   var isListNull = false.obs;
-  // var categoriesList = CategoriesModel().obs;
 
-  /// get all categories function
-  getProducts() async {
-    WooCommerce woocommerce = WooCommerce(
-        baseUrl: url,
-        // isDebug: true,
-        consumerKey: "ck_54241d87566696586ecd54b1ed72a7c69eb07f86",
-        consumerSecret: "cs_d7dd31edbb0125fc1c9e54e96a6731b5d96f7788");
-    List<WooProduct> products = await woocommerce.getProducts();
-    print("api called");
-    print(products.toString());
-    // final myFeaturedProducts = await woocommerce.getProducts(featured: true);
-    //
-    //
-    // final mySpecificProduct = await getProducts(category: '22');
+  getProduct() async {
     isLoading(true).obs;
-    // var r;
-    // final data = jsonEncode(r);
-    // if (r == null) {
-    //   isListNull(true).obs;
-    //   isLoading(false).obs;
-    // } else {
-    //   isLoading(false).obs;
-    //   // categoriesList.value = categoriesModelFromJson(data);
-    // }
+
+    var detail =
+        await APIService().getRequest(apiName: getProducts, isJson: false);
+    print(' api response is: ${detail.runtimeType}');
+    // if(debugMode)print(detail);
+    if (detail != null) {
+      try {
+        final resposeData = jsonDecode(detail);
+        // print("json data is: $resposeData");
+        // productsResponse.value = resposeData;
+        print(" product name is : ${resposeData[0]["name"]} ");
+        isLoading(false).obs;
+
+        return resposeData;
+        if (productsResponse.value[0]["name"] == null) {
+          print(" data is null "
+              "");
+          //successSnackbarReplace(0,registerResp.value.error.toString());
+          isListNull(true).obs;
+        }
+        isLoading(false).obs;
+      } catch (e) {
+        isLoading(false).obs;
+        isListNull(true).obs;
+        var response = json.decode(detail.toString());
+        // if(response["data"]==[]){
+        //   isListNull(true).obs;
+        // }
+        if (response["success"] == false) {
+          // errorSnackbar(response["error"]);
+        } else {
+          // errorSnackbar("Something went wrong, Try again".tr);
+        }
+      }
+    } else {
+      isLoading(false).obs;
+      isListNull(true).obs;
+//        errorSnackbar("Something went wrong, try again");
+    }
   }
 }

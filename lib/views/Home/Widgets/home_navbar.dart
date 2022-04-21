@@ -1,8 +1,11 @@
+import 'package:PLF/controllers/add_to_cart/add_to_cart.dart';
+import 'package:PLF/models/cart_model.dart';
 import 'package:PLF/utils/ColorScheme.dart';
 import 'package:PLF/utils/custom_drawer.dart';
 import 'package:PLF/views/Cart/cart.dart';
 import 'package:PLF/views/Home/HomePage.dart';
 import 'package:PLF/views/Volenteer/volenteer.dart';
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -30,7 +33,9 @@ class _HomeNavbarState extends State<HomeNavbar> {
     super.initState();
   }
 
+  var cartController = Get.put(CartController());
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,6 +44,7 @@ class _HomeNavbarState extends State<HomeNavbar> {
         key: _scaffoldKey,
         appBar: _currentIndex == 3
             ? AppBar(
+                toolbarHeight: 60,
                 backgroundColor: Colors.transparent,
                 elevation: 0,
                 centerTitle: true,
@@ -53,19 +59,36 @@ class _HomeNavbarState extends State<HomeNavbar> {
                   },
                 ),
                 title: Text(
-                  "Bay Book",
+                  "Buy Book",
                   style: TextStyle(color: black),
                 ),
                 actions: [
-                  IconButton(
-                    icon: Icon(
-                      Icons.shopping_cart,
-                      color: Colors.black,
-                      size: 30,
-                    ),
-                    onPressed: () {
-                      Get.to(CartScreen());
-                    },
+                  Obx(() {
+                    if (cartController.isLoading.value) {
+                      return Offstage();
+                    } else {
+                      return Padding(
+                        padding: EdgeInsets.only(top: 8),
+                        child: Badge(
+                          position: BadgePosition.topEnd(),
+                          badgeContent:
+                              Text(cartController.totalItem.value.toString()),
+                          child: InkWell(
+                            child: Icon(
+                              Icons.shopping_cart,
+                              color: Colors.black,
+                              size: 30,
+                            ),
+                            onTap: () {
+                              Get.to(CartScreen());
+                            },
+                          ),
+                        ),
+                      );
+                    }
+                  }),
+                  SizedBox(
+                    width: 20,
                   )
                 ],
               )
