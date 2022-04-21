@@ -2,6 +2,7 @@ import 'package:PLF/views/Home/Widgets/home_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:PLF/utils/ColorScheme.dart';
 import 'package:get/get.dart';
+import '../../controllers/volunteer_controller.dart';
 import '../../utils/url_base.dart';
 import '../Webview/webview.dart';
 
@@ -13,6 +14,14 @@ class VolunteerScreen extends StatefulWidget {
 }
 
 class _VolunteerScreenState extends State<VolunteerScreen> {
+
+  final VolunteerController _volunteerController = Get.put(VolunteerController());
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final cityController = TextEditingController();
+  final phoneController = TextEditingController();
+  String selectedProject;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -74,6 +83,7 @@ class _VolunteerScreenState extends State<VolunteerScreen> {
                 Padding(
                   padding: EdgeInsets.only(left: 20, right: 20),
                   child: TextField(
+                    controller: nameController,
                     decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
@@ -90,6 +100,7 @@ class _VolunteerScreenState extends State<VolunteerScreen> {
                 Padding(
                   padding: EdgeInsets.only(left: 20, right: 20),
                   child: TextField(
+                    controller: emailController,
                     decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
@@ -106,6 +117,7 @@ class _VolunteerScreenState extends State<VolunteerScreen> {
                 Padding(
                   padding: EdgeInsets.only(left: 20, right: 20),
                   child: TextField(
+                    controller: cityController,
                     decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
@@ -122,6 +134,8 @@ class _VolunteerScreenState extends State<VolunteerScreen> {
                 Padding(
                   padding: EdgeInsets.only(left: 20, right: 20),
                   child: TextField(
+                    controller: phoneController,
+                    keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
@@ -154,7 +168,7 @@ class _VolunteerScreenState extends State<VolunteerScreen> {
                             'Incredible Libraries',
                             'Online Book Club',
                             'Story Bytes'
-                                'Art & Craft Therapy',
+                            'Art & Craft Therapy',
                             'Digital Learning Festival',
                             'PLP Publications',
                           ].map((String value) {
@@ -163,7 +177,11 @@ class _VolunteerScreenState extends State<VolunteerScreen> {
                               child: Text(value),
                             );
                           }).toList(),
-                          onChanged: (_) {},
+                          onChanged: (value) {
+                            setState(() {
+                              selectedProject = value;
+                            });
+                          },
                         ),
                       ],
                     ),
@@ -173,7 +191,11 @@ class _VolunteerScreenState extends State<VolunteerScreen> {
                   height: 50,
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    _volunteerController.addVolunteerData(
+                        nameController.text.trim(), emailController.text.trim(), cityController.text.trim(),
+                        phoneController.text.trim(), selectedProject);
+                  },
                   child: Container(
                     child: Container(
                       width: MediaQuery.of(context).size.width,
@@ -182,16 +204,22 @@ class _VolunteerScreenState extends State<VolunteerScreen> {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(10)),
                           color: darkBlue),
-                      child: Center(
-                        child: Text(
-                          "Donate",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'circe',
-                              fontWeight: FontWeight.w700,
-                              fontSize: 18),
-                        ),
-                      ),
+                      child: Obx(() {
+                        return _volunteerController.isLoading.isTrue ?
+                            Center(child: CircularProgressIndicator())
+                            :
+                        Center(
+                          child: Text(
+                            "Donate",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'circe',
+                                fontWeight: FontWeight.w700,
+                                fontSize: 18),
+                          ),
+                        );
+                      })
+
                     ),
                   ),
                 )

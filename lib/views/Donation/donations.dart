@@ -1,11 +1,14 @@
+import 'package:PLF/controllers/donate_controller.dart';
 import 'package:PLF/views/Home/HomePage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:PLF/utils/ColorScheme.dart';
-import 'package:get/get.dart';
+
 
 import '../../utils/url_base.dart';
 import '../Home/Widgets/home_navbar.dart';
 import '../Webview/webview.dart';
+import 'donate_dialog.dart';
 
 class DonationsScreen extends StatefulWidget {
   const DonationsScreen({Key key}) : super(key: key);
@@ -15,6 +18,14 @@ class DonationsScreen extends StatefulWidget {
 }
 
 class _DonationsScreenState extends State<DonationsScreen> {
+
+
+  final nameController = TextEditingController();
+  final amountController = TextEditingController();
+  final cityController = TextEditingController();
+
+  String selectedProject;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -58,6 +69,7 @@ class _DonationsScreenState extends State<DonationsScreen> {
                 Padding(
                   padding: EdgeInsets.only(left: 20, right: 20),
                   child: TextField(
+                    controller: nameController,
                     decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -99,7 +111,11 @@ class _DonationsScreenState extends State<DonationsScreen> {
                               child: Text(value),
                             );
                           }).toList(),
-                          onChanged: (_) {},
+                          onChanged: (value) {
+                            setState(() {
+                              selectedProject = value;
+                            });
+                          },
                         ),
                       ],
                     ),
@@ -111,6 +127,7 @@ class _DonationsScreenState extends State<DonationsScreen> {
                 Padding(
                   padding: EdgeInsets.only(left: 20, right: 20),
                   child: TextField(
+                    controller: amountController,
                     decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -127,6 +144,7 @@ class _DonationsScreenState extends State<DonationsScreen> {
                 Padding(
                   padding: EdgeInsets.only(left: 20, right: 20),
                   child: TextField(
+                    controller: cityController,
                     decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -137,44 +155,56 @@ class _DonationsScreenState extends State<DonationsScreen> {
                         fillColor: Colors.white70),
                   ),
                 ),
-                SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 20.0, left: 20.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(),
-                        borderRadius: BorderRadius.circular(10)),
-                    height: 60,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Icon(Icons.menu),
-                        Text('Payment Method'),
-                        DropdownButton<String>(
-                          items: <String>[
-                            'Bank Account',
-                            'Jazz Cash',
-                            'EasyPaisa',
-                          ].map((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                          onChanged: (_) {},
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                // SizedBox(
+                //   height: 20,
+                // ),
+                // Padding(
+                //   padding: const EdgeInsets.only(right: 20.0, left: 20.0),
+                //   child: Container(
+                //     decoration: BoxDecoration(
+                //         color: Colors.white,
+                //         border: Border.all(),
+                //         borderRadius: BorderRadius.circular(10)),
+                //     height: 60,
+                //     child: Row(
+                //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+                //       children: [
+                //         Icon(Icons.menu),
+                //         Text('Payment Method'),
+                //         DropdownButton<String>(
+                //           items: <String>[
+                //             'Bank Account',
+                //             'Jazz Cash',
+                //             'EasyPaisa',
+                //           ].map((String value) {
+                //             return DropdownMenuItem<String>(
+                //               value: value,
+                //               child: Text(value),
+                //             );
+                //           }).toList(),
+                //           onChanged: (_) {},
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
                 SizedBox(
                   height: 50,
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    showDialog(
+                      barrierColor: Colors.black26,
+                      context: context,
+                      builder: (context) {
+                        return DonateDialog(
+                            name: nameController.text.trim(),
+                            project: selectedProject,
+                            amount: amountController.text.trim(),
+                            city: cityController.text.trim());
+                      },
+                    );
+                  },
                   child: Container(
                     child: Container(
                       width: MediaQuery.of(context).size.width,
@@ -204,3 +234,6 @@ class _DonationsScreenState extends State<DonationsScreen> {
     );
   }
 }
+
+
+
