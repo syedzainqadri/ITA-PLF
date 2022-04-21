@@ -100,7 +100,7 @@ class _bookWidgetState extends State<bookWidget> {
             InkWell(
               onTap: () {
                 CartModel cart = CartModel(
-                    quantity: 2, product_id: widget.bookId.toString());
+                    quantity: 1, product_id: widget.bookId.toString());
                 cartController.insert(cart);
 
                 // addToCartController.addToCart(
