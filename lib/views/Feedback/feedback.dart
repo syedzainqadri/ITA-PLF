@@ -1,9 +1,10 @@
+import 'package:PLF/controllers/feedback_controller.dart';
 import 'package:PLF/utils/ColorScheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-
 import '../../utils/url_base.dart';
 import '../Webview/webview.dart';
+import 'package:get/get.dart';
 
 class FeedbackPage extends StatefulWidget {
   @override
@@ -11,6 +12,12 @@ class FeedbackPage extends StatefulWidget {
 }
 
 class _FeedbackPageState extends State<FeedbackPage> {
+
+  final FeedbackController _feedbackController = Get.put(FeedbackController());
+  final remarksController = TextEditingController();
+  String selectedProject;
+  double myRating;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,7 +104,11 @@ class _FeedbackPageState extends State<FeedbackPage> {
                             child: Text(value),
                           );
                         }).toList(),
-                        onChanged: (_) {},
+                        onChanged: (value) {
+                          setState(() {
+                            selectedProject = value;
+                          });
+                        },
                       ),
                     ],
                   ),
@@ -110,6 +121,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                 padding: EdgeInsets.only(left: 20, right: 20),
                 child: TextField(
                   maxLines: 5,
+                  controller: remarksController,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
@@ -136,31 +148,40 @@ class _FeedbackPageState extends State<FeedbackPage> {
                 ),
                 onRatingUpdate: (rating) {
                   print(rating);
+                  myRating = rating;
                 },
               ),
               SizedBox(
                 height: 50,
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  _feedbackController.addFeedbackData(selectedProject, remarksController.text.trim(), myRating);
+                  setState(() {});
+                },
                 child: Container(
                   child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.all(15),
-                    margin: EdgeInsets.only(bottom: 20, right: 30, left: 30),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        color: darkBlue),
-                    child: Center(
-                      child: Text(
-                        "Submit",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'circe',
-                            fontWeight: FontWeight.w700,
-                            fontSize: 18),
-                      ),
-                    ),
+                      width: MediaQuery.of(context).size.width,
+                      padding: EdgeInsets.all(15),
+                      margin: EdgeInsets.only(bottom: 20, right: 30, left: 30),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          color: darkBlue),
+                      child: Obx(() {
+                        return _feedbackController.isLoading.isTrue ?
+                        Center(child: CircularProgressIndicator())
+                            :
+                        Center(
+                          child: Text(
+                            "Submit",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'circe',
+                                fontWeight: FontWeight.w700,
+                                fontSize: 18),
+                          ),
+                        );
+                      })
                   ),
                 ),
               )
