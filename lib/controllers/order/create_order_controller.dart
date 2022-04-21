@@ -20,31 +20,30 @@ class CreateOrderController extends GetxController {
   var isLoading = false.obs;
   var isListNull = false.obs;
 
-  createOrder(
-      {firstName,
-      lastName,
-      address1,
-      address2,
-      city,
-      state,
-      postCode,
-      country,
-      email,
-      phone,
-      productId,
-      district,
-      school,
-      total,
-      methodTitle,
-      methodId,
-      paymentMethod,
-      paymentMethodTitle,
-      List<LineItem> lineItems}) async {
+  createOrder({
+    firstName,
+    lastName,
+    address1,
+    address2,
+    city,
+    state,
+    postCode,
+    country,
+    email,
+    phone,
+    district,
+    total,
+    methodTitle,
+    methodId,
+    paymentMethodTitle,
+    products,
+  }) async {
     isLoading(true).obs;
+    print("id: ${products[0]["product_id"]}");
     var data = {
-      "payment_method": paymentMethod,
+      "payment_method": methodId,
       "payment_method_title": paymentMethodTitle,
-      "set_paid": true,
+      "set_paid": "true",
       "billing": {
         "first_name": firstName,
         "last_name": lastName,
@@ -67,12 +66,13 @@ class CreateOrderController extends GetxController {
         "postcode": postCode,
         "country": country,
       },
-      "line_items": List.generate(
-          lineItems.length,
-          (index) => {
-                "product_id": lineItems[index].product_id,
-                "quantity": lineItems[index].quantity
-              })
+      // "line_items": List.generate(
+      //     products.length,
+      //     (index) => {
+      //           "product_id":
+      //               int.parse(products[index]["product_id"].toString()),
+      //           "quantity": int.parse(products[index]["quantity"].toString()),
+      //         }),
       // [
       //   {
       //     "product_id": 93,
@@ -84,7 +84,12 @@ class CreateOrderController extends GetxController {
       //     "quantity": 1
       //   }
       // ]
-      ,
+      "line_items": [
+        {
+          "product_id": products[0]["product_id"],
+          "quantity": products[0]["quantity"]
+        },
+      ],
       "shipping_lines": [
         {"method_id": methodId, "method_title": methodTitle, "total": total}
       ]

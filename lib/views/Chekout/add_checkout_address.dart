@@ -53,22 +53,6 @@ class _AddAddressState extends State<AddAddress> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Text("Label As"),
-                // SizedBox(
-                //   height: 15,
-                // ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.start,
-                //   children: [
-                //     preferrenceContainer("Home", Colors.white, darkBlue, true),
-                //     SizedBox(width: 15),
-                //     preferrenceContainer(
-                //         "Workplace", Colors.white, darkBlue, false),
-                //     SizedBox(width: 15),
-                //     preferrenceContainer(
-                //         "Other", Colors.white, darkBlue, false),
-                //   ],
-                // ),
                 SizedBox(
                   height: 15,
                 ),
@@ -182,6 +166,4 @@ class _AddAddressState extends State<AddAddress> {
       ),
     );
   }
-
-
 }

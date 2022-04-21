@@ -6,8 +6,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
 final Map<String, String> headers = {
-  'consumer_key': 'ck_54241d87566696586ecd54b1ed72a7c69eb07f86',
-  'consumer_secret': 'cs_d7dd31edbb0125fc1c9e54e96a6731b5d96f7788'
+  // 'consumer_key': 'ck_54241d87566696586ecd54b1ed72a7c69eb07f86',
+  'consumer_secret': 'cs_d7dd31edbb0125fc1c9e54e96a6731b5d96f7788',
+  "Content-Type": "application/json"
 };
 String consumer_key = 'ck_54241d87566696586ecd54b1ed72a7c69eb07f86';
 String consumer_secret = 'cs_d7dd31edbb0125fc1c9e54e96a6731b5d96f7788';
@@ -15,8 +16,20 @@ String consumer_secret = 'cs_d7dd31edbb0125fc1c9e54e96a6731b5d96f7788';
 class APIService {
   static var client = http.Client();
 
-  Future<String> postRequest(
-      {String apiName, bool isJson, Map<String, dynamic> mapData, bool isAuth}) async {
+  Future<dynamic> postRequest(
+      {String apiName,
+      bool isJson,
+      Map<String, dynamic> mapData,
+      bool isAuth}) async {
+    var response = await client
+        .post(
+            isAuth
+                ? Uri.parse(
+                    "https://clfbooks.childrensliteraturefestival.com/wp-json/wp/v2/users")
+                : Uri.parse(basUrl + apiName),
+            body: isJson ? json.encode(mapData) : mapData,
+            headers: headers)
+        .timeout(const Duration(seconds: 30));
     try {
       // var connectivityResult = await (Connectivity().checkConnectivity());
       // if (connectivityResult != ConnectivityResult.mobile &&
@@ -25,12 +38,7 @@ class APIService {
       //   return null;
       // }
 
-      var response = await client
-          .post(isAuth?Uri.parse("https://clfbooks.childrensliteraturefestival.com/wp-json/wp/v2/users"):Uri.parse(basUrl + apiName),
-              body: isJson ? json.encode(mapData) : mapData, headers: headers)
-          .timeout(const Duration(seconds: 30));
-
-      print(response.body);
+      print("response body; " + response.body);
       var statusCode = response.statusCode;
       switch (statusCode) {
         case HttpStatus.ok:
