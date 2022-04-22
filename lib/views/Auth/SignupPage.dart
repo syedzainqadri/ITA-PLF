@@ -40,7 +40,7 @@ class _SignupPageState extends State<SignupPage> {
         ),
         opacity: 0.3,
         child: Container(
-          color: backgroundColor,
+          color: vibrantYellow,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -188,7 +188,7 @@ class _SignupPageState extends State<SignupPage> {
                               child: ElevatedButton(
                                 style: ButtonStyle(
                                   backgroundColor:
-                                      MaterialStateProperty.all(yellow),
+                                      MaterialStateProperty.all(vibrantBlack),
                                   shape: MaterialStateProperty.all<
                                       RoundedRectangleBorder>(
                                     RoundedRectangleBorder(
@@ -200,9 +200,9 @@ class _SignupPageState extends State<SignupPage> {
                                   Get.to(LoginPage());
                                 },
                                 child: Text(
-                                  'Login',
+                                  'SignIn',
                                   style: TextStyle(
-                                      color: black,
+                                      color: vibrantWhite,
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -218,7 +218,7 @@ class _SignupPageState extends State<SignupPage> {
                               child: ElevatedButton(
                                 style: ButtonStyle(
                                   backgroundColor:
-                                      MaterialStateProperty.all(darkBlue),
+                                      MaterialStateProperty.all(vibrantRed),
                                   shape: MaterialStateProperty.all<
                                       RoundedRectangleBorder>(
                                     RoundedRectangleBorder(

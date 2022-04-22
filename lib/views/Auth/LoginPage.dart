@@ -11,7 +11,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: backgroundColor,
+        color: vibrantYellow,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -30,7 +30,7 @@ class LoginPage extends StatelessWidget {
                       filled: true,
                       hintStyle: TextStyle(color: Colors.grey[800]),
                       hintText: "Email",
-                      fillColor: Colors.white70),
+                      fillColor: vibrantWhite),
                 ),
               ),
               SizedBox(
@@ -46,7 +46,7 @@ class LoginPage extends StatelessWidget {
                       filled: true,
                       hintStyle: TextStyle(color: Colors.grey[800]),
                       hintText: "Password",
-                      fillColor: Colors.white70),
+                      fillColor: vibrantWhite),
                 ),
               ),
               SizedBox(
@@ -60,36 +60,8 @@ class LoginPage extends StatelessWidget {
                       padding: const EdgeInsets.all(20.0),
                       child: ElevatedButton(
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(yellow),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                            ),
-                          ),
-                        ),
-                        onPressed: () {
-                          Get.to(OnBoardingPage());
-                        },
-                        child: Text(
-                          'Login',
-                          style: TextStyle(
-                              color: black,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(darkBlue),
+                          backgroundColor:
+                              MaterialStateProperty.all(vibrantBlack),
                           shape:
                               MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
@@ -104,6 +76,36 @@ class LoginPage extends StatelessWidget {
                           'SignUp',
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(vibrantRed),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                            ),
+                          ),
+                        ),
+                        onPressed: () {
+                          Get.to(OnBoardingPage());
+                        },
+                        child: Text(
+                          'Login',
+                          style: TextStyle(
+                              color: vibrantWhite,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),

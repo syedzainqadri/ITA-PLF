@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:PLF/utils/ColorScheme.dart';
 import 'package:flutter/material.dart';
 import '../Auth/LoginPage.dart';
 
@@ -20,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: vibrantBlue,
       body: Center(
         child: Container(
             height: 400,

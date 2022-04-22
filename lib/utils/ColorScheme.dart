@@ -21,3 +21,13 @@ Color appbarColor = Color.fromRGBO(255, 246, 221, 100);
 Color cardColor = Color(0xffeff9ff);
 Color activeBtnColor = Color.fromRGBO(255, 253, 237, 100);
 Color nonActiveBtnColor = Color.fromRGBO(255, 247, 232, 0);
+
+Color vibrantBlue = Color.fromARGB(255, 0, 140, 255);
+Color vibrantYellow = Color.fromARGB(255, 255, 230, 1);
+Color vibrantGreen = Color.fromARGB(255, 0, 255, 8);
+Color vibrantRed = Color.fromARGB(255, 255, 17, 0);
+Color vibrantPurple = Color.fromARGB(255, 217, 0, 255);
+Color vibrantOrange = Color.fromARGB(255, 255, 153, 0);
+Color naveyBlue = Color.fromARGB(255, 1, 14, 128);
+Color vibrantWhite = Color.fromARGB(255, 255, 255, 255);
+Color vibrantBlack = Color.fromARGB(255, 0, 0, 0);
