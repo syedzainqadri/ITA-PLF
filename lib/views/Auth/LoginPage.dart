@@ -101,7 +101,7 @@ class LoginPage extends StatelessWidget {
                           Get.to(OnBoardingPage());
                         },
                         child: Text(
-                          'Login',
+                          'SignIn',
                           style: TextStyle(
                               color: vibrantWhite,
                               fontSize: 16,
