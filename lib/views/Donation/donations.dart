@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:PLF/utils/ColorScheme.dart';
 
-
 import '../../utils/url_base.dart';
 import '../Home/Widgets/home_navbar.dart';
 import '../Webview/webview.dart';
@@ -18,8 +17,6 @@ class DonationsScreen extends StatefulWidget {
 }
 
 class _DonationsScreenState extends State<DonationsScreen> {
-
-
   final nameController = TextEditingController();
   final amountController = TextEditingController();
   final cityController = TextEditingController();
@@ -87,16 +84,19 @@ class _DonationsScreenState extends State<DonationsScreen> {
                   padding: const EdgeInsets.only(right: 20.0, left: 20.0),
                   child: Container(
                     decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: Colors.white70,
                         border: Border.all(),
                         borderRadius: BorderRadius.circular(10)),
                     height: 60,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Icon(Icons.menu),
-                        Text('Project'),
+                        // Icon(Icons.menu),
+                        // Text('Project'),
                         DropdownButton<String>(
+                          dropdownColor: vibrantOrange,
+                          autofocus: true,
+                          hint: Text('Please select a Project'),
                           items: <String>[
                             'YAA',
                             'Incredible Libraries',
@@ -107,14 +107,19 @@ class _DonationsScreenState extends State<DonationsScreen> {
                             'PLP Publications',
                           ].map((String value) {
                             return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
+                                enabled: true,
+                                value: value,
+                                child: Text(
+                                  value,
+                                  style: TextStyle(
+                                      color: vibrantBlack, fontSize: 18),
+                                ));
                           }).toList(),
                           onChanged: (value) {
                             setState(() {
                               selectedProject = value;
                             });
+                            print(selectedProject);
                           },
                         ),
                       ],
@@ -155,39 +160,6 @@ class _DonationsScreenState extends State<DonationsScreen> {
                         fillColor: Colors.white70),
                   ),
                 ),
-                // SizedBox(
-                //   height: 20,
-                // ),
-                // Padding(
-                //   padding: const EdgeInsets.only(right: 20.0, left: 20.0),
-                //   child: Container(
-                //     decoration: BoxDecoration(
-                //         color: Colors.white,
-                //         border: Border.all(),
-                //         borderRadius: BorderRadius.circular(10)),
-                //     height: 60,
-                //     child: Row(
-                //       mainAxisAlignment: MainAxisAlignment.spaceAround,
-                //       children: [
-                //         Icon(Icons.menu),
-                //         Text('Payment Method'),
-                //         DropdownButton<String>(
-                //           items: <String>[
-                //             'Bank Account',
-                //             'Jazz Cash',
-                //             'EasyPaisa',
-                //           ].map((String value) {
-                //             return DropdownMenuItem<String>(
-                //               value: value,
-                //               child: Text(value),
-                //             );
-                //           }).toList(),
-                //           onChanged: (_) {},
-                //         ),
-                //       ],
-                //     ),
-                //   ),
-                // ),
                 SizedBox(
                   height: 50,
                 ),
@@ -212,10 +184,10 @@ class _DonationsScreenState extends State<DonationsScreen> {
                       margin: EdgeInsets.only(bottom: 20, right: 30, left: 30),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(10)),
-                          color: darkBlue),
+                          color: vibrantOrange),
                       child: Center(
                         child: Text(
-                          "Donate",
+                          "Next",
                           style: TextStyle(
                               color: Colors.white,
                               fontFamily: 'circe',
@@ -234,6 +206,3 @@ class _DonationsScreenState extends State<DonationsScreen> {
     );
   }
 }
-
-
-

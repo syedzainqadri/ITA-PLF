@@ -31,3 +31,6 @@ Color vibrantOrange = Color.fromARGB(255, 255, 153, 0);
 Color naveyBlue = Color.fromARGB(255, 1, 14, 128);
 Color vibrantWhite = Color.fromARGB(255, 255, 255, 255);
 Color vibrantBlack = Color.fromARGB(255, 0, 0, 0);
+Color vibrantAmber = Color.fromARGB(255, 255, 215, 64);
+Color vibrantPink = Color.fromARGB(215, 215, 178, 213);
+Color vibrantGray = Colors.grey.shade600;

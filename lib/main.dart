@@ -12,11 +12,6 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  // #5293e2
-  // #30ef81
-  // #ff8c5f
-  // #f7f24b
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(

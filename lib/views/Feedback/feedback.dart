@@ -12,7 +12,6 @@ class FeedbackPage extends StatefulWidget {
 }
 
 class _FeedbackPageState extends State<FeedbackPage> {
-
   final FeedbackController _feedbackController = Get.put(FeedbackController());
   final remarksController = TextEditingController();
   String selectedProject;
@@ -23,11 +22,11 @@ class _FeedbackPageState extends State<FeedbackPage> {
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: vibrantBlue,
         title: Text(
           "Feedback",
           style: TextStyle(
-            color: Color.fromARGB(255, 34, 33, 33),
+            color: vibrantWhite,
           ),
         ),
         elevation: 0.0,
@@ -37,7 +36,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
           },
           icon: Icon(
             Icons.navigate_before,
-            color: Color.fromARGB(255, 34, 33, 33),
+            color: vibrantWhite,
           ),
         ),
       ),
@@ -49,7 +48,6 @@ class _FeedbackPageState extends State<FeedbackPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: InkWell(
@@ -60,11 +58,9 @@ class _FeedbackPageState extends State<FeedbackPage> {
                               opaque: false,
                               pageBuilder: (context, _, __) {
                                 return WebViewPage(
-                                    title: "Ad",
-                                    url: UrlBase.baseWebURL);
+                                    title: "Ad", url: UrlBase.baseWebURL);
                               },
-                              transitionsBuilder:
-                                  (_, __, ___, Widget child) {
+                              transitionsBuilder: (_, __, ___, Widget child) {
                                 return child;
                               }));
                     },
@@ -75,7 +71,6 @@ class _FeedbackPageState extends State<FeedbackPage> {
                     )),
               ),
               SizedBox(height: 20),
-
               Padding(
                 padding: const EdgeInsets.only(right: 20.0, left: 20.0),
                 child: Container(
@@ -156,7 +151,8 @@ class _FeedbackPageState extends State<FeedbackPage> {
               ),
               InkWell(
                 onTap: () {
-                  _feedbackController.addFeedbackData(selectedProject, remarksController.text.trim(), myRating);
+                  _feedbackController.addFeedbackData(
+                      selectedProject, remarksController.text.trim(), myRating);
                   setState(() {});
                 },
                 child: Container(
@@ -166,23 +162,21 @@ class _FeedbackPageState extends State<FeedbackPage> {
                       margin: EdgeInsets.only(bottom: 20, right: 30, left: 30),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(10)),
-                          color: darkBlue),
+                          color: vibrantOrange),
                       child: Obx(() {
-                        return _feedbackController.isLoading.isTrue ?
-                        Center(child: CircularProgressIndicator())
-                            :
-                        Center(
-                          child: Text(
-                            "Submit",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'circe',
-                                fontWeight: FontWeight.w700,
-                                fontSize: 18),
-                          ),
-                        );
-                      })
-                  ),
+                        return _feedbackController.isLoading.isTrue
+                            ? Center(child: CircularProgressIndicator())
+                            : Center(
+                                child: Text(
+                                  "Submit",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'circe',
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 18),
+                                ),
+                              );
+                      })),
                 ),
               )
             ],

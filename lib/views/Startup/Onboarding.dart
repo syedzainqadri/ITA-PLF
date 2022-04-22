@@ -15,7 +15,8 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.network('')
+    _controller = VideoPlayerController.network(
+        'https://ewigsoldocs.awsapps.com/workdocs/index.html#/share/document/e9693b04ec1fef32f40c958e16aa45da897c59ca3f7bf2cf1bf3e3b08e8550eb')
       ..initialize().then((_) {
         setState(() {
           _controller.play();
@@ -39,7 +40,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
             Container(
               height: MediaQuery.of(context).size.height * 0.35,
               width: MediaQuery.of(context).size.width,
-              color: backgroundColor,
+              color: vibrantAmber,
               child: _controller.value.isInitialized
                   ? AspectRatio(
                       aspectRatio: _controller.value.aspectRatio,
@@ -72,7 +73,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
             // ),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              color: backgroundColor,
+              color: vibrantAmber,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -104,7 +105,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
             // ),
             Expanded(
               child: Container(
-                color: backgroundColor,
+                color: vibrantAmber,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -144,7 +145,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                           padding: EdgeInsets.all(5),
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: Colors.white,
+                            color: vibrantOrange,
                           ),
                           child: IconButton(
                             onPressed: () {
@@ -155,7 +156,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                             },
                             icon: Icon(
                               Icons.arrow_forward_ios,
-                              color: Colors.black,
+                              color: vibrantWhite,
                             ),
                           ),
                         ),

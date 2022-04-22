@@ -14,8 +14,8 @@ class VolunteerScreen extends StatefulWidget {
 }
 
 class _VolunteerScreenState extends State<VolunteerScreen> {
-
-  final VolunteerController _volunteerController = Get.put(VolunteerController());
+  final VolunteerController _volunteerController =
+      Get.put(VolunteerController());
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final cityController = TextEditingController();
@@ -193,34 +193,35 @@ class _VolunteerScreenState extends State<VolunteerScreen> {
                 InkWell(
                   onTap: () {
                     _volunteerController.addVolunteerData(
-                        nameController.text.trim(), emailController.text.trim(), cityController.text.trim(),
-                        phoneController.text.trim(), selectedProject);
+                        nameController.text.trim(),
+                        emailController.text.trim(),
+                        cityController.text.trim(),
+                        phoneController.text.trim(),
+                        selectedProject);
                   },
                   child: Container(
                     child: Container(
                         width: MediaQuery.of(context).size.width,
                         padding: EdgeInsets.all(15),
-                        margin: EdgeInsets.only(bottom: 20, right: 30, left: 30),
+                        margin:
+                            EdgeInsets.only(bottom: 20, right: 30, left: 30),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
-                            color: darkBlue),
+                            color: vibrantOrange),
                         child: Obx(() {
-                          return _volunteerController.isLoading.isTrue ?
-                          Center(child: CircularProgressIndicator())
-                              :
-                          Center(
-                            child: Text(
-                              "Donate",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'circe',
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 18),
-                            ),
-                          );
-                        })
-
-                    ),
+                          return _volunteerController.isLoading.isTrue
+                              ? Center(child: CircularProgressIndicator())
+                              : Center(
+                                  child: Text(
+                                    "Aplly Now",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontFamily: 'circe',
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 18),
+                                  ),
+                                );
+                        })),
                   ),
                 )
               ]),
