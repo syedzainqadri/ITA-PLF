@@ -33,226 +33,242 @@ class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: LoadingOverlay(
-        isLoading: registerController.isLoading.value,
-        progressIndicator: Center(
-          child: CircularProgressIndicator(),
-        ),
-        opacity: 0.3,
-        child: Container(
-          color: backgroundColor,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              ClipRect(
-                child: Container(
-                    height: 200, child: Image.asset('asset/images/logo.png')),
-              ),
-              Form(
-                key: _formKey,
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(left: 20, right: 20),
-                        child: TextFormField(
-                          controller: emailController,
-                          // ignore: missing_return
-                          validator: (val) {
-                            if (val.isEmpty || val == null) {
-                              return " email required";
-                            }
-                          },
-                          decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              filled: true,
-                              hintStyle: TextStyle(color: Colors.grey[800]),
-                              hintText: "Email",
-                              fillColor: white),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 20, right: 20),
-                        child: TextFormField(
-                          validator: (val) {
-                            if (val.isEmpty || val == null || val.length < 6) {
-                              return " password not valid";
-                            }
-                          },
-                          controller: passwordController,
-                          decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              filled: true,
-                              hintStyle: TextStyle(color: Colors.grey[800]),
-                              hintText: "Password",
-                              fillColor: white),
-                        ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 20.0),
-                            child: Checkbox(
-                              value: notAnITAStudent,
-                              onChanged: _onNotAnITAStudentChanged,
-                            ),
-                          ),
-                          Text('Not An ITA Student'),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 20.0, left: 20.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: white,
-                              border: Border.all(width: 0.5),
-                              borderRadius: BorderRadius.circular(10)),
-                          height: 60,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Icon(Icons.menu),
-                              Text('Please select your District'),
-                              DropdownButton<String>(
-                                items: <String>[
-                                  'Lahore',
-                                  'Kasur',
-                                  'Shaikhupura',
-                                  'Lodhran'
-                                ].map((String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(value),
-                                  );
-                                }).toList(),
-                                onChanged: (_) {},
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 20.0, left: 20.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: white,
-                              border: Border.all(width: 0.5),
-                              borderRadius: BorderRadius.circular(10)),
-                          height: 60,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Icon(Icons.menu),
-                              Text('Please select your School'),
-                              DropdownButton<String>(
-                                items: <String>[
-                                  'School Name 1',
-                                  'School Name 2',
-                                  'School Name 3',
-                                  'School Name 4'
-                                ].map((String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(value),
-                                  );
-                                }).toList(),
-                                onChanged: (_) {},
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: ElevatedButton(
-                                style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all(yellow),
-                                  shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(18.0),
-                                    ),
-                                  ),
-                                ),
-                                onPressed: () {
-                                  Get.to(LoginPage());
-                                },
-                                child: Text(
-                                  'Login',
-                                  style: TextStyle(
-                                      color: black,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: ElevatedButton(
-                                style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all(darkBlue),
-                                  shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(18.0),
-                                    ),
-                                  ),
-                                ),
-                                onPressed: () {
-                                  if (_formKey.currentState.validate()) {
-                                    registerController.createUser(
-                                      email: emailController.text,
-                                      password: passwordController.text,
-                                      userName: "test",
-                                    );
-                                  }
-                                  // Get.to(OnBoardingPage());
-                                },
-                                child: Text(
-                                  'SignUp',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      )
-                    ]),
-              ),
-            ],
+      body: Obx(() {
+        return LoadingOverlay(
+          isLoading: registerController.isLoading.value,
+          progressIndicator: Center(
+            child: CircularProgressIndicator(),
           ),
-        ),
-      ),
+          opacity: 0.3,
+          child: SafeArea(
+            child: SingleChildScrollView(
+              child: Container(
+                color: backgroundColor,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    ClipRect(
+                      child: Container(
+                          height: 200,
+                          child: Image.asset('asset/images/logo.png')),
+                    ),
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(left: 20, right: 20),
+                              child: TextFormField(
+                                controller: emailController,
+                                // ignore: missing_return
+                                validator: (val) {
+                                  if (val.isEmpty || val == null) {
+                                    return " email required";
+                                  }
+                                },
+                                decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    filled: true,
+                                    hintStyle:
+                                        TextStyle(color: Colors.grey[800]),
+                                    hintText: "Email",
+                                    fillColor: white),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 20, right: 20),
+                              child: TextFormField(
+                                validator: (val) {
+                                  if (val.isEmpty ||
+                                      val == null ||
+                                      val.length < 6) {
+                                    return " password not valid";
+                                  }
+                                },
+                                controller: passwordController,
+                                decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    filled: true,
+                                    hintStyle:
+                                        TextStyle(color: Colors.grey[800]),
+                                    hintText: "Password",
+                                    fillColor: white),
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 20.0),
+                                  child: Checkbox(
+                                    value: notAnITAStudent,
+                                    onChanged: _onNotAnITAStudentChanged,
+                                  ),
+                                ),
+                                Text('Not An ITA Student'),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  right: 20.0, left: 20.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: white,
+                                    border: Border.all(width: 0.5),
+                                    borderRadius: BorderRadius.circular(10)),
+                                height: 60,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Icon(Icons.menu),
+                                    Text('Please select your District'),
+                                    DropdownButton<String>(
+                                      items: <String>[
+                                        'Lahore',
+                                        'Kasur',
+                                        'Shaikhupura',
+                                        'Lodhran'
+                                      ].map((String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text(value),
+                                        );
+                                      }).toList(),
+                                      onChanged: (_) {},
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  right: 20.0, left: 20.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: white,
+                                    border: Border.all(width: 0.5),
+                                    borderRadius: BorderRadius.circular(10)),
+                                height: 60,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Icon(Icons.menu),
+                                    Text('Please select your School'),
+                                    DropdownButton<String>(
+                                      items: <String>[
+                                        'School Name 1',
+                                        'School Name 2',
+                                        'School Name 3',
+                                        'School Name 4'
+                                      ].map((String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text(value),
+                                        );
+                                      }).toList(),
+                                      onChanged: (_) {},
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(20.0),
+                                    child: ElevatedButton(
+                                      style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all(yellow),
+                                        shape: MaterialStateProperty.all<
+                                            RoundedRectangleBorder>(
+                                          RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(18.0),
+                                          ),
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        Get.to(LoginPage());
+                                      },
+                                      child: Text(
+                                        'Login',
+                                        style: TextStyle(
+                                            color: black,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(20.0),
+                                    child: ElevatedButton(
+                                      style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all(darkBlue),
+                                        shape: MaterialStateProperty.all<
+                                            RoundedRectangleBorder>(
+                                          RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(18.0),
+                                          ),
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        if (_formKey.currentState.validate()) {
+                                          registerController.createUser(
+                                            email: emailController.text,
+                                            password: passwordController.text,
+                                            userName: emailController.text,
+                                          );
+                                        }
+                                      },
+                                      child: Text(
+                                        'SignUp',
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ]),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      }),
     );
   }
 }

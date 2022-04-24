@@ -26,7 +26,10 @@ class CartPage extends StatefulWidget {
 
 class _CartPageState extends State<CartPage> {
   var cartController = Get.put(CartController());
+  var products;
+  double totalPrice = 0.0;
   get() async {
+    print(" in get");
     products = await productController.getProduct();
   }
 
@@ -42,16 +45,15 @@ class _CartPageState extends State<CartPage> {
     // TODO: implement initState
     totalPrice = 0.0;
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      cartController.getCartItems();
       get();
+      cartController.getCartItems();
       cartController.getCount();
     });
     super.initState();
   }
 
   var productController = Get.put(ProductsController());
-  var products;
-  double totalPrice = 0.0;
+
   @override
   Widget build(context) {
     return Scaffold(
@@ -118,6 +120,7 @@ class _CartPageState extends State<CartPage> {
             child: Text("No Books Found"),
           );
         } else {
+          print("  products : ${products}");
           return LoadingOverlay(
             progressIndicator: Center(
               child: CircularProgressIndicator(),
@@ -137,7 +140,6 @@ class _CartPageState extends State<CartPage> {
                             itemCount: cartController.totalItem.value,
                             // ignore: missing_return
                             itemBuilder: (context, index) {
-                              print(" products length is;  ${products.length}");
                               for (int i = 0; i < products.length; i++) {
                                 print(' in side the loop ');
                                 print(
@@ -166,7 +168,7 @@ class _CartPageState extends State<CartPage> {
                                       product_id: cartController.products[index]
                                           ["product_id"]);
                                 } else {
-                                  continue;
+                                  return Offstage();
                                 }
                               }
                             }),

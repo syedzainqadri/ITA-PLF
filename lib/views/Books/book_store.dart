@@ -32,6 +32,7 @@ class _BookStoreState extends State<BookStore> {
   }
 
   var cartController = Get.put(CartController());
+  var searchController = TextEditingController();
   CartModel cart = CartModel(product_id: "12", quantity: 3);
   @override
   void initState() {
@@ -98,10 +99,18 @@ class _BookStoreState extends State<BookStore> {
                                   color: Colors.black,
                                   size: 30,
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  if (searchController.text != null) {
+                                    productController.getProduct();
+                                  }
+                                },
                               ),
                               Expanded(
-                                child: TextField(
+                                child: TextFormField(
+                                  onSaved: (val) {
+                                    productController.getProduct();
+                                  },
+                                  controller: searchController,
                                   style: TextStyle(
                                       fontSize: 18, fontFamily: 'circe'),
                                   decoration: InputDecoration(
@@ -129,24 +138,52 @@ class _BookStoreState extends State<BookStore> {
                         Expanded(
                           child: GridView.builder(
                               primary: false,
-                              itemCount: 10,
+                              itemCount: products != null ? products.length : 0,
                               gridDelegate:
                                   SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisSpacing: 10,
                                 mainAxisSpacing: 10,
                                 crossAxisCount: 2,
                               ),
-                              // itemCount: productController.productsResponse.value
 
+                              // ignore: missing_return
                               itemBuilder: (context, index) {
-                                return bookWidget(
-                                  img: products[index]["images"][0]["src"],
-                                  name: products[index]["name"],
-                                  color: backgroundColor,
-                                  darkBlue: darkBlue,
-                                  context: context,
-                                  bookId: products[index]["id"],
-                                );
+                                print(
+                                    "search controller: ${searchController.text}");
+                                if (searchController.text != null ||
+                                    searchController.text != "") {
+                                  print("in if");
+
+                                  if (products[index]["name"]
+                                      .toString()
+                                      .toLowerCase()
+                                      .contains(searchController.text
+                                          .toLowerCase())) {
+                                    print(" in nested if");
+                                    return bookWidget(
+                                      img: products[index]["images"][0]["src"],
+                                      name: products[index]["name"],
+                                      color: backgroundColor,
+                                      darkBlue: darkBlue,
+                                      context: context,
+                                      bookId: products[index]["id"],
+                                      bookDesc: products[index]["description"],
+                                    );
+                                  } else {
+                                    return Offstage();
+                                  }
+                                } else if (searchController.text == null ||
+                                    searchController.text.isEmpty) {
+                                  return bookWidget(
+                                    img: products[index]["images"][0]["src"],
+                                    name: products[index]["name"],
+                                    color: backgroundColor,
+                                    darkBlue: darkBlue,
+                                    context: context,
+                                    bookId: products[index]["id"],
+                                    bookDesc: products[index]["description"],
+                                  );
+                                }
                               }),
                         )
                       ],

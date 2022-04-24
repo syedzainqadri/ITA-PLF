@@ -1,6 +1,11 @@
+import 'package:PLF/controllers/add_to_cart.dart';
+import 'package:PLF/controllers/add_to_cart/add_to_cart.dart';
+import 'package:PLF/models/cart_model.dart';
 import 'package:PLF/views/Books/widgets/book_widget.dart';
 import 'package:PLF/views/Cart/cart.dart';
 import 'package:PLF/views/Events/widgets/add_review_dialog.dart';
+import 'package:badges/badges.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,13 +14,26 @@ import 'package:PLF/views/Home/HomePage.dart';
 
 class BookDetails extends StatefulWidget {
   String img, name, subText;
-  BookDetails(this.img, this.name, this.subText);
+  final bookId;
+  BookDetails(this.img, this.name, this.subText, this.bookId);
   @override
   _BookDetailsState createState() => _BookDetailsState();
 }
 
 class _BookDetailsState extends State<BookDetails> {
   int selectedDate = DateTime.now().day;
+
+  var cartController = Get.put(CartController());
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      cartController.getCount();
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -51,53 +69,33 @@ class _BookDetailsState extends State<BookDetails> {
             ),
           ),
           actions: [
-            IconButton(
-              icon: Icon(
-                Icons.shopping_cart,
-                color: Colors.black,
-                size: 30,
-              ),
-              onPressed: () {
-                Get.to(CartScreen());
-              },
-            ),
-            // Padding(
-            //   padding: const EdgeInsets.all(8.0),
-            //   child: InkWell(
-            //     onTap: () {
-            //       showDialog(
-            //         barrierColor: Colors.black26,
-            //         context: context,
-            //         builder: (context) {
-            //           return AddReviewDialog();
-            //         },
-            //       );
-            //     },
-            //     child: Container(
-            //       height: 30,
-            //       width: 45,
-            //       decoration: BoxDecoration(
-            //         borderRadius: BorderRadius.circular(40),
-            //         color: white,
-            //         boxShadow: [
-            //           BoxShadow(
-            //             color: Colors.grey.withOpacity(0.5),
-            //             spreadRadius: 3,
-            //             blurRadius: 3,
-            //             offset: Offset(4, 4),
-            //           ),
-            //         ],
-            //       ),
-            //       child: Center(
-            //         child: Icon(
-            //           Icons.add_box,
-            //           size: 30,
-            //           color: Colors.black,
-            //         ),
-            //       ),
-            //     ),
-            //   ),
-            // )
+            Obx(() {
+              if (cartController.isLoading.value) {
+                return Offstage();
+              } else {
+                return Padding(
+                  padding: EdgeInsets.only(top: 8),
+                  child: Badge(
+                    position: BadgePosition.topEnd(),
+                    badgeContent:
+                        Text(cartController.totalItem.value.toString()),
+                    child: InkWell(
+                      child: Icon(
+                        Icons.shopping_cart,
+                        color: Colors.black,
+                        size: 30,
+                      ),
+                      onTap: () {
+                        Get.to(CartScreen());
+                      },
+                    ),
+                  ),
+                );
+              }
+            }),
+            SizedBox(
+              width: 15,
+            )
           ],
         ),
         extendBodyBehindAppBar: true,
@@ -109,7 +107,16 @@ class _BookDetailsState extends State<BookDetails> {
                 height: 250,
                 width: double.infinity,
                 child: ClipRRect(
-                  child: Image.asset(widget.img, fit: BoxFit.fill),
+                  child: CachedNetworkImage(
+                    imageUrl: widget.img,
+                    height: 250,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                    placeholder: (context, val) => Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                    errorWidget: (context, url, error) => Icon(Icons.image),
+                  ),
                 ),
               ),
             ),
@@ -125,12 +132,14 @@ class _BookDetailsState extends State<BookDetails> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            widget.name,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 22,
-                                fontFamily: 'product'),
+                          Expanded(
+                            child: Text(
+                              widget.name,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 22,
+                                  fontFamily: 'product'),
+                            ),
                           ),
                           Text(
                             "Rs. 450",
@@ -155,7 +164,7 @@ class _BookDetailsState extends State<BookDetails> {
                         height: 10,
                       ),
                       Text(
-                        "Judith Blume is an American writer of children's, young adult and adult fiction. Blume began writing in 1959 and has published more than 25 novels. Among her best-known works are Are You There God? It's Me, Margaret, Tales of a Fourth Grade Nothing, Deenie, and Blubber.",
+                        widget.subText,
                         style: TextStyle(
                           fontFamily: 'circe',
                           fontSize: 12,
@@ -207,7 +216,9 @@ class _BookDetailsState extends State<BookDetails> {
             ),
             InkWell(
               onTap: () {
-                Get.to(CartScreen());
+                CartModel cart = CartModel(
+                    quantity: 1, product_id: widget.bookId.toString());
+                cartController.insert(cart);
               },
               child: Container(
                 color: Colors.white,

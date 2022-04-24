@@ -2,16 +2,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class MyHelper {
   static saveLoginDetails(
-      {String token,
-      String email,
-      String userId,
-      String phone,
-      String name}) async {
+      {String token, String email, String userId, String name}) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.setBool("logggedIn", true);
     preferences.setString("token", token);
     preferences.setString("email", email);
-    preferences.setString("phone", phone);
     preferences.setString("name", name);
     preferences.setString("user_id", userId);
     return true;
@@ -28,9 +22,15 @@ class MyHelper {
     return preferences.getBool("logggedIn") ?? false;
   }
 
+  static saveTokens({loginToken, authToken}) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString("token", loginToken);
+    preferences.setString("authToken", authToken);
+  }
+
   static Future<String> getToken() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return preferences.getString("token") ?? "";
+    return preferences.getString("token") ?? null;
   }
 
   static clear() async {

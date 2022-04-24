@@ -43,7 +43,7 @@ class CreateOrderController extends GetxController {
     var data = {
       "payment_method": methodId,
       "payment_method_title": paymentMethodTitle,
-      "set_paid": "true",
+      "set_paid": true,
       "billing": {
         "first_name": firstName,
         "last_name": lastName,
@@ -53,7 +53,7 @@ class CreateOrderController extends GetxController {
         "state": state,
         "postcode": postCode,
         "country": country,
-        "email": email,
+        "email": "niazm1225@gmail.com",
         "phone": phone
       },
       "shipping": {
@@ -91,11 +91,17 @@ class CreateOrderController extends GetxController {
         },
       ],
       "shipping_lines": [
-        {"method_id": methodId, "method_title": methodTitle, "total": total}
+        {
+          "method_id": "flat_rate",
+          "method_title": "Flat Rate",
+          "total": total.toString()
+        }
       ]
     };
+
+    print(" sending data is:  ${jsonEncode(data)}");
     var detail = await APIService().postRequest(
-        apiName: makeOrder, isJson: false, mapData: data, isAuth: false);
+        apiName: makeOrder + "", isJson: true, mapData: data, isAuth: false);
     print(' api response is: ${detail}');
 
     if (detail != null) {

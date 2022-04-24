@@ -370,7 +370,7 @@ class _CheckOutState extends State<CheckOut> {
                             state: state.text,
                             total: widget.totalPrice,
                             methodId: "cod",
-                            methodTitle: "Cash on delivery",
+                            methodTitle: "Flat Rate",
                             paymentMethodTitle: "Cash on delivery");
                       }
                     },
@@ -418,6 +418,7 @@ class _CheckOutState extends State<CheckOut> {
         ),
         autofocus: false,
         obscureText: false,
+        controller: controller,
         decoration: InputDecoration(
           labelText: labelText,
           focusedBorder: OutlineInputBorder(

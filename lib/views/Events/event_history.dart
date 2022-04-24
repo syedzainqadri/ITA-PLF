@@ -35,7 +35,8 @@ class _EventsHistoryState extends State<EventsHistory> {
           },
         ),
       ),
-      body: widget.eventHistoryModel.isNotEmpty
+      body: widget.eventHistoryModel != null &&
+              widget.eventHistoryModel.isNotEmpty
           ? ListView.builder(
               itemCount: widget.eventHistoryModel.length,
               itemBuilder: (context, index) {
