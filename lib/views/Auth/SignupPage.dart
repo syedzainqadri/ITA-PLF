@@ -1,3 +1,5 @@
+// ignore_for_file: missing_return
+
 import 'package:PLF/controllers/create_user.dart';
 import 'package:PLF/controllers/events_controller.dart';
 import 'package:PLF/models/userModel.dart';
@@ -49,10 +51,13 @@ class _SignupPageState extends State<SignupPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    ClipRect(
-                      child: Container(
-                          height: 200,
-                          child: Image.asset('asset/images/logo.png')),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20.0, bottom: 20),
+                      child: ClipRect(
+                        child: Container(
+                            height: 100,
+                            child: Image.asset('asset/images/logo.png')),
+                      ),
                     ),
                     Form(
                       key: _formKey,
@@ -86,6 +91,7 @@ class _SignupPageState extends State<SignupPage> {
                             Padding(
                               padding: EdgeInsets.only(left: 20, right: 20),
                               child: TextFormField(
+                                // ignore: missing_return
                                 validator: (val) {
                                   if (val.isEmpty || val == null) {
                                     return " password not valid";
@@ -151,91 +157,91 @@ class _SignupPageState extends State<SignupPage> {
                                     fillColor: white),
                               ),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 20.0),
-                                  child: Checkbox(
-                                    value: notAnITAStudent,
-                                    onChanged: _onNotAnITAStudentChanged,
-                                  ),
-                                ),
-                                Text('Not An ITA Student'),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  right: 20.0, left: 20.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: white,
-                                    border: Border.all(width: 0.5),
-                                    borderRadius: BorderRadius.circular(10)),
-                                height: 60,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Icon(Icons.menu),
-                                    Text('Please select your District'),
-                                    DropdownButton<String>(
-                                      items: <String>[
-                                        'Lahore',
-                                        'Kasur',
-                                        'Shaikhupura',
-                                        'Lodhran'
-                                      ].map((String value) {
-                                        return DropdownMenuItem<String>(
-                                          value: value,
-                                          child: Text(value),
-                                        );
-                                      }).toList(),
-                                      onChanged: (_) {},
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  right: 20.0, left: 20.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: white,
-                                    border: Border.all(width: 0.5),
-                                    borderRadius: BorderRadius.circular(10)),
-                                height: 60,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Icon(Icons.menu),
-                                    Text('Please select your School'),
-                                    DropdownButton<String>(
-                                      items: <String>[
-                                        'School Name 1',
-                                        'School Name 2',
-                                        'School Name 3',
-                                        'School Name 4'
-                                      ].map((String value) {
-                                        return DropdownMenuItem<String>(
-                                          value: value,
-                                          child: Text(value),
-                                        );
-                                      }).toList(),
-                                      onChanged: (_) {},
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.start,
+                            //   children: [
+                            //     Padding(
+                            //       padding: const EdgeInsets.only(left: 20.0),
+                            //       child: Checkbox(
+                            //         value: notAnITAStudent,
+                            //         onChanged: _onNotAnITAStudentChanged,
+                            //       ),
+                            //     ),
+                            //     Text('Not An ITA Student'),
+                            //   ],
+                            // ),
+                            // SizedBox(
+                            //   height: 20,
+                            // ),
+                            // Padding(
+                            //   padding: const EdgeInsets.only(
+                            //       right: 20.0, left: 20.0),
+                            //   child: Container(
+                            //     decoration: BoxDecoration(
+                            //         color: white,
+                            //         border: Border.all(width: 0.5),
+                            //         borderRadius: BorderRadius.circular(10)),
+                            //     height: 60,
+                            //     child: Row(
+                            //       mainAxisAlignment:
+                            //           MainAxisAlignment.spaceEvenly,
+                            //       children: [
+                            //         Icon(Icons.menu),
+                            //         Text('Please select your District'),
+                            //         DropdownButton<String>(
+                            //           items: <String>[
+                            //             'Lahore',
+                            //             'Kasur',
+                            //             'Shaikhupura',
+                            //             'Lodhran'
+                            //           ].map((String value) {
+                            //             return DropdownMenuItem<String>(
+                            //               value: value,
+                            //               child: Text(value),
+                            //             );
+                            //           }).toList(),
+                            //           onChanged: (_) {},
+                            //         ),
+                            //       ],
+                            //     ),
+                            //   ),
+                            // ),
+                            // SizedBox(
+                            //   height: 20,
+                            // ),
+                            // Padding(
+                            //   padding: const EdgeInsets.only(
+                            //       right: 20.0, left: 20.0),
+                            //   child: Container(
+                            //     decoration: BoxDecoration(
+                            //         color: white,
+                            //         border: Border.all(width: 0.5),
+                            //         borderRadius: BorderRadius.circular(10)),
+                            //     height: 60,
+                            //     child: Row(
+                            //       mainAxisAlignment:
+                            //           MainAxisAlignment.spaceEvenly,
+                            //       children: [
+                            //         Icon(Icons.menu),
+                            //         Text('Please select your School'),
+                            //         DropdownButton<String>(
+                            //           items: <String>[
+                            //             'School Name 1',
+                            //             'School Name 2',
+                            //             'School Name 3',
+                            //             'School Name 4'
+                            //           ].map((String value) {
+                            //             return DropdownMenuItem<String>(
+                            //               value: value,
+                            //               child: Text(value),
+                            //             );
+                            //           }).toList(),
+                            //           onChanged: (_) {},
+                            //         ),
+                            //       ],
+                            //     ),
+                            //   ),
+                            // ),
                             SizedBox(
                               height: 20,
                             ),
