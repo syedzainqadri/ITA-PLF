@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:PLF/controllers/add_to_cart/add_to_cart.dart';
 import 'package:PLF/models/product.dart';
 import 'package:PLF/network/api_service.dart';
 import 'package:PLF/utils/url_paths.dart';
@@ -16,6 +17,7 @@ class LineItem {
 }
 
 class CreateOrderController extends GetxController {
+  var cartController = Get.put(CartController());
   var productsResponse = {}.obs;
 
   var isLoading = false.obs;
@@ -112,7 +114,8 @@ class CreateOrderController extends GetxController {
           "Basic Y2tfNTQyNDFkODc1NjY2OTY1ODZlY2Q1NGIxZWQ3MmE3YzY5ZWIwN2Y4Njpjc19kN2RkMzFlZGJiMDEyNWZjMWM5ZTU0ZTk2YTY3MzFiNWQ5NmY3Nzg4",
       "consumer_secret": "cs_d7dd31edbb0125fc1c9e54e96a6731b5d96f7788",
       "consumer_key": "ck_54241d87566696586ecd54b1ed72a7c69eb07f86",
-      "nonce": nonceString
+      "host": "clfbooks.childrensliteraturefestival.com"
+      // "nonce": nonceString
     };
     var detail = await http
         .post(
@@ -130,6 +133,8 @@ class CreateOrderController extends GetxController {
         print(" order id is : ${resposeData["id"]} ");
         isLoading(false).obs;
         successSnackbar("${resposeData["Ordered Successfully"]}");
+        cartController.clearData();
+
         return resposeData;
       } catch (e) {
         isLoading(false).obs;

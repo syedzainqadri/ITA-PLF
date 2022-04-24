@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:PLF/models/cart_model.dart';
+import 'package:PLF/views/Home/Widgets/home_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sqflite/sqflite.dart';
@@ -75,6 +76,11 @@ create table $tablecart (
     print(" total count is:  $count");
     totalItem.value = count;
     isLoading(false).obs;
+  }
+
+  clearData() {
+    db.execute("delete from " + tablecart);
+    Get.offAll(HomeNavbar());
   }
 
   getCartItems() async {

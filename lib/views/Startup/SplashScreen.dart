@@ -14,7 +14,7 @@ class _SplashScreenState extends State<SplashScreen> {
   var token;
   getToken() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    token = preferences.getString("token");
+    token = preferences.getString("user_id");
   }
 
   @override

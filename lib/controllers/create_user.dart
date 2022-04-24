@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:PLF/config.dart';
 import 'package:PLF/helper/shared_preferences/shared_preferences.dart';
 import 'package:PLF/models/userModel.dart';
+import 'package:PLF/views/Home/Widgets/home_navbar.dart';
 import 'package:PLF/views/Startup/Onboarding.dart';
 import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
@@ -222,7 +223,7 @@ class RegisterController extends GetxController {
           email: email, name: userName, userId: resposeData["id"]);
     }
     isLoading(false).obs;
-    Get.offAll(OnBoardingPage());
+    Get.offAll(HomeNavbar());
     print(' register api response is: ${detail.body}');
   }
 }
