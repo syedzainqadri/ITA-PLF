@@ -16,7 +16,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: white,
+      backgroundColor: vibrantAmber,
       body: Obx(() {
         return LoadingOverlay(
           opacity: 0.3,
@@ -65,7 +65,7 @@ class LoginPage extends StatelessWidget {
                                     hintStyle:
                                         TextStyle(color: Colors.grey[800]),
                                     hintText: "Email",
-                                    fillColor: Colors.white70),
+                                    fillColor: white),
                               ),
                             ),
                             SizedBox(
@@ -89,7 +89,7 @@ class LoginPage extends StatelessWidget {
                                     hintStyle:
                                         TextStyle(color: Colors.grey[800]),
                                     hintText: "Password",
-                                    fillColor: Colors.white70),
+                                    fillColor: white),
                               ),
                             ),
                             SizedBox(
@@ -104,7 +104,8 @@ class LoginPage extends StatelessWidget {
                                     child: ElevatedButton(
                                       style: ButtonStyle(
                                         backgroundColor:
-                                            MaterialStateProperty.all(yellow),
+                                            MaterialStateProperty.all(
+                                                vibrantGreen),
                                         shape: MaterialStateProperty.all<
                                             RoundedRectangleBorder>(
                                           RoundedRectangleBorder(
@@ -114,15 +115,10 @@ class LoginPage extends StatelessWidget {
                                         ),
                                       ),
                                       onPressed: () {
-                                        if (_formKey.currentState.validate()) {
-                                          loginController.login(
-                                              userName: emailController.text,
-                                              password:
-                                                  passwordController.text);
-                                        }
+                                        Get.to(SignupPage());
                                       },
                                       child: Text(
-                                        'Login',
+                                        'SignUp',
                                         style: TextStyle(
                                             color: black,
                                             fontSize: 16,
@@ -140,7 +136,7 @@ class LoginPage extends StatelessWidget {
                                     child: ElevatedButton(
                                       style: ButtonStyle(
                                         backgroundColor:
-                                            MaterialStateProperty.all(darkBlue),
+                                            MaterialStateProperty.all(white),
                                         shape: MaterialStateProperty.all<
                                             RoundedRectangleBorder>(
                                           RoundedRectangleBorder(
@@ -150,11 +146,17 @@ class LoginPage extends StatelessWidget {
                                         ),
                                       ),
                                       onPressed: () {
-                                        Get.to(SignupPage());
+                                        if (_formKey.currentState.validate()) {
+                                          loginController.login(
+                                              userName: emailController.text,
+                                              password:
+                                                  passwordController.text);
+                                        }
                                       },
                                       child: Text(
-                                        'SignUp',
+                                        'SignIn',
                                         style: TextStyle(
+                                            color: black,
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold),
                                       ),

@@ -3,6 +3,8 @@ import 'package:PLF/views/Home/HomePage.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
+import '../views/Home/Widgets/home_navbar.dart';
+
 class LoginController extends GetxController {
   var productsResponse = {}.obs;
 
@@ -24,7 +26,7 @@ class LoginController extends GetxController {
     print(" response : ${detail.body}");
     if (detail.statusCode == 200) {
       final resposeData = jsonDecode(detail.body);
-      Get.to(HomePage());
+      Get.offAll(HomeNavbar());
     }
     isLoading(false).obs;
     print(' register api response is: ${detail.body}');

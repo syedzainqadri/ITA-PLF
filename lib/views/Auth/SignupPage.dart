@@ -20,10 +20,10 @@ class SignupPage extends StatefulWidget {
 class _SignupPageState extends State<SignupPage> {
   bool notAnITAStudent = false;
   var registerController = Get.put(RegisterController());
-  var emailController = TextEditingController();
-  var passwordController = TextEditingController();
-  var firstNameController = TextEditingController();
-  var lastNameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
   void _onNotAnITAStudentChanged(bool newValue) => setState(() {
         notAnITAStudent = newValue;
 
@@ -37,6 +37,7 @@ class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: vibrantAmber,
       body: Obx(() {
         return LoadingOverlay(
           isLoading: registerController.isLoading.value,
@@ -45,33 +46,38 @@ class _SignupPageState extends State<SignupPage> {
           ),
           opacity: 0.3,
           child: SafeArea(
-            child: SingleChildScrollView(
-              child: Container(
-                color: backgroundColor,
+            child: Center(
+              child: SingleChildScrollView(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20.0, bottom: 20),
-                      child: ClipRect(
-                        child: Container(
-                            height: 100,
-                            child: Image.asset('asset/images/logo.png')),
-                      ),
-                    ),
-                    Form(
-                      key: _formKey,
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                    Container(
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
                           children: [
                             Padding(
-                              padding: EdgeInsets.only(left: 20, right: 20),
+                              padding:
+                                  const EdgeInsets.only(top: 20.0, bottom: 20),
+                              child: ClipRect(
+                                child: Container(
+                                    height: 100,
+                                    child:
+                                        Image.asset('asset/images/logo.png')),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 50,
+                            ),
+                            Padding(
+                              padding:
+                                  EdgeInsets.only(left: 20, right: 20, top: 20),
                               child: TextFormField(
                                 controller: emailController,
                                 // ignore: missing_return
                                 validator: (val) {
                                   if (val.isEmpty || val == null) {
-                                    return " email required";
+                                    return " field required";
                                   }
                                 },
                                 decoration: InputDecoration(
@@ -89,15 +95,18 @@ class _SignupPageState extends State<SignupPage> {
                               height: 20,
                             ),
                             Padding(
-                              padding: EdgeInsets.only(left: 20, right: 20),
+                              padding: EdgeInsets.only(
+                                left: 20,
+                                right: 20,
+                              ),
                               child: TextFormField(
+                                controller: firstNameController,
                                 // ignore: missing_return
                                 validator: (val) {
                                   if (val.isEmpty || val == null) {
-                                    return " password not valid";
+                                    return " field required";
                                   }
                                 },
-                                controller: firstNameController,
                                 decoration: InputDecoration(
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.0),
@@ -105,7 +114,7 @@ class _SignupPageState extends State<SignupPage> {
                                     filled: true,
                                     hintStyle:
                                         TextStyle(color: Colors.grey[800]),
-                                    hintText: "first name",
+                                    hintText: "First Name",
                                     fillColor: white),
                               ),
                             ),
@@ -113,14 +122,18 @@ class _SignupPageState extends State<SignupPage> {
                               height: 20,
                             ),
                             Padding(
-                              padding: EdgeInsets.only(left: 20, right: 20),
+                              padding: EdgeInsets.only(
+                                left: 20,
+                                right: 20,
+                              ),
                               child: TextFormField(
+                                controller: lastNameController,
+                                // ignore: missing_return
                                 validator: (val) {
                                   if (val.isEmpty || val == null) {
-                                    return " field not valid";
+                                    return " field required";
                                   }
                                 },
-                                controller: lastNameController,
                                 decoration: InputDecoration(
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.0),
@@ -128,7 +141,7 @@ class _SignupPageState extends State<SignupPage> {
                                     filled: true,
                                     hintStyle:
                                         TextStyle(color: Colors.grey[800]),
-                                    hintText: "last name",
+                                    hintText: "Last Name",
                                     fillColor: white),
                               ),
                             ),
@@ -138,14 +151,13 @@ class _SignupPageState extends State<SignupPage> {
                             Padding(
                               padding: EdgeInsets.only(left: 20, right: 20),
                               child: TextFormField(
+                                controller: passwordController,
+                                // ignore: missing_return
                                 validator: (val) {
-                                  if (val.isEmpty ||
-                                      val == null ||
-                                      val.length < 6) {
-                                    return " password not valid";
+                                  if (val.isEmpty || val == null) {
+                                    return 'field required';
                                   }
                                 },
-                                controller: passwordController,
                                 decoration: InputDecoration(
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.0),
@@ -157,91 +169,6 @@ class _SignupPageState extends State<SignupPage> {
                                     fillColor: white),
                               ),
                             ),
-                            // Row(
-                            //   mainAxisAlignment: MainAxisAlignment.start,
-                            //   children: [
-                            //     Padding(
-                            //       padding: const EdgeInsets.only(left: 20.0),
-                            //       child: Checkbox(
-                            //         value: notAnITAStudent,
-                            //         onChanged: _onNotAnITAStudentChanged,
-                            //       ),
-                            //     ),
-                            //     Text('Not An ITA Student'),
-                            //   ],
-                            // ),
-                            // SizedBox(
-                            //   height: 20,
-                            // ),
-                            // Padding(
-                            //   padding: const EdgeInsets.only(
-                            //       right: 20.0, left: 20.0),
-                            //   child: Container(
-                            //     decoration: BoxDecoration(
-                            //         color: white,
-                            //         border: Border.all(width: 0.5),
-                            //         borderRadius: BorderRadius.circular(10)),
-                            //     height: 60,
-                            //     child: Row(
-                            //       mainAxisAlignment:
-                            //           MainAxisAlignment.spaceEvenly,
-                            //       children: [
-                            //         Icon(Icons.menu),
-                            //         Text('Please select your District'),
-                            //         DropdownButton<String>(
-                            //           items: <String>[
-                            //             'Lahore',
-                            //             'Kasur',
-                            //             'Shaikhupura',
-                            //             'Lodhran'
-                            //           ].map((String value) {
-                            //             return DropdownMenuItem<String>(
-                            //               value: value,
-                            //               child: Text(value),
-                            //             );
-                            //           }).toList(),
-                            //           onChanged: (_) {},
-                            //         ),
-                            //       ],
-                            //     ),
-                            //   ),
-                            // ),
-                            // SizedBox(
-                            //   height: 20,
-                            // ),
-                            // Padding(
-                            //   padding: const EdgeInsets.only(
-                            //       right: 20.0, left: 20.0),
-                            //   child: Container(
-                            //     decoration: BoxDecoration(
-                            //         color: white,
-                            //         border: Border.all(width: 0.5),
-                            //         borderRadius: BorderRadius.circular(10)),
-                            //     height: 60,
-                            //     child: Row(
-                            //       mainAxisAlignment:
-                            //           MainAxisAlignment.spaceEvenly,
-                            //       children: [
-                            //         Icon(Icons.menu),
-                            //         Text('Please select your School'),
-                            //         DropdownButton<String>(
-                            //           items: <String>[
-                            //             'School Name 1',
-                            //             'School Name 2',
-                            //             'School Name 3',
-                            //             'School Name 4'
-                            //           ].map((String value) {
-                            //             return DropdownMenuItem<String>(
-                            //               value: value,
-                            //               child: Text(value),
-                            //             );
-                            //           }).toList(),
-                            //           onChanged: (_) {},
-                            //         ),
-                            //       ],
-                            //     ),
-                            //   ),
-                            // ),
                             SizedBox(
                               height: 20,
                             ),
@@ -254,7 +181,8 @@ class _SignupPageState extends State<SignupPage> {
                                     child: ElevatedButton(
                                       style: ButtonStyle(
                                         backgroundColor:
-                                            MaterialStateProperty.all(yellow),
+                                            MaterialStateProperty.all(
+                                                vibrantGreen),
                                         shape: MaterialStateProperty.all<
                                             RoundedRectangleBorder>(
                                           RoundedRectangleBorder(
@@ -267,7 +195,7 @@ class _SignupPageState extends State<SignupPage> {
                                         Get.to(LoginPage());
                                       },
                                       child: Text(
-                                        'Login',
+                                        'SignIn',
                                         style: TextStyle(
                                             color: black,
                                             fontSize: 16,
@@ -285,7 +213,7 @@ class _SignupPageState extends State<SignupPage> {
                                     child: ElevatedButton(
                                       style: ButtonStyle(
                                         backgroundColor:
-                                            MaterialStateProperty.all(darkBlue),
+                                            MaterialStateProperty.all(white),
                                         shape: MaterialStateProperty.all<
                                             RoundedRectangleBorder>(
                                           RoundedRectangleBorder(
@@ -296,16 +224,11 @@ class _SignupPageState extends State<SignupPage> {
                                       ),
                                       onPressed: () {
                                         if (_formKey.currentState.validate()) {
-                                          var model = UserModel(
-                                              email: emailController.text,
-                                              firstName:
-                                                  firstNameController.text,
-                                              lastName: lastNameController.text,
-                                              password:
-                                                  passwordController.text);
                                           registerController.createUser(
+                                              userName:
+                                                  firstNameController.text +
+                                                      lastNameController.text,
                                               email: emailController.text,
-                                              userName: emailController.text,
                                               password:
                                                   passwordController.text);
                                         }
@@ -313,6 +236,7 @@ class _SignupPageState extends State<SignupPage> {
                                       child: Text(
                                         'SignUp',
                                         style: TextStyle(
+                                            color: black,
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold),
                                       ),
@@ -320,8 +244,10 @@ class _SignupPageState extends State<SignupPage> {
                                   ),
                                 ),
                               ],
-                            )
-                          ]),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ],
                 ),

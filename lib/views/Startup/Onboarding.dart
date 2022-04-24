@@ -15,12 +15,13 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.network('')
+    _controller = VideoPlayerController.network(
+        'https://ewigsoldocs.awsapps.com/workdocs/index.html#/share/document/e9693b04ec1fef32f40c958e16aa45da897c59ca3f7bf2cf1bf3e3b08e8550eb')
       ..initialize().then((_) {
         setState(() {
           _controller.play();
           _controller.setLooping(true);
-          _controller.setVolume(0.0);
+          _controller.setVolume(1.0);
         });
       });
   }
@@ -34,12 +35,12 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: vibrantAmber,
         body: Column(
           children: [
             Container(
               height: MediaQuery.of(context).size.height * 0.35,
               width: MediaQuery.of(context).size.width,
-              color: backgroundColor,
               child: _controller.value.isInitialized
                   ? AspectRatio(
                       aspectRatio: _controller.value.aspectRatio,
@@ -49,39 +50,20 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                       child: Icon(
                       Icons.play_arrow,
                       size: 70,
-                      color: Colors.white,
+                      color: vibrantPink,
                     )),
             ),
-            // Expanded(
-            //   child: Center(
-            //     child: _chewieController != null &&
-            //             _chewieController
-            //                 .videoPlayerController.value.initialized
-            //         ? Chewie(
-            //             controller: _chewieController,
-            //           )
-            //         : Column(
-            //             mainAxisAlignment: MainAxisAlignment.center,
-            //             children: const [
-            //               CircularProgressIndicator(),
-            //               SizedBox(height: 20),
-            //               Text('Loading'),
-            //             ],
-            //           ),
-            //   ),
-            // ),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              color: backgroundColor,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   InkWell(
                     onTap: () {
-                      openHomePage();
-                      setState(() {
-                        _controller.pause();
+                      setState(() async {
+                        await _controller.pause();
                       });
+                      Get.offAll(HomePage());
                     },
                     child: Text(
                       "Skip",
@@ -94,17 +76,8 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                 ],
               ),
             ),
-            // Container(
-            //   width: MediaQuery.of(context).size.width,
-            //   height: MediaQuery.of(context).size.height * 0.4,
-            //   decoration: BoxDecoration(
-            //       image: DecorationImage(
-            //           image: AssetImage('asset/images/splash.png'),
-            //           fit: BoxFit.contain)),
-            // ),
             Expanded(
               child: Container(
-                color: backgroundColor,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -148,10 +121,10 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                           ),
                           child: IconButton(
                             onPressed: () {
-                              openHomePage();
-                              setState(() {
-                                _controller.pause();
+                              setState(() async {
+                                await _controller.pause();
                               });
+                              Get.offAll(HomePage());
                             },
                             icon: Icon(
                               Icons.arrow_forward_ios,
@@ -169,9 +142,5 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         ),
       ),
     );
-  }
-
-  void openHomePage() {
-    Navigator.pushNamed(context, '/HomePage');
   }
 }
