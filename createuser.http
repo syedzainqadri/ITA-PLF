@@ -1,0 +1,17 @@
+## user sign up api
+
+POST https://clf.ewigsol.com/wp-json/wc/v3/customers HTTP/1.1
+# Content-Type: application/x-www-form-urlencoded
+Authorization: Basic Y2tfNTQyNDFkODc1NjY2OTY1ODZlY2Q1NGIxZWQ3MmE3YzY5ZWIwN2Y4Njpjc19kN2RkMzFlZGJiMDEyNWZjMWM5ZTU0ZTk2YTY3MzFiNWQ5NmY3Nzg4
+# Content-Type: application/json
+# consumer_key: ck_54241d87566696586ecd54b1ed72a7c69eb07f86
+# consumer_secret: ck_54241d87566696586ecd54b1ed72a7c69eb07f86
+# Host: clf.ewigsol.com
+Host: clf.ewigsol.com
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 61
+
+From: username: zainsyed, password:123456, email: hr@ewigsol.com
+
+
+

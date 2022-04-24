@@ -12,7 +12,10 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+<<<<<<< Updated upstream
   // This widget is the root of your application.
+=======
+>>>>>>> Stashed changes
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
