@@ -103,7 +103,7 @@ class LoginPage extends StatelessWidget {
                                       // Get.to(OnBoardingPage());
                                       if (_formKey.currentState.validate()) {
                                         loginController.login(
-                                            email: email.text,
+                                            userName: email.text,
                                             password: password.text);
                                       }
                                     },

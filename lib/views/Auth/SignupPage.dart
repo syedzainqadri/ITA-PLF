@@ -1,5 +1,6 @@
 import 'package:PLF/controllers/create_user.dart';
 import 'package:PLF/controllers/events_controller.dart';
+import 'package:PLF/models/userModel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:PLF/utils/ColorScheme.dart';
@@ -19,7 +20,8 @@ class _SignupPageState extends State<SignupPage> {
   var registerController = Get.put(RegisterController());
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
-  var userNameController = TextEditingController();
+  var firstNameController = TextEditingController();
+  var lastNameController = TextEditingController();
   void _onNotAnITAStudentChanged(bool newValue) => setState(() {
         notAnITAStudent = newValue;
 
@@ -75,6 +77,52 @@ class _SignupPageState extends State<SignupPage> {
                                     hintStyle:
                                         TextStyle(color: Colors.grey[800]),
                                     hintText: "Email",
+                                    fillColor: white),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 20, right: 20),
+                              child: TextFormField(
+                                validator: (val) {
+                                  if (val.isEmpty || val == null) {
+                                    return " password not valid";
+                                  }
+                                },
+                                controller: firstNameController,
+                                decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    filled: true,
+                                    hintStyle:
+                                        TextStyle(color: Colors.grey[800]),
+                                    hintText: "first name",
+                                    fillColor: white),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 20, right: 20),
+                              child: TextFormField(
+                                validator: (val) {
+                                  if (val.isEmpty || val == null) {
+                                    return " field not valid";
+                                  }
+                                },
+                                controller: lastNameController,
+                                decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    filled: true,
+                                    hintStyle:
+                                        TextStyle(color: Colors.grey[800]),
+                                    hintText: "last name",
                                     fillColor: white),
                               ),
                             ),
@@ -242,11 +290,18 @@ class _SignupPageState extends State<SignupPage> {
                                       ),
                                       onPressed: () {
                                         if (_formKey.currentState.validate()) {
+                                          var model = UserModel(
+                                              email: emailController.text,
+                                              firstName:
+                                                  firstNameController.text,
+                                              lastName: lastNameController.text,
+                                              password:
+                                                  passwordController.text);
                                           registerController.createUser(
-                                            email: emailController.text,
-                                            password: passwordController.text,
-                                            userName: emailController.text,
-                                          );
+                                              email: emailController.text,
+                                              userName: emailController.text,
+                                              password:
+                                                  passwordController.text);
                                         }
                                       },
                                       child: Text(

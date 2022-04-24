@@ -1,10 +1,8 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MyHelper {
-  static saveLoginDetails(
-      {String token, String email, String userId, String name}) async {
+  static saveLoginDetails({String email, String userId, String name}) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.setString("token", token);
     preferences.setString("email", email);
     preferences.setString("name", name);
     preferences.setString("user_id", userId);

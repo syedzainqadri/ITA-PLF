@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:PLF/models/product.dart';
 import 'package:PLF/network/api_service.dart';
 import 'package:PLF/utils/url_paths.dart';
+import 'package:http/http.dart' as http;
 import 'package:PLF/widgets/custom_snackbar.dart';
 import 'package:get/get.dart';
 
@@ -100,13 +101,31 @@ class CreateOrderController extends GetxController {
     };
 
     print(" sending data is:  ${jsonEncode(data)}");
-    var detail = await APIService().postRequest(
-        apiName: makeOrder + "", isJson: true, mapData: data, isAuth: false);
-    print(' api response is: ${detail}');
+    var nonce = await http.get(Uri.parse(
+        "https://clfbooks.childrensliteraturefestival.com/api/get_nonce/?json=get_nonce&controller=user&method=register"));
+    final responseNonce = jsonDecode(nonce.body.toString());
+    var nonceString = responseNonce["nonce"];
+    print(" nonce is :$nonceString");
+    var headers = {
+      "Content-Type": "application/json",
+      "Authorization":
+          "Basic Y2tfNTQyNDFkODc1NjY2OTY1ODZlY2Q1NGIxZWQ3MmE3YzY5ZWIwN2Y4Njpjc19kN2RkMzFlZGJiMDEyNWZjMWM5ZTU0ZTk2YTY3MzFiNWQ5NmY3Nzg4",
+      "consumer_secret": "cs_d7dd31edbb0125fc1c9e54e96a6731b5d96f7788",
+      "consumer_key": "ck_54241d87566696586ecd54b1ed72a7c69eb07f86",
+      "nonce": nonceString
+    };
+    var detail = await http
+        .post(
+            Uri.parse(
+                "https://clfbooks.childrensliteraturefestival.com/wp-json/wc/v3/orders"),
+            body: jsonEncode(data),
+            headers: headers)
+        .timeout(const Duration(seconds: 30));
+    print(' api response is: ${detail.body}');
 
     if (detail != null) {
       try {
-        final resposeData = jsonDecode(detail);
+        final resposeData = jsonDecode(detail.body);
 
         print(" order id is : ${resposeData["id"]} ");
         isLoading(false).obs;
