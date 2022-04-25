@@ -46,6 +46,7 @@ dependencies:
   path_provider: ^2.0.9
   flutter_cart: ^0.0.7
   dio: ^3.0.10
+  flutter_html:
 
 
 # For information on the generic Dart part of this file, see the

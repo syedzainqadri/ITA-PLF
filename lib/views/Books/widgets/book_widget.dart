@@ -8,9 +8,11 @@ import 'package:get/get.dart';
 import '../book_details.dart';
 
 class BookWidget extends StatefulWidget {
-  final img, name, color, darkBlue, bookId, context;
+  final img, name, color, darkBlue, bookId, context, price, subText;
   const BookWidget(
       {Key key,
+      this.subText,
+      this.price,
       this.img,
       this.name,
       this.color,
@@ -30,8 +32,8 @@ class _BookWidgetState extends State<BookWidget> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(BookDetails(widget.img, widget.name,
-            "Judith Blume is an American writer of children's, young adult and adult fiction. Blume began writing in 1959 and has published more than 25 novels. Among her best-known works are Are You There God? It's Me, Margaret, Tales of a Fourth Grade Nothing, Deenie, and Blubber"));
+        Get.to(
+            BookDetails(widget.img, widget.name, widget.subText, widget.price));
       },
       child: Container(
         // height: MediaQuery.of(context).size.height * .7,

@@ -20,18 +20,18 @@ class _AllUpcomingEventsState extends State<AllUpcomingEvents> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: vibrantAmber,
         appBar: AppBar(
           title: Text(
             "Upcoming Events",
-            style: TextStyle(color: Color.fromARGB(255, 34, 33, 33)),
+            style: TextStyle(color: white),
           ),
           elevation: 0.0,
-          backgroundColor: white,
+          backgroundColor: vibrantBlue,
           leading: IconButton(
             icon: Icon(
               Icons.arrow_back,
-              color: black,
+              color: white,
               size: 30,
             ),
             onPressed: () {
@@ -58,7 +58,8 @@ class _AllUpcomingEventsState extends State<AllUpcomingEvents> {
                             }));
                   },
                   child: Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10.0, horizontal: 20),
                     child: Image.network(
                         "https://childrensliteraturefestival.com/wp-content/uploads/2021/03/Peace-ing_Together.gif"),
                   )),
@@ -70,7 +71,7 @@ class _AllUpcomingEventsState extends State<AllUpcomingEvents> {
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: const EdgeInsets.only(
-                                top: 5.0, right: 10, left: 10),
+                                top: 5.0, right: 20, left: 20),
                             child: eventHistoryWidget(
                                 widget.eventModel[index].url,
                                 widget.eventModel[index].name,

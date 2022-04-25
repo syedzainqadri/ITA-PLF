@@ -1,5 +1,6 @@
 import 'package:PLF/views/Cart/cart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:PLF/utils/ColorScheme.dart';
 import '../../controllers/add_to_cart.dart';
@@ -7,8 +8,8 @@ import '../../controllers/add_to_cart/add_to_cart.dart';
 import '../../models/cart_model.dart';
 
 class BookDetails extends StatefulWidget {
-  String img, name, subText, bookId;
-  BookDetails(this.img, this.name, this.subText);
+  String img, name, subText, price, bookId;
+  BookDetails(this.img, this.name, this.subText, @required this.price);
   @override
   _BookDetailsState createState() => _BookDetailsState();
 }
@@ -104,7 +105,7 @@ class _BookDetailsState extends State<BookDetails> {
                       height: 10,
                     ),
                     Text(
-                      "Rs. 450",
+                      widget.price,
                       style: TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: 17,
@@ -124,13 +125,9 @@ class _BookDetailsState extends State<BookDetails> {
                     SizedBox(
                       height: 10,
                     ),
-                    Text(
-                      "Judith Blume is an American writer of children's, young adult and adult fiction. Blume began writing in 1959 and has published more than 25 novels. Among her best-known works are Are You There God? It's Me, Margaret, Tales of a Fourth Grade Nothing, Deenie, and Blubber.",
-                      style: TextStyle(
-                        fontFamily: 'circe',
-                        fontSize: 12,
-                      ),
-                    ),
+                    Container(
+                        height: 200,
+                        child: Html(data: widget.subText, style: {})),
                     SizedBox(
                       height: 20,
                     ),

@@ -20,7 +20,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor,
+      backgroundColor: vibrantAmber,
       appBar: AppBar(
         backgroundColor: vibrantBlue,
         title: Text(
@@ -139,7 +139,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                 itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
                 itemBuilder: (context, _) => Icon(
                   Icons.star,
-                  color: Colors.amber,
+                  color: white,
                 ),
                 onRatingUpdate: (rating) {
                   print(rating);

@@ -137,6 +137,8 @@ class _BookStoreState extends State<BookStore> {
                                   darkBlue: vibrantPurple,
                                   context: context,
                                   bookId: products[index]["id"],
+                                  subText: products[index]['description'],
+                                  price: products[index]['price'],
                                 );
                               }),
                         )

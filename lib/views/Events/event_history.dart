@@ -16,18 +16,18 @@ class _EventsHistoryState extends State<EventsHistory> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: vibrantAmber,
       appBar: AppBar(
         title: Text(
           "Events History",
-          style: TextStyle(color: Color.fromARGB(255, 34, 33, 33)),
+          style: TextStyle(color: white),
         ),
         elevation: 0.0,
-        backgroundColor: white,
+        backgroundColor: vibrantBlue,
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: black,
+            color: white,
             size: 30,
           ),
           onPressed: () {
@@ -40,7 +40,7 @@ class _EventsHistoryState extends State<EventsHistory> {
               itemCount: widget.eventHistoryModel.length,
               itemBuilder: (context, index) {
                 return Padding(
-                  padding: const EdgeInsets.only(top: 5.0, left: 10, right: 10),
+                  padding: const EdgeInsets.only(top: 5.0, left: 20, right: 20),
                   child: eventHistoryWidget(
                     widget.eventHistoryModel[index].url,
                     widget.eventHistoryModel[index].name,

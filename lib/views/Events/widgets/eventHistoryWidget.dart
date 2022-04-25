@@ -15,7 +15,7 @@ InkWell eventHistoryWidget(String img, String name, String subText,
       height: MediaQuery.of(context).size.width * 0.3,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(10)),
-        color: vibrantPink,
+        color: white,
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.2),

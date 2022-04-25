@@ -19,7 +19,7 @@ InkWell eventWidget(
         height: MediaQuery.of(context).size.height / 1,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10)),
-          color: vibrantAmber,
+          color: white,
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.2),
