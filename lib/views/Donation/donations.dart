@@ -33,209 +33,168 @@ class _DonationsScreenState extends State<DonationsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor,
-      // appBar: AppBar(
-      //   backgroundColor: Colors.white,
-      //   foregroundColor: Colors.black,
-      //   title: Text("Donation"),
-      //   centerTitle: true,
-      //   elevation: 0,
-      // ),
-      body: SafeArea(
-        child: Container(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              PageRouteBuilder(
-                                  opaque: false,
-                                  pageBuilder: (context, _, __) {
-                                    return WebViewPage(
-                                        title: "Ad", url: UrlBase.baseWebURL);
-                                  },
-                                  transitionsBuilder:
-                                      (_, __, ___, Widget child) {
-                                    return child;
-                                  }));
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Image.network(
-                              "https://childrensliteraturefestival.com/wp-content/uploads/2021/03/Peace-ing_Together.gif"),
-                        )),
-                  ),
-                  SizedBox(height: 20),
-                  Padding(
-                    padding: EdgeInsets.only(left: 20, right: 20),
-                    child: TextField(
-                      controller: nameController,
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          filled: true,
-                          hintStyle: TextStyle(color: Colors.grey[800]),
-                          hintText: "Full Name",
-                          fillColor: Colors.white70),
+      backgroundColor: vibrantAmber,
+      body: Container(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            PageRouteBuilder(
+                                opaque: false,
+                                pageBuilder: (context, _, __) {
+                                  return WebViewPage(
+                                      title: "Ad", url: UrlBase.baseWebURL);
+                                },
+                                transitionsBuilder: (_, __, ___, Widget child) {
+                                  return child;
+                                }));
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Image.network(
+                            "https://childrensliteraturefestival.com/wp-content/uploads/2021/03/Peace-ing_Together.gif"),
+                      )),
+                ),
+                SizedBox(height: 20),
+                Padding(
+                  padding: EdgeInsets.only(left: 20, right: 20),
+                  child: TextFormField(
+                    controller: nameController,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: "Full Name",
+                      filled: true,
+                      fillColor: white,
                     ),
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 20.0, left: 20.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(),
-                          borderRadius: BorderRadius.circular(10)),
-                      height: 60,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Icon(Icons.menu),
-                          Text('Project'),
-                          DropdownButton<String>(
-                            items: <String>[
-                              'YAA',
-                              'Incredible Libraries',
-                              'Online Book Club',
-                              'Story Bytes',
-                              'Art & Craft Therapy',
-                              'Digital Learning Festival',
-                              'PLP Publications',
-                            ].map((String value) {
-                              return DropdownMenuItem<String>(
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 20.0, left: 20.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: white,
+                        border: Border.all(
+                          color: white,
+                        ),
+                        borderRadius: BorderRadius.circular(0)),
+                    height: 60,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        // Icon(Icons.menu),
+                        // Text('Project'),
+                        DropdownButton<String>(
+                          dropdownColor: vibrantOrange,
+                          autofocus: true,
+                          hint: Text('Please select a Project'),
+                          items: <String>[
+                            'YAA',
+                            'Incredible Libraries',
+                            'Online Book Club',
+                            'Story Bytes',
+                            'Art & Craft Therapy',
+                            'Digital Learning Festival',
+                            'PLP Publications',
+                          ].map((String value) {
+                            return DropdownMenuItem<String>(
+                                enabled: true,
                                 value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                            onChanged: (value) {
-                              setState(() {
-                                selectedProject = value;
-                              });
-                            },
-                          ),
-                        ],
-                      ),
+                                child: Text(
+                                  value,
+                                  style: TextStyle(color: white, fontSize: 18),
+                                ));
+                          }).toList(),
+                          onChanged: (value) {
+                            setState(() {
+                              selectedProject = value;
+                            });
+                            print(selectedProject);
+                          },
+                        ),
+                      ],
                     ),
                   ),
-                  SizedBox(
-                    height: 20,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 20, right: 20),
+                  child: TextField(
+                    controller: amountController,
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        filled: true,
+                        // hintStyle: TextStyle(color: Colors.grey[800]),
+                        hintText: "Ammount",
+                        fillColor: white),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 20, right: 20),
-                    child: TextField(
-                      controller: amountController,
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          filled: true,
-                          hintStyle: TextStyle(color: Colors.grey[800]),
-                          hintText: "Ammount",
-                          fillColor: Colors.white70),
-                    ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 20, right: 20),
+                  child: TextField(
+                    controller: cityController,
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        filled: true,
+                        // hintStyle: TextStyle(color: Colors.grey[800]),
+                        hintText: "City",
+                        fillColor: white),
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 20, right: 20),
-                    child: TextField(
-                      controller: cityController,
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          filled: true,
-                          hintStyle: TextStyle(color: Colors.grey[800]),
-                          hintText: "City",
-                          fillColor: Colors.white70),
-                    ),
-                  ),
-                  // SizedBox(
-                  //   height: 20,
-                  // ),
-                  // Padding(
-                  //   padding: const EdgeInsets.only(right: 20.0, left: 20.0),
-                  //   child: Container(
-                  //     decoration: BoxDecoration(
-                  //         color: Colors.white,
-                  //         border: Border.all(),
-                  //         borderRadius: BorderRadius.circular(10)),
-                  //     height: 60,
-                  //     child: Row(
-                  //       mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  //       children: [
-                  //         Icon(Icons.menu),
-                  //         Text('Payment Method'),
-                  //         DropdownButton<String>(
-                  //           items: <String>[
-                  //             'Bank Account',
-                  //             'Jazz Cash',
-                  //             'EasyPaisa',
-                  //           ].map((String value) {
-                  //             return DropdownMenuItem<String>(
-                  //               value: value,
-                  //               child: Text(value),
-                  //             );
-                  //           }).toList(),
-                  //           onChanged: (_) {},
-                  //         ),
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
-                  SizedBox(
-                    height: 50,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      showDialog(
-                        barrierColor: Colors.black26,
-                        context: context,
-                        builder: (context) {
-                          return DonateDialog(
-                              name: nameController.text.trim(),
-                              project: selectedProject,
-                              amount: amountController.text.trim(),
-                              city: cityController.text.trim());
-                        },
-                      );
-                    },
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                InkWell(
+                  onTap: () {
+                    showDialog(
+                      barrierColor: Colors.black26,
+                      context: context,
+                      builder: (context) {
+                        return DonateDialog(
+                            name: nameController.text.trim(),
+                            project: selectedProject,
+                            amount: amountController.text.trim(),
+                            city: cityController.text.trim());
+                      },
+                    );
+                  },
+                  child: Container(
                     child: Container(
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        padding: EdgeInsets.all(15),
-                        margin:
-                            EdgeInsets.only(bottom: 20, right: 30, left: 30),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            color: darkBlue),
-                        child: Center(
-                          child: Text(
-                            "Donate",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'circe',
-                                fontWeight: FontWeight.w700,
-                                fontSize: 18),
-                          ),
+                      width: MediaQuery.of(context).size.width,
+                      padding: EdgeInsets.all(15),
+                      margin: EdgeInsets.only(bottom: 20, right: 30, left: 30),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          color: vibrantOrange),
+                      child: Center(
+                        child: Text(
+                          "Next",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'circe',
+                              fontWeight: FontWeight.w700,
+                              fontSize: 18),
                         ),
                       ),
                     ),
-                  )
-                ]),
-              ],
-            ),
+                  ),
+                )
+              ]),
+            ],
           ),
         ),
       ),

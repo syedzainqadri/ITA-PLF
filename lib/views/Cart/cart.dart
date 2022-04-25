@@ -115,7 +115,7 @@ class _CartPageState extends State<CartPage> {
         if (productController.isLoading.value ||
             cartController.isLoading.value) {
           return Center(child: CircularProgressIndicator());
-        } else if (productController.isListNull.value) {
+        } else if (productController == null) {
           return Center(
             child: Text("No Books Found"),
           );

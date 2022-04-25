@@ -1,12 +1,9 @@
 import 'dart:convert';
-
 import 'package:PLF/models/cart_model.dart';
 import 'package:PLF/views/Home/Widgets/home_navbar.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'package:sqflite/sqlite_api.dart';
 
 final String tablecart = 'cart';
 final String columnId = 'id';
@@ -28,7 +25,8 @@ class CartController extends GetxController {
     String path = join(databasesPath, 'demo.db');
     db = await openDatabase(path, version: 1,
         onCreate: (Database db, int version) async {
-      await db.execute('''
+      await db.execute(
+          '''
 create table $tablecart ( 
   $columnId integer primary key autoincrement, 
   $product_id text not null,

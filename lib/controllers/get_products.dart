@@ -15,8 +15,8 @@ class ProductsController extends GetxController {
   getProduct() async {
     isLoading(true).obs;
 
-    var detail = await APIService()
-        .getRequest(apiName: getProducts + "/?per_page=20", isJson: false);
+    var detail =
+        await APIService().getRequest(apiName: getProducts, isJson: false);
     print(' api response is: ${detail.runtimeType}');
     // if(debugMode)print(detail);
     if (detail != null) {

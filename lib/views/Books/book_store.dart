@@ -6,9 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:PLF/utils/ColorScheme.dart';
 import 'package:get/get.dart';
 import 'package:loading_overlay/loading_overlay.dart';
-
 import '../../controllers/get_products.dart';
-import '../Cart/cart.dart';
 
 class BookStore extends StatefulWidget {
   @override
@@ -26,13 +24,11 @@ class _BookStoreState extends State<BookStore> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     products = null;
     super.dispose();
   }
 
   var cartController = Get.put(CartController());
-  var searchController = TextEditingController();
   CartModel cart = CartModel(product_id: "12", quantity: 3);
   @override
   void initState() {
@@ -50,7 +46,7 @@ class _BookStoreState extends State<BookStore> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: vibrantYellow,
       body: Obx(() {
         if (productController.isLoading.value) {
           return Center(child: CircularProgressIndicator());
@@ -59,12 +55,6 @@ class _BookStoreState extends State<BookStore> {
             child: Text("No Books Found"),
           );
         } else {
-          // for (var p in products) {
-
-          //   count++;
-          // }
-          //
-          // print("count is:  $count");
           return LoadingOverlay(
             progressIndicator: Center(
               child: CircularProgressIndicator(),
@@ -72,118 +62,82 @@ class _BookStoreState extends State<BookStore> {
             isLoading: false,
             child: Column(
               children: [
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.3,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: NetworkImage(
-                              "https://childrensliteraturefestival.com/wp-content/uploads/2022/02/ssp-gray.png"))),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
                   child: Container(
-                    padding: EdgeInsets.only(left: 20, right: 30, top: 70),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(child: Container()),
-                        Container(
-                          height: 70,
-                          decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
-                              color: Colors.white),
-                          child: Row(
-                            children: [
-                              IconButton(
-                                icon: Icon(
-                                  Icons.search,
-                                  color: Colors.black,
-                                  size: 30,
-                                ),
-                                onPressed: () {
-                                  if (searchController.text != null) {
-                                    productController.getProduct();
-                                  }
-                                },
+                    height: MediaQuery.of(context).size.height * .05,
+                    child: Image.network(
+                        'https://childrensliteraturefestival.com/wp-content/uploads/2022/02/ssp-gray.png'),
+                  ),
+                ),
+                Container(
+                  height: MediaQuery.of(context).size.height * .15,
+                  padding: EdgeInsets.only(left: 20, right: 30),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(child: Container()),
+                      Container(
+                        height: 70,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            color: vibrantWhite),
+                        child: Row(
+                          children: [
+                            IconButton(
+                              icon: Icon(
+                                Icons.search,
+                                color: Colors.black,
+                                size: 30,
                               ),
-                              Expanded(
-                                child: TextFormField(
-                                  onSaved: (val) {
-                                    productController.getProduct();
-                                  },
-                                  controller: searchController,
-                                  style: TextStyle(
-                                      fontSize: 18, fontFamily: 'circe'),
-                                  decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      hintText: "Search for Books"),
-                                ),
+                              onPressed: () {},
+                            ),
+                            Expanded(
+                              child: TextField(
+                                style: TextStyle(
+                                    fontSize: 18, fontFamily: 'circe'),
+                                decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: "Search for Books"),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                        SizedBox(
-                          height: 10,
-                        )
-                      ],
-                    ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      )
+                    ],
                   ),
                 ),
                 Expanded(
                   child: Container(
                     padding: EdgeInsets.all(30),
                     width: MediaQuery.of(context).size.width,
-                    color: Colors.white,
+                    color: vibrantYellow,
                     child: Column(
                       children: [
                         Expanded(
                           child: GridView.builder(
                               primary: false,
-                              itemCount: products != null ? products.length : 0,
+                              itemCount: products.length,
                               gridDelegate:
                                   SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisSpacing: 10,
-                                mainAxisSpacing: 10,
+                                crossAxisSpacing: 20,
+                                mainAxisSpacing: 20,
                                 crossAxisCount: 2,
                               ),
-
-                              // ignore: missing_return
+                              // itemCount:
+                              // productController.productsResponse.length,
                               itemBuilder: (context, index) {
-                                print(
-                                    "search controller: ${searchController.text}");
-                                if (searchController.text != null ||
-                                    searchController.text != "") {
-                                  print("in if");
-
-                                  if (products[index]["name"]
-                                      .toString()
-                                      .toLowerCase()
-                                      .contains(searchController.text
-                                          .toLowerCase())) {
-                                    print(" in nested if");
-                                    return bookWidget(
-                                      img: products[index]["images"][0]["src"],
-                                      name: products[index]["name"],
-                                      color: backgroundColor,
-                                      darkBlue: darkBlue,
-                                      context: context,
-                                      bookId: products[index]["id"],
-                                      bookDesc: products[index]["description"],
-                                    );
-                                  } else {
-                                    return Offstage();
-                                  }
-                                } else if (searchController.text == null ||
-                                    searchController.text.isEmpty) {
-                                  return bookWidget(
-                                    img: products[index]["images"][0]["src"],
-                                    name: products[index]["name"],
-                                    color: backgroundColor,
-                                    darkBlue: darkBlue,
-                                    context: context,
-                                    bookId: products[index]["id"],
-                                    bookDesc: products[index]["description"],
-                                  );
-                                }
+                                return BookWidget(
+                                  img: products[index]["images"][0]["src"],
+                                  name: products[index]["name"],
+                                  color: vibrantPink,
+                                  darkBlue: vibrantPurple,
+                                  context: context,
+                                  bookId: products[index]["id"],
+                                );
                               }),
                         )
                       ],

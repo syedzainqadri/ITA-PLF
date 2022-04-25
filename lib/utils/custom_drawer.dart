@@ -32,7 +32,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
             children: [
               DrawerHeader(
                 decoration: BoxDecoration(
-                  color: white,
+                  color: vibrantBlue,
                 ),
                 child: Center(
                     child: Column(
@@ -42,8 +42,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
                       width: 80,
                       height: 80,
                       decoration: BoxDecoration(
-                          // color: lightBlue,
-                          // borderRadius: BorderRadius.circular(100),
                           image: DecorationImage(
                               fit: BoxFit.contain,
                               image: AssetImage('asset/images/logo.png'))),
@@ -125,9 +123,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                           "About",
                           textAlign: TextAlign.start,
                           style: TextStyle(
-                              color: black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
+                            color: black,
+                            fontSize: 18,
+                          ),
                         ),
                       ),
                     ),
@@ -159,9 +157,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                           "PLF Advisors",
                           textAlign: TextAlign.start,
                           style: TextStyle(
-                              color: black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
+                            color: black,
+                            fontSize: 18,
+                          ),
                         ),
                       ),
                     ),
@@ -193,9 +191,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                           "PLF Tarana",
                           textAlign: TextAlign.start,
                           style: TextStyle(
-                              color: black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
+                            color: black,
+                            fontSize: 18,
+                          ),
                         ),
                       ),
                     ),
@@ -238,9 +236,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                           child: Text(
                             "Ambassadors",
                             style: TextStyle(
-                                color: black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
+                              color: black,
+                              fontSize: 18,
+                            ),
                           )),
                     ),
                   ),
@@ -270,9 +268,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                           child: Text(
                             "Resource Persons",
                             style: TextStyle(
-                                color: black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
+                              color: black,
+                              fontSize: 18,
+                            ),
                           )),
                     ),
                   ),
@@ -302,9 +300,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                           child: Text(
                             "Child Prodigies",
                             style: TextStyle(
-                                color: black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
+                              color: black,
+                              fontSize: 18,
+                            ),
                           )),
                     ),
                   ),
@@ -334,9 +332,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                           child: Text(
                             "Partner Organizations",
                             style: TextStyle(
-                                color: black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
+                              color: black,
+                              fontSize: 18,
+                            ),
                           )),
                     ),
                   ),
@@ -366,9 +364,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                           child: Text(
                             "Core Partners",
                             style: TextStyle(
-                                color: black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
+                              color: black,
+                              fontSize: 18,
+                            ),
                           )),
                     ),
                   ),
@@ -398,9 +396,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                           child: Text(
                             "Influencers & Storyteller",
                             style: TextStyle(
-                                color: black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
+                              color: black,
+                              fontSize: 18,
+                            ),
                           )),
                     ),
                   ),
@@ -480,9 +478,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                               child: Text(
                                 "Incredible Libraries",
                                 style: TextStyle(
-                                    color: black,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold),
+                                  color: black,
+                                  fontSize: 18,
+                                ),
                               )),
                         ),
                       ),
@@ -514,9 +512,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                               child: Text(
                                 "Digital kutab khanay",
                                 style: TextStyle(
-                                    color: black,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold),
+                                  color: black,
+                                  fontSize: 18,
+                                ),
                               )),
                         ),
                       ),
@@ -548,9 +546,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                               child: Text(
                                 "Kitab Garri",
                                 style: TextStyle(
-                                    color: black,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold),
+                                  color: black,
+                                  fontSize: 18,
+                                ),
                               )),
                         ),
                       ),
@@ -594,9 +592,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                               child: Text(
                                 "Young Author Award",
                                 style: TextStyle(
-                                    color: black,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold),
+                                  color: black,
+                                  fontSize: 18,
+                                ),
                               )),
                         ),
                       ),
@@ -628,9 +626,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                               child: Text(
                                 "YAA 2021-2022 Launch",
                                 style: TextStyle(
-                                    color: black,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold),
+                                  color: black,
+                                  fontSize: 18,
+                                ),
                               )),
                         ),
                       ),
@@ -662,9 +660,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                               child: Text(
                                 "YAA 2020-2021 Winners",
                                 style: TextStyle(
-                                    color: black,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold),
+                                  color: black,
+                                  fontSize: 18,
+                                ),
                               )),
                         ),
                       ),
@@ -696,9 +694,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                               child: Text(
                                 "YAA 2019-2020 Winners",
                                 style: TextStyle(
-                                    color: black,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold),
+                                  color: black,
+                                  fontSize: 18,
+                                ),
                               )),
                         ),
                       ),
@@ -730,9 +728,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                               child: Text(
                                 "YAA 2019-2020 Members",
                                 style: TextStyle(
-                                    color: black,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold),
+                                  color: black,
+                                  fontSize: 18,
+                                ),
                               )),
                         ),
                       ),
@@ -764,9 +762,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                               child: Text(
                                 "YAA FAQs",
                                 style: TextStyle(
-                                    color: black,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold),
+                                  color: black,
+                                  fontSize: 18,
+                                ),
                               )),
                         ),
                       ),
@@ -799,9 +797,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                           child: Text(
                             "Online Book Club",
                             style: TextStyle(
-                                color: black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
+                              color: black,
+                              fontSize: 18,
+                            ),
                           )),
                     ),
                   ),
@@ -831,9 +829,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                           child: Text(
                             "Every language Teaches Us",
                             style: TextStyle(
-                                color: black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
+                              color: black,
+                              fontSize: 18,
+                            ),
                           )),
                     ),
                   ),
@@ -863,9 +861,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                           child: Text(
                             "Story Bytes",
                             style: TextStyle(
-                                color: black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
+                              color: black,
+                              fontSize: 18,
+                            ),
                           )),
                     ),
                   ),
@@ -894,9 +892,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                           child: Text(
                             "Art & Craft Therapy",
                             style: TextStyle(
-                                color: black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
+                              color: black,
+                              fontSize: 18,
+                            ),
                           )),
                     ),
                   ),
@@ -919,9 +917,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                           child: Text(
                             "Digital Learning Festivals",
                             style: TextStyle(
-                                color: black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
+                              color: black,
+                              fontSize: 18,
+                            ),
                           )),
                     ),
                   ),
@@ -951,9 +949,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                           child: Text(
                             "PLF Publications",
                             style: TextStyle(
-                                color: black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
+                              color: black,
+                              fontSize: 18,
+                            ),
                           )),
                     ),
                   ),
@@ -995,9 +993,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                           child: Text(
                             "Upcoming PLFs",
                             style: TextStyle(
-                                color: black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
+                              color: black,
+                              fontSize: 18,
+                            ),
                           )),
                     ),
                   ),
@@ -1027,9 +1025,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                           child: Text(
                             "PLFs Workshops",
                             style: TextStyle(
-                                color: black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
+                              color: black,
+                              fontSize: 18,
+                            ),
                           )),
                     ),
                   ),
@@ -1059,9 +1057,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                           child: Text(
                             "Campaigns",
                             style: TextStyle(
-                                color: black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
+                              color: black,
+                              fontSize: 18,
+                            ),
                           )),
                     ),
                   ),
@@ -1091,9 +1089,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                           child: Text(
                             "School Reading Program",
                             style: TextStyle(
-                                color: black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
+                              color: black,
+                              fontSize: 18,
+                            ),
                           )),
                     ),
                   ),
@@ -1123,9 +1121,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                           child: Text(
                             "PLF Activities",
                             style: TextStyle(
-                                color: black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
+                              color: black,
+                              fontSize: 18,
+                            ),
                           )),
                     ),
                   ),

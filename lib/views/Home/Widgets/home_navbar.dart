@@ -1,5 +1,4 @@
 import 'package:PLF/controllers/add_to_cart/add_to_cart.dart';
-import 'package:PLF/models/cart_model.dart';
 import 'package:PLF/utils/ColorScheme.dart';
 import 'package:PLF/utils/custom_drawer.dart';
 import 'package:PLF/views/Cart/cart.dart';
@@ -8,8 +7,6 @@ import 'package:PLF/views/Volenteer/volenteer.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-
 import '../../Books/book_store.dart';
 import '../../Donation/donations.dart';
 
@@ -30,11 +27,6 @@ class _HomeNavbarState extends State<HomeNavbar> {
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      cartController.open();
-      cartController.getCount();
-    });
-
     super.initState();
   }
 
@@ -45,18 +37,18 @@ class _HomeNavbarState extends State<HomeNavbar> {
   Widget build(BuildContext context) {
     return Scaffold(
         drawer: CustomDrawer(),
-        backgroundColor: Colors.white,
+        backgroundColor: Color.fromARGB(255, 255, 255, 255),
         key: _scaffoldKey,
         appBar: _currentIndex == 3
             ? AppBar(
                 toolbarHeight: 60,
-                backgroundColor: Colors.transparent,
+                backgroundColor: vibrantBlue,
                 elevation: 0,
                 centerTitle: true,
                 leading: IconButton(
                   icon: Icon(
                     Icons.menu,
-                    color: Colors.black,
+                    color: vibrantWhite,
                     size: 30,
                   ),
                   onPressed: () {
@@ -65,7 +57,7 @@ class _HomeNavbarState extends State<HomeNavbar> {
                 ),
                 title: Text(
                   "Buy Book",
-                  style: TextStyle(color: black),
+                  style: TextStyle(color: vibrantWhite),
                 ),
                 actions: [
                   Obx(() {
@@ -81,7 +73,7 @@ class _HomeNavbarState extends State<HomeNavbar> {
                           child: InkWell(
                             child: Icon(
                               Icons.shopping_cart,
-                              color: Colors.black,
+                              color: vibrantWhite,
                               size: 30,
                             ),
                             onTap: () {
@@ -105,14 +97,14 @@ class _HomeNavbarState extends State<HomeNavbar> {
                       : _currentIndex == 1
                           ? "Donate"
                           : "Volunteer Now",
-                  style: TextStyle(color: black),
+                  style: TextStyle(color: vibrantWhite),
                 )),
-                backgroundColor: white,
+                backgroundColor: vibrantBlue,
                 elevation: 0,
                 leading: IconButton(
                   icon: Icon(
                     Icons.menu,
-                    color: Colors.black,
+                    color: vibrantWhite,
                     size: 30,
                   ),
                   onPressed: () {
@@ -123,7 +115,7 @@ class _HomeNavbarState extends State<HomeNavbar> {
                   IconButton(
                     icon: Icon(
                       Icons.notifications_none,
-                      color: Colors.black,
+                      color: vibrantWhite,
                       size: 30,
                     ),
                     onPressed: () {},
@@ -138,9 +130,9 @@ class _HomeNavbarState extends State<HomeNavbar> {
           unselectedFontSize: 8,
           showUnselectedLabels: true,
           elevation: 6,
-          backgroundColor: Colors.white,
-          selectedItemColor: darkBlue,
-          unselectedItemColor: Colors.grey.shade600,
+          backgroundColor: vibrantBlue,
+          selectedItemColor: vibrantAmber,
+          unselectedItemColor: vibrantWhite,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.home),

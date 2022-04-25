@@ -1,6 +1,4 @@
-import 'package:PLF/controllers/get_products.dart';
 import 'package:PLF/views/Events/allEvent.dart';
-import 'package:PLF/utils/custom_drawer.dart';
 import 'package:PLF/views/Events/widgets/eventWidget.dart';
 import 'package:PLF/utils/url_base.dart';
 import 'package:PLF/views/Home/Widgets/home_navbar.dart';
@@ -28,11 +26,9 @@ class _HomePageState extends State<HomePage> {
   List<EventModel> eventModel = [];
   List<EventModel> upComingEventModel = [];
   List<EventModel> eventHistoryModel = [];
-  // var productController = Get.put(ProductsController());
   @override
   initState() {
-    appBarTitle = "Pakistan Learning Festival";
-    // productController.getProduct();
+    // appBarTitle = "Pakistan Learning Festival";
     super.initState();
     getData();
   }
@@ -54,36 +50,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      // drawer: CustomDrawer(),
-      // appBar: AppBar(
-      //   title: Center(
-      //       child: Text(
-      //     "Pakistan Learning Festival",
-      //     style: TextStyle(color: black),
-      //   )),
-      //   backgroundColor: white,
-      //   elevation: 0,
-      //   leading: IconButton(
-      //     icon: Icon(
-      //       Icons.menu,
-      //       color: Colors.black,
-      //       size: 30,
-      //     ),
-      //     onPressed: () {
-      //       _scaffoldKey.currentState.openDrawer();
-      //     },
-      //   ),
-      //   actions: [
-      //     IconButton(
-      //       icon: Icon(
-      //         Icons.notifications_none,
-      //         color: Colors.black,
-      //         size: 30,
-      //       ),
-      //       onPressed: () {},
-      //     )
-      //   ],
-      // ),
       body: Obx(() {
         if (_eventController.isLoading.value) {
           return Center(child: CircularProgressIndicator());
@@ -91,7 +57,7 @@ class _HomePageState extends State<HomePage> {
           return Container(
             padding: EdgeInsets.all(30),
             width: MediaQuery.of(context).size.width,
-            color: white,
+            color: vibrantAmber,
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -115,7 +81,7 @@ class _HomePageState extends State<HomePage> {
                               EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: white,
+                            color: vibrantRed,
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.grey.withOpacity(0.2),
@@ -127,15 +93,14 @@ class _HomePageState extends State<HomePage> {
                           ),
                           child: Text(
                             "See all",
-                            style: TextStyle(
-                                color: Colors.blueAccent, fontSize: 13),
+                            style: TextStyle(color: vibrantWhite, fontSize: 13),
                           ),
                         ),
                       )
                     ],
                   ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.33,
+                    height: MediaQuery.of(context).size.height * 0.40,
                     width: double.infinity,
                     child: upComingEventModel.isNotEmpty
                         ? ListView.builder(
@@ -160,7 +125,6 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(
                     height: 30,
                   ),
-
                   ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: InkWell(
@@ -184,7 +148,6 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(
                     height: 30,
                   ),
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -204,7 +167,7 @@ class _HomePageState extends State<HomePage> {
                               EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: white,
+                            color: vibrantRed,
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.grey.withOpacity(0.2),
@@ -216,8 +179,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           child: Text(
                             "See all",
-                            style: TextStyle(
-                                color: Colors.blueAccent, fontSize: 13),
+                            style: TextStyle(color: vibrantWhite, fontSize: 13),
                           ),
                         ),
                       )
@@ -250,11 +212,9 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                   ),
-
                   SizedBox(
                     height: 20,
                   ),
-
                   ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: InkWell(
@@ -278,30 +238,6 @@ class _HomePageState extends State<HomePage> {
                         child: Image.network(
                             "https://childrensliteraturefestival.com/wp-content/uploads/2020/08/CLF_Kitab_Gari-1.jpg")),
                   ),
-
-                  //  Wrap(
-                  //   direction: Axis.horizontal,
-                  //   runSpacing: 20,
-                  //   spacing: 10,
-                  //   alignment: WrapAlignment.center,
-                  //   children: [
-                  //     InkWell(
-                  //         onTap: () {
-                  //           Get.to(FeedbackPage());
-                  //         },
-                  //         child: buttonWidget("Feedback")),
-                  //     InkWell(
-                  //         onTap: () {
-                  //           Get.to(FeedbackPage());
-                  //         },
-                  //         child: buttonWidget("Volunteer")),
-                  //     InkWell(
-                  //         onTap: () {
-                  //           Get.to(Donations());
-                  //         },
-                  //         child: buttonWidget("Donation")),
-                  //   ],
-                  // ),
                 ],
               ),
             ),
@@ -376,8 +312,3 @@ class BannerImage extends StatelessWidget {
     );
   }
 }
-
-// home
-// donation
-// volunteer
-// buy books

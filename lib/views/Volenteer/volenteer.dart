@@ -14,8 +14,8 @@ class VolunteerScreen extends StatefulWidget {
 }
 
 class _VolunteerScreenState extends State<VolunteerScreen> {
-
-  final VolunteerController _volunteerController = Get.put(VolunteerController());
+  final VolunteerController _volunteerController =
+      Get.put(VolunteerController());
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final cityController = TextEditingController();
@@ -32,25 +32,7 @@ class _VolunteerScreenState extends State<VolunteerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor,
-      // appBar: AppBar(
-      //   title: Text(
-      //     "Volunteer Now",
-      //     style: TextStyle(color: Color.fromARGB(255, 34, 33, 33)),
-      //   ),
-      //   elevation: 0.0,
-      //   backgroundColor: Colors.transparent,
-      //   leading: IconButton(
-      //     icon: Icon(
-      //       Icons.navigate_before,
-      //       color: Color.fromARGB(255, 34, 33, 33),
-      //       size: 30,
-      //     ),
-      //     onPressed: () {
-      //       Get.back();
-      //     },
-      //   ),
-      // ),
+      backgroundColor: vibrantAmber,
       body: Container(
         child: SingleChildScrollView(
           child: Column(
@@ -85,13 +67,11 @@ class _VolunteerScreenState extends State<VolunteerScreen> {
                   child: TextField(
                     controller: nameController,
                     decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
+                        border: InputBorder.none,
                         filled: true,
                         hintStyle: TextStyle(color: Colors.grey[800]),
                         hintText: "Full Name",
-                        fillColor: Colors.white70),
+                        fillColor: white),
                   ),
                 ),
                 SizedBox(
@@ -102,13 +82,11 @@ class _VolunteerScreenState extends State<VolunteerScreen> {
                   child: TextField(
                     controller: emailController,
                     decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
+                        border: InputBorder.none,
                         filled: true,
                         hintStyle: TextStyle(color: Colors.grey[800]),
                         hintText: "Email Address",
-                        fillColor: Colors.white70),
+                        fillColor: white),
                   ),
                 ),
                 SizedBox(
@@ -119,13 +97,11 @@ class _VolunteerScreenState extends State<VolunteerScreen> {
                   child: TextField(
                     controller: cityController,
                     decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
+                        border: InputBorder.none,
                         filled: true,
                         hintStyle: TextStyle(color: Colors.grey[800]),
                         hintText: "City",
-                        fillColor: Colors.white70),
+                        fillColor: white),
                   ),
                 ),
                 SizedBox(
@@ -137,13 +113,11 @@ class _VolunteerScreenState extends State<VolunteerScreen> {
                     controller: phoneController,
                     keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
+                        border: InputBorder.none,
                         filled: true,
                         hintStyle: TextStyle(color: Colors.grey[800]),
                         hintText: "Phone No",
-                        fillColor: Colors.white70),
+                        fillColor: white),
                   ),
                 ),
                 SizedBox(
@@ -154,8 +128,8 @@ class _VolunteerScreenState extends State<VolunteerScreen> {
                   child: Container(
                     decoration: BoxDecoration(
                         color: Colors.white,
-                        border: Border.all(),
-                        borderRadius: BorderRadius.circular(10)),
+                        border: Border.all(color: white),
+                        borderRadius: BorderRadius.circular(0)),
                     height: 60,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -193,34 +167,35 @@ class _VolunteerScreenState extends State<VolunteerScreen> {
                 InkWell(
                   onTap: () {
                     _volunteerController.addVolunteerData(
-                        nameController.text.trim(), emailController.text.trim(), cityController.text.trim(),
-                        phoneController.text.trim(), selectedProject);
+                        nameController.text.trim(),
+                        emailController.text.trim(),
+                        cityController.text.trim(),
+                        phoneController.text.trim(),
+                        selectedProject);
                   },
                   child: Container(
                     child: Container(
                         width: MediaQuery.of(context).size.width,
                         padding: EdgeInsets.all(15),
-                        margin: EdgeInsets.only(bottom: 20, right: 30, left: 30),
+                        margin:
+                            EdgeInsets.only(bottom: 20, right: 30, left: 30),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
-                            color: darkBlue),
+                            color: vibrantOrange),
                         child: Obx(() {
-                          return _volunteerController.isLoading.isTrue ?
-                          Center(child: CircularProgressIndicator())
-                              :
-                          Center(
-                            child: Text(
-                              "Donate",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'circe',
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 18),
-                            ),
-                          );
-                        })
-
-                    ),
+                          return _volunteerController.isLoading.isTrue
+                              ? Center(child: CircularProgressIndicator())
+                              : Center(
+                                  child: Text(
+                                    "Aplly Now",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontFamily: 'circe',
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 18),
+                                  ),
+                                );
+                        })),
                   ),
                 )
               ]),

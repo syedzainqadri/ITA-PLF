@@ -1,4 +1,5 @@
 import 'package:PLF/controllers/login_controller.dart';
+import 'package:PLF/views/Home/Widgets/home_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:PLF/utils/ColorScheme.dart';
@@ -146,12 +147,13 @@ class LoginPage extends StatelessWidget {
                                         ),
                                       ),
                                       onPressed: () {
-                                        if (_formKey.currentState.validate()) {
-                                          loginController.login(
-                                              userName: emailController.text,
-                                              password:
-                                                  passwordController.text);
-                                        }
+                                        Get.to(HomeNavbar());
+                                        // if (_formKey.currentState.validate()) {
+                                        //   loginController.login(
+                                        //       userName: emailController.text,
+                                        //       password:
+                                        //           passwordController.text);
+                                        // }
                                       },
                                       child: Text(
                                         'SignIn',

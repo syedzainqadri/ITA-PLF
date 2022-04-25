@@ -1,3 +1,4 @@
+import 'package:PLF/views/Auth/LoginPage.dart';
 import 'package:PLF/views/Home/HomePage.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
@@ -15,8 +16,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.network(
-        'https://ewigsoldocs.awsapps.com/workdocs/index.html#/share/document/e9693b04ec1fef32f40c958e16aa45da897c59ca3f7bf2cf1bf3e3b08e8550eb')
+    _controller = VideoPlayerController.network('')
       ..initialize().then((_) {
         setState(() {
           _controller.play();
@@ -60,10 +60,10 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                 children: [
                   InkWell(
                     onTap: () {
-                      setState(() async {
-                        await _controller.pause();
+                      Get.offAll(LoginPage());
+                      setState(() {
+                        _controller.pause();
                       });
-                      Get.offAll(HomePage());
                     },
                     child: Text(
                       "Skip",
@@ -121,10 +121,10 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                           ),
                           child: IconButton(
                             onPressed: () {
-                              setState(() async {
-                                await _controller.pause();
+                              Get.offAll(LoginPage());
+                              setState(() {
+                                _controller.pause();
                               });
-                              Get.offAll(HomePage());
                             },
                             icon: Icon(
                               Icons.arrow_forward_ios,
