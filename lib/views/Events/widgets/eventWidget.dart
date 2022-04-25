@@ -16,10 +16,10 @@ InkWell eventWidget(
       child: Container(
         // margin: EdgeInsets.only(top: 10),
         width: MediaQuery.of(context).size.width / 1.3,
-        height: MediaQuery.of(context).size.height / 0.5,
+        height: MediaQuery.of(context).size.height / 1,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10)),
-          color: cardColor,
+          color: vibrantAmber,
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.2),
@@ -35,24 +35,24 @@ InkWell eventWidget(
             Hero(
               tag: img,
               child: SizedBox(
-                  height: MediaQuery.of(context).size.width * 0.42,
-                  width: MediaQuery.of(context).size.width,
-                  child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.network(img, fit: BoxFit.fill))),
+                height: MediaQuery.of(context).size.width * 0.42,
+                width: MediaQuery.of(context).size.width,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.network(img, fit: BoxFit.fill),
+                ),
+              ),
             ),
-            SizedBox(height: 10),
             Padding(
-              padding: const EdgeInsets.only(left: 15),
+              padding: const EdgeInsets.only(left: 15, top: 10),
               child: Text(
                 name,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                softWrap: false,
+                softWrap: true,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
               ),
             ),
-            SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.only(bottom: 5, left: 15),
               child: Row(
@@ -71,21 +71,6 @@ InkWell eventWidget(
                 ],
               ),
             ),
-            // Expanded(
-            //   child: Padding(
-            //     padding: const EdgeInsets.all(8.0),
-            //     child: Text(
-            //       '$subText',
-            //       maxLines: 2,
-            //       overflow: TextOverflow.ellipsis,
-            //       softWrap: false,
-            //       style: TextStyle(
-            //           fontSize: 13,
-            //           fontWeight: FontWeight.w500,
-            //           color: darkBlue),
-            //     ),
-            //   ),
-            // ),
           ],
         ),
       ),

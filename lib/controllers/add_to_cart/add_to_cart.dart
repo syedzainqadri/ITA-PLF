@@ -117,5 +117,3 @@ create table $tablecart (
 
   Future close() async => db.close();
 }
-
-/// test

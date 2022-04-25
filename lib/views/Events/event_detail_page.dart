@@ -33,7 +33,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: vibrantWhite,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -44,7 +44,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
             icon: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
-                color: white,
+                color: vibrantRed,
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.5),
@@ -54,11 +54,10 @@ class _EventDetailPageState extends State<EventDetailPage> {
                   ),
                 ],
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
+              child: Center(
                 child: Icon(
                   Icons.arrow_back,
-                  color: Colors.black,
+                  color: vibrantWhite,
                 ),
               ),
             ),
@@ -352,15 +351,15 @@ class _EventDetailPageState extends State<EventDetailPage> {
       width: MediaQuery.of(context).size.width / 2.5,
       padding: EdgeInsets.all(15),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(10)), color: darkBlue),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          color: vibrantPurple),
       child: Center(
         child: Text(
           buttonName,
           style: TextStyle(
               color: Colors.white,
               fontFamily: 'circe',
-              fontWeight: FontWeight.w700,
-              fontSize: 18),
+              fontWeight: FontWeight.w700),
         ),
       ),
     );
@@ -370,15 +369,15 @@ class _EventDetailPageState extends State<EventDetailPage> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 25, vertical: 15),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(10)), color: darkBlue),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          color: vibrantOrange),
       child: Center(
         child: Text(
           buttonName,
           style: TextStyle(
               color: Colors.white,
               fontFamily: 'circe',
-              fontWeight: FontWeight.w700,
-              fontSize: 18),
+              fontWeight: FontWeight.w700),
         ),
       ),
     );

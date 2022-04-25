@@ -1154,81 +1154,81 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   ),
                 ),
               ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                          opaque: false,
-                          pageBuilder: (context, _, __) {
-                            return DonationsScreen();
-                          },
-                          transitionsBuilder: (_, __, ___, Widget child) {
-                            return child;
-                          }));
-                },
-                child: ListTile(
-                  title: Text(
-                    'Donations',
-                    style: TextStyle(
-                      color: black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                          opaque: false,
-                          pageBuilder: (context, _, __) {
-                            return AllUpcomingEvents();
-                          },
-                          transitionsBuilder: (_, __, ___, Widget child) {
-                            return child;
-                          }));
-                },
-                child: ListTile(
-                  title: Text(
-                    'Upcoming Events',
-                    style: TextStyle(
-                      color: black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                          opaque: false,
-                          pageBuilder: (context, _, __) {
-                            return EventsHistory();
-                          },
-                          transitionsBuilder: (_, __, ___, Widget child) {
-                            return child;
-                          }));
-                },
-                child: ListTile(
-                  title: Text(
-                    'Events History',
-                    style: TextStyle(
-                      color: black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
+              // GestureDetector(
+              //   onTap: () {
+              //     Navigator.pop(context);
+              //     Navigator.push(
+              //         context,
+              //         PageRouteBuilder(
+              //             opaque: false,
+              //             pageBuilder: (context, _, __) {
+              //               return DonationsScreen();
+              //             },
+              //             transitionsBuilder: (_, __, ___, Widget child) {
+              //               return child;
+              //             }));
+              //   },
+              //   child: ListTile(
+              //     title: Text(
+              //       'Donations',
+              //       style: TextStyle(
+              //         color: black,
+              //         fontSize: 18,
+              //         fontWeight: FontWeight.bold,
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              // GestureDetector(
+              //   onTap: () {
+              //     Navigator.pop(context);
+              //     Navigator.push(
+              //         context,
+              //         PageRouteBuilder(
+              //             opaque: false,
+              //             pageBuilder: (context, _, __) {
+              //               return AllUpcomingEvents();
+              //             },
+              //             transitionsBuilder: (_, __, ___, Widget child) {
+              //               return child;
+              //             }));
+              //   },
+              //   child: ListTile(
+              //     title: Text(
+              //       'Upcoming Events',
+              //       style: TextStyle(
+              //         color: black,
+              //         fontSize: 18,
+              //         fontWeight: FontWeight.bold,
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              // GestureDetector(
+              //   onTap: () {
+              //     Navigator.pop(context);
+              //     Navigator.push(
+              //         context,
+              //         PageRouteBuilder(
+              //             opaque: false,
+              //             pageBuilder: (context, _, __) {
+              //               return EventsHistory();
+              //             },
+              //             transitionsBuilder: (_, __, ___, Widget child) {
+              //               return child;
+              //             }));
+              //   },
+              //   child: ListTile(
+              //     title: Text(
+              //       'Events History',
+              //       style: TextStyle(
+              //         color: black,
+              //         fontSize: 18,
+              //         fontWeight: FontWeight.bold,
+              //       ),
+              //     ),
+              //   ),
+              // ),
               GestureDetector(
                 onTap: () {
                   Navigator.pop(context);

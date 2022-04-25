@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
@@ -27,7 +26,6 @@ class _AddReviewDialogState extends State<AddReviewDialog> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(height: 10),
-
             Padding(
               padding: EdgeInsets.only(left: 20, right: 20),
               child: TextField(
@@ -42,7 +40,6 @@ class _AddReviewDialogState extends State<AddReviewDialog> {
               ),
             ),
             SizedBox(height: 5),
-
             Padding(
               padding: EdgeInsets.only(left: 20, right: 20),
               child: TextField(
@@ -57,7 +54,6 @@ class _AddReviewDialogState extends State<AddReviewDialog> {
               ),
             ),
             SizedBox(height: 5),
-
             RatingBar.builder(
               initialRating: 0,
               minRating: 1,
@@ -73,13 +69,11 @@ class _AddReviewDialogState extends State<AddReviewDialog> {
                 print(rating);
               },
             ),
-
             SizedBox(height: 10),
-
             InkWell(
               onTap: () {},
               child: Container(
-                width: MediaQuery.of(context).size.width/2,
+                width: MediaQuery.of(context).size.width / 2,
                 padding: EdgeInsets.all(15),
                 margin: EdgeInsets.only(bottom: 20, right: 30, left: 30),
                 decoration: BoxDecoration(
@@ -97,9 +91,7 @@ class _AddReviewDialogState extends State<AddReviewDialog> {
                 ),
               ),
             ),
-
             SizedBox(height: 10),
-
           ],
         ),
       ),

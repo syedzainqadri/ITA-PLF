@@ -9,15 +9,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 
-class CartScreen extends StatelessWidget {
-  @override
-  Widget build(context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: CartPage(),
-    );
-  }
-}
+// class CartScreen extends StatefulWidget {
+//   @override
+//   State<CartScreen> createState() => _CartScreenState();
+// }
+
+// class _CartScreenState extends State<CartScreen> {
+//   @override
+//   Widget build(context) {
+//     return MaterialApp(
+//       debugShowCheckedModeBanner: false,
+//       home: CartPage(),
+//     );
+//   }
+// }
 
 class CartPage extends StatefulWidget {
   @override
@@ -143,7 +148,7 @@ class _CartPageState extends State<CartPage> {
                               for (int i = 0; i < products.length; i++) {
                                 print(' in side the loop ');
                                 print(
-                                    "cart id: ${cartController.products[index]["product_id"]}");
+                                    "cart id: ${cartController.products[index]["$product_id"]}");
                                 print(" product id: ${products[i]["id"]}");
 
                                 if (cartController.products[index]["product_id"]

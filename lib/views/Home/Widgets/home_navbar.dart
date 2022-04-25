@@ -77,7 +77,7 @@ class _HomeNavbarState extends State<HomeNavbar> {
                               size: 30,
                             ),
                             onTap: () {
-                              Get.to(CartScreen());
+                              Get.to(CartPage());
                             },
                           ),
                         ),

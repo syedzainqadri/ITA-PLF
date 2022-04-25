@@ -1,17 +1,21 @@
 import 'package:PLF/views/Cart/cart.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:PLF/utils/ColorScheme.dart';
+import '../../controllers/add_to_cart.dart';
+import '../../controllers/add_to_cart/add_to_cart.dart';
+import '../../models/cart_model.dart';
 
 class BookDetails extends StatefulWidget {
-  String img, name, subText;
+  String img, name, subText, bookId;
   BookDetails(this.img, this.name, this.subText);
   @override
   _BookDetailsState createState() => _BookDetailsState();
 }
 
 class _BookDetailsState extends State<BookDetails> {
+  var addToCartController = Get.put(AddToCart());
+  var cartController = Get.put(CartController());
   int selectedDate = DateTime.now().day;
   @override
   Widget build(BuildContext context) {
@@ -55,7 +59,7 @@ class _BookDetailsState extends State<BookDetails> {
                 size: 30,
               ),
               onPressed: () {
-                Get.to(CartScreen());
+                Get.to(CartPage());
               },
             ),
           ],
@@ -136,7 +140,10 @@ class _BookDetailsState extends State<BookDetails> {
             ),
             InkWell(
               onTap: () {
-                Get.to(CartScreen());
+                CartModel cart = CartModel(
+                    quantity: 1, product_id: widget.bookId.toString());
+                cartController.insert(cart);
+                Get.to(CartPage());
               },
               child: Container(
                 color: Colors.white,

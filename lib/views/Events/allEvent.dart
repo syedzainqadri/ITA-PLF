@@ -63,7 +63,7 @@ class _AllUpcomingEventsState extends State<AllUpcomingEvents> {
                         "https://childrensliteraturefestival.com/wp-content/uploads/2021/03/Peace-ing_Together.gif"),
                   )),
             ),
-            widget.eventModel != null && widget.eventModel.isNotEmpty
+            widget.eventModel.isNotEmpty
                 ? Expanded(
                     child: ListView.builder(
                         itemCount: widget.eventModel.length,
