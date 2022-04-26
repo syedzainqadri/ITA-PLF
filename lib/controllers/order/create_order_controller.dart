@@ -79,11 +79,7 @@ class CreateOrderController extends GetxController {
                 "quantity": int.parse(products[index]["quantity"].toString()),
               }),
       "shipping_lines": [
-        {
-          "method_id": "flat_rate",
-          "method_title": "Flat Rate",
-          "total": total.toString()
-        }
+        {"method_id": "flat_rate", "method_title": "Flat Rate", "total": "250"}
       ]
     };
 

@@ -265,7 +265,8 @@ class _CheckOutState extends State<CheckOut> {
                           "Total Ammount",
                         ),
                         Text(
-                          widget.totalPrice.toString(),
+                          (int.parse(widget.totalPrice.toString()) + 250)
+                              .toString(),
                         ),
                       ],
                     ),
@@ -291,7 +292,7 @@ class _CheckOutState extends State<CheckOut> {
                               postCode: postcode.text,
                               products: widget.products,
                               state: state.text,
-                              total: widget.totalPrice + 250,
+                              total: widget.totalPrice,
                               methodId: "cod",
                               methodTitle: "Flat Rate",
                               paymentMethodTitle: "Cash on delivery");

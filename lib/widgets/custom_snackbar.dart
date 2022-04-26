@@ -1,3 +1,4 @@
+import 'package:PLF/utils/ColorScheme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -28,7 +29,7 @@ successSnackbar(String successMsg) {
       color: Colors.white,
     ),
     snackPosition: SnackPosition.TOP,
-    backgroundColor: Get.theme.primaryColor,
+    backgroundColor: vibrantOrange,
     colorText: Colors.white,
     snackbarStatus: (status) {
       if (status == SnackbarStatus.CLOSED) {}
@@ -45,7 +46,7 @@ successSnackbarReplace(int index, String successMsg) {
       color: Colors.white,
     ),
     snackPosition: SnackPosition.TOP,
-    backgroundColor: Get.theme.primaryColor,
+    backgroundColor: vibrantOrange,
     colorText: Colors.white,
     snackbarStatus: (status) {
       if (status == SnackbarStatus.CLOSED) {
