@@ -27,6 +27,9 @@ class _HomeNavbarState extends State<HomeNavbar> {
 
   @override
   void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      cartController.getCount();
+    });
     super.initState();
   }
 

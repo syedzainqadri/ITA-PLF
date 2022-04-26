@@ -6,7 +6,6 @@ class MyHelper {
     preferences.setString("email", email);
     preferences.setString("name", name);
     preferences.setString("user_id", userId);
-    return true;
   }
 
   static saveItemToCart({id, quantity}) async {

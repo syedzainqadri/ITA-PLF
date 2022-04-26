@@ -142,7 +142,11 @@ class _BookDetailsState extends State<BookDetails> {
             InkWell(
               onTap: () {
                 CartModel cart = CartModel(
-                    quantity: 1, product_id: widget.bookId.toString());
+                    quantity: 1,
+                    image: widget.img,
+                    price: double.parse(widget.price),
+                    name: widget.name,
+                    product_id: widget.bookId.toString());
                 cartController.insert(cart);
                 Get.to(CartPage());
               },

@@ -10,21 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 
-// class CartScreen extends StatefulWidget {
-//   @override
-//   State<CartScreen> createState() => _CartScreenState();
-// }
-
-// class _CartScreenState extends State<CartScreen> {
-//   @override
-//   Widget build(context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       home: CartPage(),
-//     );
-//   }
-// }
-
 class CartPage extends StatefulWidget {
   @override
   State<CartPage> createState() => _CartPageState();
@@ -32,17 +17,15 @@ class CartPage extends StatefulWidget {
 
 class _CartPageState extends State<CartPage> {
   var cartController = Get.put(CartController());
-  var products;
   double totalPrice = 0.0;
-  get() async {
-    print(" in get");
-    products = await productController.getProduct();
-  }
+  // get() async {
+  //   print(" in get");
+  //   products = await productController.getProduct();
+  // }
 
   @override
   void dispose() {
     // TODO: implement dispose
-    products = null;
     super.dispose();
   }
 
@@ -51,17 +34,15 @@ class _CartPageState extends State<CartPage> {
     // TODO: implement initState
     totalPrice = 0.0;
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      get();
       cartController.getCartItems();
       cartController.getCount();
     });
     super.initState();
   }
 
-  var productController = Get.put(ProductsController());
-
   @override
   Widget build(context) {
+    totalPrice = 0.0;
     return Scaffold(
       backgroundColor: vibrantAmber,
       extendBodyBehindAppBar: true,
@@ -116,9 +97,6 @@ class _CartPageState extends State<CartPage> {
                     color: black,
                     size: 30,
                   ),
-                  onTap: () {
-                    Get.to(CartPage());
-                  },
                 ),
               ),
             );
@@ -129,15 +107,14 @@ class _CartPageState extends State<CartPage> {
         ],
       ),
       body: Obx(() {
-        if (productController.isLoading.value ||
-            cartController.isLoading.value) {
+        if (cartController.isLoading.value) {
           return Center(child: CircularProgressIndicator());
-        } else if (productController == null) {
+        } else if (cartController.products == null) {
           return Center(
-            child: Text("No Books Found"),
+            child: Text("Cart Empty"),
           );
         } else {
-          print("  products : ${products}");
+          double totalPrice1 = 0.0;
           return LoadingOverlay(
             progressIndicator: Center(
               child: CircularProgressIndicator(),
@@ -154,39 +131,29 @@ class _CartPageState extends State<CartPage> {
                     children: [
                       Expanded(
                         child: ListView.builder(
-                            itemCount: cartController.totalItem.value,
+
                             // ignore: missing_return
+                            itemCount: cartController.totalItem.value,
                             itemBuilder: (context, index) {
-                              print("product length is : ${products.length}");
-                              for (int i = 0; i < products.length; i++) {
-                                print(' in side the loop ');
-                                print(
-                                    "cart id: ${cartController.products[index]["$product_id"]}");
-                                print(" product id: ${products[i]["id"]}");
-
-                                if (cartController.products[index]["product_id"]
-                                        .toString() ==
-                                    products[i]["id"].toString()) {
-                                  print(' matched');
-                                  // cartController.addPrize((cartController
-                                  //         .products[index]["quantity"]) *
-                                  //     int.parse(products[i]["price"]));
-                                  totalPrice = totalPrice +
-                                      (double.parse(products[i]["price"]) *
-                                          cartController.products[index]
-                                              ["quantity"]);
-
-                                  return itemsCard(
-                                      img: products[i]["images"][0]["src"],
-                                      itemName: products[i]["name"],
-                                      itemPrice: products[i]["price"],
-                                      totalItems: cartController.products[index]
-                                          ["quantity"],
-                                      darkColor: darkBlue,
-                                      product_id: cartController.products[index]
-                                          ["product_id"]);
-                                }
-                              }
+                              totalPrice1 = totalPrice1 +
+                                  (double.parse((cartController.products[index]
+                                              ["product_price"])
+                                          .toString()) *
+                                      double.parse((cartController
+                                              .products[index]["quantity"])
+                                          .toString()));
+                              return itemsCard(
+                                  img: cartController.products[index]
+                                      ["product_image"],
+                                  itemName: cartController.products[index]
+                                      ["product_name"],
+                                  itemPrice: cartController.products[index]
+                                      ["product_price"],
+                                  totalItems: cartController.products[index]
+                                      ["quantity"],
+                                  darkColor: darkBlue,
+                                  product_id: cartController.products[index]
+                                      ["product_id"]);
                             }),
                       ),
                       Padding(
@@ -201,7 +168,7 @@ class _CartPageState extends State<CartPage> {
                                   "Total",
                                 ),
                                 Text(
-                                  totalPrice.toString(),
+                                  totalPrice1.toString(),
                                 ),
                               ],
                             ),
@@ -233,7 +200,7 @@ class _CartPageState extends State<CartPage> {
                                   "Subtotal",
                                 ),
                                 Text(
-                                  totalPrice.toString(),
+                                  totalPrice1.toString(),
                                 ),
                               ],
                             ),
@@ -255,7 +222,7 @@ class _CartPageState extends State<CartPage> {
                                 decoration: BoxDecoration(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10)),
-                                    color: darkBlue),
+                                    color: vibrantOrange),
                                 child: Center(
                                   child: Text(
                                     "Continue to Checkout",
@@ -295,7 +262,7 @@ class _CartPageState extends State<CartPage> {
         ),
         child: Card(
           elevation: 2.0,
-          color: vibrantPink,
+          color: white,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -314,81 +281,99 @@ class _CartPageState extends State<CartPage> {
                   ),
                 ),
               ),
-              Container(
-                padding: EdgeInsets.only(right: 10.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Text(
-                      itemName,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
-                    ),
-                    Text(
-                      itemPrice + " RS",
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Row(
-                          children: [
-                            IconButton(
-                              icon: Icon(
-                                Icons.remove,
-                                color: darkColor,
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.only(right: 10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 8.0, right: 8.0, left: 8.0),
+                        child: Text(
+                          itemName,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 3,
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          itemPrice.toString() + " RS",
+                          style: TextStyle(
+                              color: vibrantRed, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Row(
+                            children: [
+                              IconButton(
+                                icon: Icon(
+                                  Icons.remove,
+                                  color: black,
+                                  size: 15,
+                                ),
+                                onPressed: () {
+                                  if (totalItems > 1) {
+                                    var cart = CartModel(
+                                        product_id: product_id,
+                                        quantity: totalItems - 1,
+                                        price: itemPrice,
+                                        image: img,
+                                        name: itemName);
+                                    cartController.updateCart(cart);
+                                  } else {
+                                    cartController.delete(
+                                        id: int.parse(product_id));
+                                  }
+                                  setState(() {
+                                    if (totalItems != 0) {
+                                      totalItems--;
+                                    }
+                                  });
+                                },
                               ),
-                              onPressed: () {
-                                if (totalItems > 1) {
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                totalItems.toString(),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15,
+                                  color: black,
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              IconButton(
+                                icon: Icon(
+                                  Icons.add,
+                                  color: black,
+                                  size: 15,
+                                ),
+                                onPressed: () {
                                   var cart = CartModel(
                                       product_id: product_id,
-                                      quantity: totalItems - 1);
+                                      quantity: totalItems + 1,
+                                      price: itemPrice,
+                                      image: img,
+                                      name: itemName);
                                   cartController.updateCart(cart);
-                                } else {
-                                  cartController.delete(
-                                      id: int.parse(product_id));
-                                }
-                                setState(() {
-                                  if (totalItems != 0) {
-                                    totalItems--;
-                                  }
-                                });
-                              },
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              totalItems.toString(),
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 24,
-                                color: darkColor,
+                                  setState(() {
+                                    totalItems++;
+                                  });
+                                },
                               ),
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            IconButton(
-                              icon: Icon(
-                                Icons.add,
-                                color: darkColor,
-                              ),
-                              onPressed: () {
-                                var cart = CartModel(
-                                    product_id: product_id,
-                                    quantity: totalItems + 1);
-                                cartController.updateCart(cart);
-                                setState(() {
-                                  totalItems++;
-                                });
-                              },
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               )
             ],

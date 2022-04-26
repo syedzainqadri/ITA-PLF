@@ -9,8 +9,20 @@ final String tablecart = 'cart';
 final String columnId = 'id';
 final String product_id = 'product_id';
 final String quantity = 'quantity';
+final String product_name = 'product_name';
+final String product_image = 'product_image';
+final String product_price = 'product_price';
 
 class CartController extends GetxController {
+  var totalPrice = 0.obs;
+  setPriceToZero() {
+    totalPrice(0).obs;
+  }
+
+  updatePrice({newPrice}) {
+    totalPrice(newPrice).obs;
+  }
+
   Database db;
   var isLoading = false.obs;
   var totalItem = 0.obs;
@@ -25,12 +37,16 @@ class CartController extends GetxController {
     String path = join(databasesPath, 'demo.db');
     db = await openDatabase(path, version: 1,
         onCreate: (Database db, int version) async {
-      await db.execute(
-          '''
+      await db.execute('''
 create table $tablecart ( 
   $columnId integer primary key autoincrement, 
   $product_id text not null,
-  $quantity integer not null)
+  $quantity integer not null,
+    $product_name text not null,
+  $product_image text not null,
+    $product_price double not null
+
+  )
 ''');
     });
   }
@@ -50,7 +66,12 @@ create table $tablecart (
       }
     }
     if (found) {
-      CartModel cart1 = CartModel(quantity: q + 1, product_id: cart.product_id);
+      CartModel cart1 = CartModel(
+          quantity: q + 1,
+          price: cart.price,
+          image: cart.image,
+          name: cart.name,
+          product_id: cart.product_id);
       updateCart(cart1);
       print(" data updated");
     } else {
@@ -85,7 +106,14 @@ create table $tablecart (
     isLoading(true).obs;
     List<Map> maps = await db.query(
       tablecart,
-      columns: [columnId, quantity, product_id],
+      columns: [
+        columnId,
+        quantity,
+        product_id,
+        product_name,
+        product_image,
+        product_price
+      ],
     );
     print("response is: ${maps}");
     if (maps.length > 0) {

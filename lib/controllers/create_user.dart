@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:PLF/helper/shared_preferences/shared_preferences.dart';
 import 'package:PLF/views/Home/Widgets/home_navbar.dart';
+import 'package:PLF/widgets/custom_snackbar.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 
@@ -44,15 +45,24 @@ class RegisterController extends GetxController {
 
       final resposeData = jsonDecode(detail.body);
       print("register response is: ${resposeData}");
-      MyHelper.saveLoginDetails(
-          email: email, name: userName, userId: resposeData["id"]);
-      isLoading(false).obs;
-      Get.offAll(HomeNavbar());
-
-      print(' register api response is: ${detail.body}');
+      if (resposeData.toString().contains("message")) {
+        print(" in if");
+        print("message: ${resposeData["message"]}");
+        isLoading(false);
+        errorSnackbar(resposeData["message"]);
+      } else {
+        print(" in else");
+        MyHelper.saveLoginDetails(
+            email: resposeData["email"].toString(),
+            name: userName.toString(),
+            userId: resposeData["id"].toString());
+        isLoading(false).obs;
+        Get.offAll(HomeNavbar());
+      }
     } catch (e) {
       print(" $e");
       isLoading(false);
+      errorSnackbar("something went wrong");
     }
   }
 }
