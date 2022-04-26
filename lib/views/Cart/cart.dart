@@ -314,31 +314,20 @@ class _CartPageState extends State<CartPage> {
                   ),
                 ),
               ),
-              Padding(
+              Container(
                 padding: EdgeInsets.only(right: 10.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    // const SizedBox(
-                    //   height: 15,
-                    // ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //   children: [
-                    //
-                    //   ],
-                    // ),
-
                     Text(
                       itemName,
                       overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
                     ),
-
                     Text(
                       itemPrice + " RS",
                     ),
-
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
