@@ -96,6 +96,8 @@ create table $tablecart (
 
   getCartItems() async {
     totalPrice(0).obs;
+
+    /// we will make the product equal to null here
     isLoading(true).obs;
     List<Map> maps = await db.query(
       tablecart,

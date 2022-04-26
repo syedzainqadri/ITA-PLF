@@ -110,10 +110,42 @@ class _CartPageState extends State<CartPage> {
         print("product is : ${cartController.products}");
         if (cartController.isLoading.value) {
           return Center(child: CircularProgressIndicator());
-        } else if (cartController.products == null ||
-            cartController.products.isEmpty) {
-          return Center(
-            child: Text("Cart Empty"),
+        } else if (cartController.totalItem < 1) {
+          return Container(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Cart Empty"),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: EdgeInsets.all(15),
+                      margin: EdgeInsets.only(bottom: 20, right: 30, left: 30),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          color: vibrantOrange),
+                      child: Center(
+                        child: Text(
+                          "Continue To Shop",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'circe',
+                              fontWeight: FontWeight.w700,
+                              fontSize: 18),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           );
         } else {
           double totalPrice1 = 0.0;
@@ -160,7 +192,8 @@ class _CartPageState extends State<CartPage> {
                             }),
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(12.0),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 12.0, horizontal: 18),
                         child: Obx(() {
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -171,26 +204,20 @@ class _CartPageState extends State<CartPage> {
                                 children: [
                                   Text(
                                     "Total",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                   Text(
                                     cartController.totalPrice.toString(),
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ],
                               ),
                               SizedBox(
                                 height: 5,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "Discount",
-                                  ),
-                                  Text(
-                                    "0.00",
-                                  ),
-                                ],
                               ),
                               SizedBox(
                                 height: 5,
@@ -205,9 +232,15 @@ class _CartPageState extends State<CartPage> {
                                 children: [
                                   Text(
                                     "Subtotal",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                   Text(
                                     cartController.totalPrice.toString(),
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ],
                               ),

@@ -241,16 +241,22 @@ class _CheckOutState extends State<CheckOut> {
                         ),
                       ],
                     ),
+                    SizedBox(
+                      height: 8.0,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Delivery Fee",
+                          "Delivery ",
                         ),
                         Text(
-                          "free",
+                          "250",
                         ),
                       ],
+                    ),
+                    SizedBox(
+                      height: 8.0,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -285,7 +291,7 @@ class _CheckOutState extends State<CheckOut> {
                               postCode: postcode.text,
                               products: widget.products,
                               state: state.text,
-                              total: widget.totalPrice,
+                              total: widget.totalPrice + 250,
                               methodId: "cod",
                               methodTitle: "Flat Rate",
                               paymentMethodTitle: "Cash on delivery");
@@ -339,7 +345,10 @@ class _CheckOutState extends State<CheckOut> {
         obscureText: false,
         controller: controller,
         decoration: InputDecoration(
-          labelText: labelText,
+          filled: true,
+          fillColor: white,
+          hintText: labelText,
+          // labelText: labelText,
           focusedBorder: OutlineInputBorder(
             borderSide: const BorderSide(
                 color: Color.fromARGB(255, 15, 15, 15), width: 2.0),
@@ -359,7 +368,7 @@ class _CheckOutState extends State<CheckOut> {
             ),
             borderRadius: BorderRadius.circular(15),
           ),
-          labelStyle: const TextStyle(
+          hintStyle: const TextStyle(
             color: Color.fromARGB(255, 71, 70, 70),
           ),
         ),
