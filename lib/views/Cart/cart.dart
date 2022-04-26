@@ -4,6 +4,7 @@ import 'package:PLF/models/cart_model.dart';
 import 'package:PLF/utils/ColorScheme.dart';
 import 'package:PLF/views/Chekout/checkout.dart';
 import 'package:PLF/views/Home/HomePage.dart';
+import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -62,7 +63,8 @@ class _CartPageState extends State<CartPage> {
   @override
   Widget build(context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: vibrantAmber,
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0.0,
@@ -104,16 +106,26 @@ class _CartPageState extends State<CartPage> {
               return Offstage();
             }
             return Padding(
-              padding: EdgeInsets.only(top: 10.0, right: 10),
-              child: Text(
-                cartController.totalItem.value.toString(),
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.black,
+              padding: EdgeInsets.only(top: 8),
+              child: Badge(
+                position: BadgePosition.topEnd(),
+                badgeContent: Text(cartController.totalItem.value.toString()),
+                child: InkWell(
+                  child: Icon(
+                    Icons.shopping_cart,
+                    color: black,
+                    size: 30,
+                  ),
+                  onTap: () {
+                    Get.to(CartPage());
+                  },
                 ),
               ),
             );
           }),
+          SizedBox(
+            width: 20,
+          )
         ],
       ),
       body: Obx(() {
@@ -145,6 +157,7 @@ class _CartPageState extends State<CartPage> {
                             itemCount: cartController.totalItem.value,
                             // ignore: missing_return
                             itemBuilder: (context, index) {
+                              print("product length is : ${products.length}");
                               for (int i = 0; i < products.length; i++) {
                                 print(' in side the loop ');
                                 print(
@@ -172,8 +185,6 @@ class _CartPageState extends State<CartPage> {
                                       darkColor: darkBlue,
                                       product_id: cartController.products[index]
                                           ["product_id"]);
-                                } else {
-                                  return Offstage();
                                 }
                               }
                             }),
@@ -279,118 +290,116 @@ class _CartPageState extends State<CartPage> {
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           // color: cardColor,
+
           borderRadius: BorderRadius.circular(25),
         ),
         child: Card(
           elevation: 2.0,
-          color: cardColor,
+          color: vibrantPink,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Padding(
-                padding: EdgeInsets.all(18.0),
-                child: Container(
-                  width: 60,
-                  height: 60,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: CachedNetworkImage(
-                      imageUrl: img,
-                      fit: BoxFit.cover,
-                      placeholder: (context, val) => Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                      errorWidget: (context, url, error) => Icon(Icons.image),
+              Container(
+                width: 150,
+                height: 150,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: CachedNetworkImage(
+                    imageUrl: img,
+                    fit: BoxFit.cover,
+                    placeholder: (context, val) => Center(
+                      child: CircularProgressIndicator(),
                     ),
+                    errorWidget: (context, url, error) => Icon(Icons.image),
                   ),
                 ),
               ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width / 1.5,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            itemName,
-                          ),
-                          Text(
-                            itemPrice + " RS",
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Row(
-                            children: [
-                              IconButton(
-                                icon: Icon(
-                                  Icons.remove,
-                                  color: darkColor,
-                                ),
-                                onPressed: () {
-                                  if (totalItems > 1) {
-                                    var cart = CartModel(
-                                        product_id: product_id,
-                                        quantity: totalItems - 1);
-                                    cartController.updateCart(cart);
-                                  } else {
-                                    cartController.delete(
-                                        id: int.parse(product_id));
-                                  }
-                                  setState(() {
-                                    if (totalItems != 0) {
-                                      totalItems--;
-                                    }
-                                  });
-                                },
+              Padding(
+                padding: EdgeInsets.only(right: 10.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    // const SizedBox(
+                    //   height: 15,
+                    // ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //   children: [
+                    //
+                    //   ],
+                    // ),
+
+                    Text(
+                      itemName,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+
+                    Text(
+                      itemPrice + " RS",
+                    ),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Row(
+                          children: [
+                            IconButton(
+                              icon: Icon(
+                                Icons.remove,
+                                color: darkColor,
                               ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                totalItems.toString(),
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 24,
-                                  color: darkColor,
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              IconButton(
-                                icon: Icon(
-                                  Icons.add,
-                                  color: darkColor,
-                                ),
-                                onPressed: () {
+                              onPressed: () {
+                                if (totalItems > 1) {
                                   var cart = CartModel(
                                       product_id: product_id,
-                                      quantity: totalItems + 1);
+                                      quantity: totalItems - 1);
                                   cartController.updateCart(cart);
-                                  setState(() {
-                                    totalItems++;
-                                  });
-                                },
+                                } else {
+                                  cartController.delete(
+                                      id: int.parse(product_id));
+                                }
+                                setState(() {
+                                  if (totalItems != 0) {
+                                    totalItems--;
+                                  }
+                                });
+                              },
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              totalItems.toString(),
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 24,
+                                color: darkColor,
                               ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            IconButton(
+                              icon: Icon(
+                                Icons.add,
+                                color: darkColor,
+                              ),
+                              onPressed: () {
+                                var cart = CartModel(
+                                    product_id: product_id,
+                                    quantity: totalItems + 1);
+                                cartController.updateCart(cart);
+                                setState(() {
+                                  totalItems++;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               )
             ],

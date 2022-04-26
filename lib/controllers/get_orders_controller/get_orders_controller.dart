@@ -6,23 +6,22 @@ import 'package:PLF/network/api_service.dart';
 import 'package:PLF/utils/url_paths.dart';
 import 'package:get/get.dart';
 
-class ProductsController extends GetxController {
-  var productsList = {}.obs;
+class GetOrdersController extends GetxController {
+  var orderList = {}.obs;
 
   var isLoading = true.obs;
   var isListNull = false.obs;
 
-  getProduct() async {
+  getOrders() async {
     isLoading(true).obs;
 
     var detail =
-        await APIService().getRequest(apiName: getProducts, isJson: false);
-    print(' api response is: ${detail.runtimeType}');
+        await APIService().getRequest(apiName: makeOrder, isJson: false);
+    print(' orders response is: ${detail}');
 
     if (detail != null) {
       try {
         final resposeData = jsonDecode(detail);
-        print(" product name is : ${resposeData[0]["name"]} ");
         isLoading(false).obs;
         return resposeData;
       } catch (e) {

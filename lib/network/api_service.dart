@@ -79,25 +79,21 @@ class APIService {
               headers: headers)
           .timeout(const Duration(seconds: 30));
 
-      // if(debugMode)print(response.body);
       print(" response body is: ${response.body}");
       var statusCode = response.statusCode;
       switch (statusCode) {
         case HttpStatus.ok:
           var jsonString = response.body;
-          // if (debugMode) debugPrint(jsonString, wrapWidth: 1024);
+
           return jsonString;
           break;
         case HttpStatus.gatewayTimeout:
-          // errorSnackbar("No response from server, Try again".tr);
           return null;
           break;
         case HttpStatus.noContent:
-          // errorSnackbar("No Data Found, Try Again".tr);
           return null;
           break;
         default:
-          // errorSnackbar("Something went wrong, Try again".tr);
           return null;
           break;
       }

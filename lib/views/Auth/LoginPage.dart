@@ -147,13 +147,13 @@ class LoginPage extends StatelessWidget {
                                         ),
                                       ),
                                       onPressed: () {
-                                        // Get.to(HomeNavbar());
-                                        if (_formKey.currentState.validate()) {
-                                          loginController.login(
-                                              userName: emailController.text,
-                                              password:
-                                                  passwordController.text);
-                                        }
+                                        Get.to(HomeNavbar());
+                                        // if (_formKey.currentState.validate()) {
+                                        //   loginController.login(
+                                        //       userName: emailController.text,
+                                        //       password:
+                                        //           passwordController.text);
+                                        // }
                                       },
                                       child: Text(
                                         'SignIn',

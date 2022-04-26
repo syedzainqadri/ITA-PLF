@@ -1,3 +1,4 @@
+import 'package:PLF/controllers/get_products.dart';
 import 'package:PLF/views/Cart/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -9,7 +10,9 @@ import '../../models/cart_model.dart';
 
 class BookDetails extends StatefulWidget {
   String img, name, subText, price, bookId;
-  BookDetails(this.img, this.name, this.subText, @required this.price);
+  final relatedIds;
+  BookDetails(
+      this.img, this.name, this.subText, @required this.price, this.relatedIds);
   @override
   _BookDetailsState createState() => _BookDetailsState();
 }
@@ -17,6 +20,7 @@ class BookDetails extends StatefulWidget {
 class _BookDetailsState extends State<BookDetails> {
   var addToCartController = Get.put(AddToCart());
   var cartController = Get.put(CartController());
+  var productController = Get.put(ProductsController());
   int selectedDate = DateTime.now().day;
   @override
   Widget build(BuildContext context) {

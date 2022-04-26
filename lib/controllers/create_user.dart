@@ -32,21 +32,27 @@ class RegisterController extends GetxController {
       "password": password,
     };
     print(" sending data is: $data");
-    var detail = await http
-        .post(
-            Uri.parse(
-                "https://clfbooks.childrensliteraturefestival.com/wp-json/wc/v3/customers"),
-            body: jsonEncode(data),
-            headers: headers)
-        .timeout(const Duration(seconds: 30));
 
-    if (detail.statusCode == 200) {
+    try {
+      var detail = await http
+          .post(
+              Uri.parse(
+                  "https://clfbooks.childrensliteraturefestival.com/wp-json/wc/v3/customers"),
+              body: jsonEncode(data),
+              headers: headers)
+          .timeout(const Duration(seconds: 30));
+
       final resposeData = jsonDecode(detail.body);
+      print("register response is: ${resposeData}");
       MyHelper.saveLoginDetails(
           email: email, name: userName, userId: resposeData["id"]);
+      isLoading(false).obs;
+      Get.offAll(HomeNavbar());
+
+      print(' register api response is: ${detail.body}');
+    } catch (e) {
+      print(" $e");
+      isLoading(false);
     }
-    isLoading(false).obs;
-    Get.offAll(HomeNavbar());
-    print(' register api response is: ${detail.body}');
   }
 }

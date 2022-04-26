@@ -29,16 +29,12 @@ class _BookStoreState extends State<BookStore> {
   }
 
   var cartController = Get.put(CartController());
-  CartModel cart = CartModel(product_id: "12", quantity: 3);
   @override
   void initState() {
     // TODO: implement initState
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       get();
-
       cartController.open();
-
-      cartController.insert(cart);
     });
     super.initState();
   }
@@ -136,6 +132,8 @@ class _BookStoreState extends State<BookStore> {
                                   color: vibrantPink,
                                   darkBlue: vibrantPurple,
                                   context: context,
+                                  relatedProducts: products[index]
+                                      ['related_ids'],
                                   bookId: products[index]["id"],
                                   subText: products[index]['description'],
                                   price: products[index]['price'],
