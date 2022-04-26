@@ -12,7 +12,7 @@ class BookDetails extends StatefulWidget {
   String img, name, subText, price, bookId;
   final relatedIds;
   BookDetails(
-      this.img, this.name, this.subText, @required this.price, this.relatedIds);
+      this.img, this.name, this.subText, this.price, this.relatedIds);
   @override
   _BookDetailsState createState() => _BookDetailsState();
 }
@@ -208,7 +208,9 @@ class _BookDetailsState extends State<BookDetails> {
   InkWell dateWidget(int i) {
     DateTime tempDate = DateTime.now().add(Duration(days: i));
     return InkWell(
-      onTap: () {},
+      onTap: () {
+
+      },
       child: Container(
         margin: EdgeInsets.all(2),
         height: 60,

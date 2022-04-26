@@ -2,6 +2,7 @@ import 'package:PLF/controllers/feedback_controller.dart';
 import 'package:PLF/utils/ColorScheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import '../../utils/helpers.dart';
 import '../../utils/url_base.dart';
 import '../Webview/webview.dart';
 import 'package:get/get.dart';
@@ -72,41 +73,53 @@ class _FeedbackPageState extends State<FeedbackPage> {
               ),
               SizedBox(height: 20),
               Padding(
-                padding: const EdgeInsets.only(right: 20.0, left: 20.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(),
-                      borderRadius: BorderRadius.circular(20)),
-                  height: 60,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Icon(Icons.menu),
-                      Text('Project'),
-                      DropdownButton<String>(
-                        items: <String>[
-                          'YAA',
-                          'Incredible Libraries',
-                          'Online Book Club',
-                          'Story Bytes'
-                              'Art & Craft Therapy',
-                          'Digital Learning Festival',
-                          'PLP Publications',
-                        ].map((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                        onChanged: (value) {
-                          setState(() {
-                            selectedProject = value;
-                          });
-                        },
-                      ),
-                    ],
+                padding: EdgeInsets.only(left: 20, right: 20),
+                child: DropdownButtonFormField(
+                  decoration: const InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(0)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(0)),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(0)),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(0)),
+                    ),
+                    disabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(0)),
+                    ),
+                    filled: true,
+                    fillColor: Colors.white,
                   ),
+                  validator: (value) => value == null ?  "Select a Project": null,
+                  dropdownColor: Colors.white,
+                  hint: const Text("Select a Project"),
+                  value: selectedProject,
+                  onChanged: (String newValue) {
+                    setState(() {
+                      selectedProject = newValue;
+                    });
+                  },
+                  items: <String>[
+                    'YAA',
+                    'Incredible Libraries',
+                    'Online Book Club',
+                    'Story Bytes',
+                    'Art & Craft Therapy',
+                    'Digital Learning Festival',
+                    'PLP Publications',
+                  ].map((String value) {
+                    return DropdownMenuItem<String>(
+                        enabled: true,
+                        value: value,
+                        child: Text(
+                          value,
+                          style: TextStyle(color: Colors.black, fontSize: 18),
+                        ));
+                  }).toList(),
                 ),
               ),
               SizedBox(
@@ -151,8 +164,21 @@ class _FeedbackPageState extends State<FeedbackPage> {
               ),
               InkWell(
                 onTap: () {
-                  _feedbackController.addFeedbackData(
-                      selectedProject, remarksController.text.trim(), myRating);
+                  if(selectedProject != null){
+                    if(remarksController.text.isNotEmpty){
+                      if(myRating != null){
+                        _feedbackController.addFeedbackData(
+                            selectedProject, remarksController.text.trim(), myRating);
+                      }else{
+                        errorToast("Error", "Add your Ratings First");
+                      }
+                    }else{
+                      errorToast("Error", "Add your Remarks First");
+                    }
+                  }else{
+                    errorToast("Error", "Select the Project First");
+                  }
+
                   setState(() {});
                 },
                 child: Container(

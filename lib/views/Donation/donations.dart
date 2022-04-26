@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:PLF/utils/ColorScheme.dart';
 
+import '../../utils/helpers.dart';
 import '../../utils/url_base.dart';
 import '../Home/Widgets/home_navbar.dart';
 import '../Webview/webview.dart';
@@ -79,58 +80,106 @@ class _DonationsScreenState extends State<DonationsScreen> {
                   height: 20,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(right: 20.0, left: 20.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: white,
-                        border: Border.all(
-                          color: white,
-                        ),
-                        borderRadius: BorderRadius.circular(0)),
-                    height: 60,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        // Icon(Icons.menu),
-                        // Text('Project'),
-                        DropdownButton<String>(
-                          dropdownColor: vibrantOrange,
-                          autofocus: true,
-                          hint: Text('Please select a Project'),
-                          items: <String>[
-                            'YAA',
-                            'Incredible Libraries',
-                            'Online Book Club',
-                            'Story Bytes',
-                            'Art & Craft Therapy',
-                            'Digital Learning Festival',
-                            'PLP Publications',
-                          ].map((String value) {
-                            return DropdownMenuItem<String>(
-                                enabled: true,
-                                value: value,
-                                child: Text(
-                                  value,
-                                  style: TextStyle(color: white, fontSize: 18),
-                                ));
-                          }).toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              selectedProject = value;
-                            });
-                            print(selectedProject);
-                          },
-                        ),
-                      ],
+                  padding: EdgeInsets.only(left: 20, right: 20),
+                  child: DropdownButtonFormField(
+                    decoration: const InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(0)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(0)),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(0)),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(0)),
+                      ),
+                      disabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(0)),
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
                     ),
+                    validator: (value) => value == null ?  "Select a Project": null,
+                    dropdownColor: Colors.white,
+                    hint: const Text("Select a Project"),
+                    value: selectedProject,
+                    onChanged: (String newValue) {
+                      setState(() {
+                        selectedProject = newValue;
+                      });
+                    },
+                    items: <String>[
+                      'YAA',
+                      'Incredible Libraries',
+                      'Online Book Club',
+                      'Story Bytes',
+                      'Art & Craft Therapy',
+                      'Digital Learning Festival',
+                      'PLP Publications',
+                    ].map((String value) {
+                      return DropdownMenuItem<String>(
+                          enabled: true,
+                          value: value,
+                          child: Text(
+                            value,
+                            style: TextStyle(color: Colors.black, fontSize: 18),
+                          ));
+                    }).toList(),
                   ),
                 ),
+                // Padding(
+                //   padding: const EdgeInsets.only(right: 20.0, left: 20.0),
+                //   child: Container(
+                //     decoration: BoxDecoration(
+                //         color: white,
+                //         border: Border.all(
+                //           color: white,
+                //         ),
+                //         borderRadius: BorderRadius.circular(0)),
+                //     height: 60,
+                //     child: Row(
+                //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+                //       children: [
+                //         DropdownButton<String>(
+                //           dropdownColor: vibrantOrange,
+                //           autofocus: true,
+                //           hint: Text('Please select a Project'),
+                //           items: <String>[
+                //             'YAA',
+                //             'Incredible Libraries',
+                //             'Online Book Club',
+                //             'Story Bytes',
+                //             'Art & Craft Therapy',
+                //             'Digital Learning Festival',
+                //             'PLP Publications',
+                //           ].map((String value) {
+                //             return DropdownMenuItem<String>(
+                //                 enabled: true,
+                //                 value: value,
+                //                 child: Text(
+                //                   value,
+                //                   style: TextStyle(color: white, fontSize: 18),
+                //                 ));
+                //           }).toList(),
+                //           onChanged: (value) {
+                //             setState(() {
+                //               selectedProject = value;
+                //             });
+                //             print(selectedProject);
+                //           },
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
                 SizedBox(
                   height: 20,
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 20, right: 20),
-                  child: TextField(
+                  child: TextFormField(
                     controller: amountController,
                     decoration: InputDecoration(
                         border: InputBorder.none,
@@ -145,8 +194,9 @@ class _DonationsScreenState extends State<DonationsScreen> {
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 20, right: 20),
-                  child: TextField(
+                  child: TextFormField(
                     controller: cityController,
+
                     decoration: InputDecoration(
                         border: InputBorder.none,
                         filled: true,
@@ -160,17 +210,34 @@ class _DonationsScreenState extends State<DonationsScreen> {
                 ),
                 InkWell(
                   onTap: () {
-                    showDialog(
-                      barrierColor: Colors.black26,
-                      context: context,
-                      builder: (context) {
-                        return DonateDialog(
-                            name: nameController.text.trim(),
-                            project: selectedProject,
-                            amount: amountController.text.trim(),
-                            city: cityController.text.trim());
-                      },
-                    );
+                    if(nameController.text.isNotEmpty){
+                      if(selectedProject != null){
+                        if(amountController.text.isNotEmpty){
+                          if(cityController.text.isNotEmpty){
+                            showDialog(
+                              barrierColor: Colors.black26,
+                              context: context,
+                              builder: (context) {
+                                return DonateDialog(
+                                    name: nameController.text.trim(),
+                                    project: selectedProject,
+                                    amount: amountController.text.trim(),
+                                    city: cityController.text.trim());
+                              },
+                            );
+                          }else{
+                            errorToast("Error", "Add the City First");
+                          }
+                        }else{
+                          errorToast("Error", "Add the Amount First");
+                        }
+                      }else{
+                        errorToast("Error", "Select the Project First");
+                      }
+                    }else{
+                      errorToast("Error", "Add the Name First");
+                    }
+
                   },
                   child: Container(
                     child: Container(
