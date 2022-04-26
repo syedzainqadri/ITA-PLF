@@ -54,8 +54,10 @@ class _CheckOutState extends State<CheckOut> {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    country.text = "PK";
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: vibrantAmber,
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -77,21 +79,13 @@ class _CheckOutState extends State<CheckOut> {
         ),
       ),
       body: Obx(() {
-        // if (paymentMethodsController.isLoading.value) {
-        //   return Center(child: CircularProgressIndicator());
-        // } else if (paymentMethodsController.isListNull.value) {
-        //   return Center(
-        //     child: Text("No Payment Method Found"),
-        //   );
-        // }
-        // else {
         return LoadingOverlay(
           isLoading: orderController.isLoading.value,
           progressIndicator: Center(
             child: CircularProgressIndicator(),
           ),
           opacity: 0.3,
-          child: SingleChildScrollView(
+          child: SafeArea(
             child: SingleChildScrollView(
               child: Container(
                 // height: MediaQuery.of(context).size.height * 0.9,
@@ -104,16 +98,6 @@ class _CheckOutState extends State<CheckOut> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text("Delivery Address"),
-                        // GestureDetector(
-                        //     onTap: () {
-                        //       Get.to(AddAddress());
-                        //     },
-                        //     child: Text(
-                        //       "+ Add",
-                        //       style: TextStyle(
-                        //         color: Colors.blue,
-                        //       ),
-                        //     )),
                       ],
                     ),
                     Form(
@@ -218,51 +202,12 @@ class _CheckOutState extends State<CheckOut> {
                                 SizedBox(
                                   height: 5,
                                 ),
-                                // InkWell(
-                                //   onTap: () {},
-                                //   child: Container(
-                                //     width: MediaQuery.of(context).size.width,
-                                //     padding: EdgeInsets.all(15),
-                                //     margin: EdgeInsets.only(bottom: 20, right: 30, left: 30),
-                                //     decoration: BoxDecoration(
-                                //         borderRadius: BorderRadius.all(Radius.circular(10)),
-                                //         color: darkBlue),
-                                //     child: Center(
-                                //       child: Text(
-                                //         "Save Location",
-                                //         style: TextStyle(
-                                //             color: Colors.white,
-                                //             fontFamily: 'circe',
-                                //             fontWeight: FontWeight.w700,
-                                //             fontSize: 18),
-                                //       ),
-                                //     ),
-                                //   ),
-                                // ),
                               ],
                             ),
                           ),
                         ],
                       ),
                     ),
-                    // SizedBox(
-                    //   height: 15,
-                    // ),
-                    // Center(
-                    //   child: Container(
-                    //     decoration: BoxDecoration(
-                    //       color: Colors.white,
-                    //       borderRadius: BorderRadius.circular(12),
-                    //     ),
-                    //     width: MediaQuery.of(context).size.width / 1.2,
-                    //     child: Padding(
-                    //       padding: const EdgeInsets.all(18.0),
-                    //       child: Center(
-                    //         child: Text("No Address Available"),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
                     SizedBox(
                       height: 15,
                     ),
@@ -282,45 +227,8 @@ class _CheckOutState extends State<CheckOut> {
                         Text("Cash on delivery"),
                       ],
                     ),
-                    // Expanded(
-                    //   child: ListView.builder(
-                    //       itemCount: methods.length,
-                    //       itemBuilder: (context, index) {
-                    //         print(" methods length is;  ${methods.length}");
-                    //         print("title is; ${methods[index]["title"]}");
-                    //         return Row(
-                    //           children: [
-                    //             Checkbox(
-                    //                 value: digitalPayment,
-                    //                 onChanged: (value) {
-                    //                   setState(() {
-                    //                     digitalPayment = value;
-                    //                     cashOnDelivery = false;
-                    //                   });
-                    //                 }),
-                    //             Text(methods[index]["title"] ?? " "),
-                    //           ],
-                    //         );
-                    //       }),
-                    // ),
-                    TextField(
-                      style: TextStyle(fontSize: 18, fontFamily: 'circe'),
-                      decoration: InputDecoration(
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(
-                              color: Colors.black87,
-                            ),
-                          ),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                              borderSide: BorderSide(
-                                color: Colors.grey,
-                              )),
-                          hintText: "Additional note"),
-                    ),
                     SizedBox(
-                      height: 10.0,
+                      height: 15.0,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -390,7 +298,7 @@ class _CheckOutState extends State<CheckOut> {
                             EdgeInsets.only(bottom: 20, right: 30, left: 30),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
-                            color: darkBlue),
+                            color: vibrantOrange),
                         child: Center(
                           child: Text(
                             "Place Order",

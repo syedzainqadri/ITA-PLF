@@ -15,13 +15,6 @@ final String product_price = 'product_price';
 
 class CartController extends GetxController {
   var totalPrice = 0.obs;
-  setPriceToZero() {
-    totalPrice(0).obs;
-  }
-
-  updatePrice({newPrice}) {
-    totalPrice(newPrice).obs;
-  }
 
   Database db;
   var isLoading = false.obs;
@@ -99,10 +92,10 @@ create table $tablecart (
 
   clearData() {
     db.execute("delete from " + tablecart);
-    Get.offAll(HomeNavbar());
   }
 
   getCartItems() async {
+    totalPrice(0).obs;
     isLoading(true).obs;
     List<Map> maps = await db.query(
       tablecart,
@@ -118,6 +111,13 @@ create table $tablecart (
     print("response is: ${maps}");
     if (maps.length > 0) {
       products.value = maps;
+      for (var item in maps) {
+        print("q is: ${item["quantity"].toString()}");
+        totalPrice(totalPrice.value +
+                ((item["quantity"]) * (item["product_price"]).toInt()))
+            .obs;
+      }
+      print(" total price is: ${totalPrice.value}");
       isLoading(false).obs;
       return maps;
       // return CartModel.fromMap(maps);

@@ -5,6 +5,8 @@ import 'package:PLF/controllers/add_to_cart/add_to_cart.dart';
 import 'package:PLF/models/product.dart';
 import 'package:PLF/network/api_service.dart';
 import 'package:PLF/utils/url_paths.dart';
+import 'package:PLF/views/Home/Widgets/home_navbar.dart';
+import 'package:PLF/views/order_success_screen/order_success_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:PLF/widgets/custom_snackbar.dart';
 import 'package:get/get.dart';
@@ -69,30 +71,13 @@ class CreateOrderController extends GetxController {
         "postcode": postCode,
         "country": country,
       },
-      // "line_items": List.generate(
-      //     products.length,
-      //     (index) => {
-      //           "product_id":
-      //               int.parse(products[index]["product_id"].toString()),
-      //           "quantity": int.parse(products[index]["quantity"].toString()),
-      //         }),
-      // [
-      //   {
-      //     "product_id": 93,
-      //     "quantity": 2
-      //   },
-      //   {
-      //     "product_id": 22,
-      //     "variation_id": 23,
-      //     "quantity": 1
-      //   }
-      // ]
-      "line_items": [
-        {
-          "product_id": products[0]["product_id"],
-          "quantity": products[0]["quantity"]
-        },
-      ],
+      "line_items": List.generate(
+          products.length,
+          (index) => {
+                "product_id":
+                    int.parse(products[index]["product_id"].toString()),
+                "quantity": int.parse(products[index]["quantity"].toString()),
+              }),
       "shipping_lines": [
         {
           "method_id": "flat_rate",
@@ -132,8 +117,9 @@ class CreateOrderController extends GetxController {
 
         print(" order id is : ${resposeData["id"]} ");
         isLoading(false).obs;
-        successSnackbar("${resposeData["Ordered Successfully"]}");
+        successSnackbar("Ordered placed Successfully");
         cartController.clearData();
+        Get.to(SuccessScreen());
 
         return resposeData;
       } catch (e) {

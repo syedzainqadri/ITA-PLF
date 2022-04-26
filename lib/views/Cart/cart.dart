@@ -107,9 +107,11 @@ class _CartPageState extends State<CartPage> {
         ],
       ),
       body: Obx(() {
+        print("product is : ${cartController.products}");
         if (cartController.isLoading.value) {
           return Center(child: CircularProgressIndicator());
-        } else if (cartController.products == null) {
+        } else if (cartController.products == null ||
+            cartController.products.isEmpty) {
           return Center(
             child: Text("Cart Empty"),
           );
@@ -142,6 +144,7 @@ class _CartPageState extends State<CartPage> {
                                       double.parse((cartController
                                               .products[index]["quantity"])
                                           .toString()));
+                              print("");
                               return itemsCard(
                                   img: cartController.products[index]
                                       ["product_image"],
@@ -158,85 +161,90 @@ class _CartPageState extends State<CartPage> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(12.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Total",
-                                ),
-                                Text(
-                                  totalPrice1.toString(),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Discount",
-                                ),
-                                Text(
-                                  "0.00",
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              "- - - - - - - - - - - - - - - - - - - - - - - - - - - -",
-                              style: TextStyle(fontSize: 25),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Subtotal",
-                                ),
-                                Text(
-                                  totalPrice1.toString(),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 15,
-                            ),
-                            InkWell(
-                              onTap: () {
-                                Get.to(CheckOut(
-                                  totalPrice: totalPrice,
-                                  products: cartController.products.value,
-                                ));
-                              },
-                              child: Container(
-                                width: MediaQuery.of(context).size.width,
-                                padding: EdgeInsets.all(15),
-                                margin: EdgeInsets.only(
-                                    bottom: 20, right: 30, left: 30),
-                                decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10)),
-                                    color: vibrantOrange),
-                                child: Center(
-                                  child: Text(
-                                    "Continue to Checkout",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontFamily: 'circe',
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 18),
+                        child: Obx(() {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Total",
+                                  ),
+                                  Text(
+                                    cartController.totalPrice.toString(),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Discount",
+                                  ),
+                                  Text(
+                                    "0.00",
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                "- - - - - - - - - - - - - - - - - - - - - - - - - - - -",
+                                style: TextStyle(fontSize: 25),
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Subtotal",
+                                  ),
+                                  Text(
+                                    cartController.totalPrice.toString(),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  Get.to(CheckOut(
+                                    totalPrice: cartController.totalPrice,
+                                    products: cartController.products.value,
+                                  ));
+                                },
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  padding: EdgeInsets.all(15),
+                                  margin: EdgeInsets.only(
+                                      bottom: 20, right: 30, left: 30),
+                                  decoration: BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(10)),
+                                      color: vibrantOrange),
+                                  child: Center(
+                                    child: Text(
+                                      "Continue to Checkout",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontFamily: 'circe',
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 18),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
+                            ],
+                          );
+                        }),
                       ),
                     ],
                   ),
