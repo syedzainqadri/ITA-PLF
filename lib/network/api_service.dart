@@ -32,13 +32,6 @@ class APIService {
             headers: headers)
         .timeout(const Duration(seconds: 30));
     try {
-      // var connectivityResult = await (Connectivity().checkConnectivity());
-      // if (connectivityResult != ConnectivityResult.mobile &&
-      //     connectivityResult != ConnectivityResult.wifi) {
-      //   // errorSnackbar("no internet connection, please connect to internet".tr);
-      //   return null;
-      // }
-
       print("response body; " + response.body);
       var statusCode = response.statusCode;
       switch (statusCode) {

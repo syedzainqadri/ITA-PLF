@@ -57,139 +57,137 @@ class _BookStoreState extends State<BookStore> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: vibrantYellow,
-      body: Column(
-        children: [
-          Container(
-            height: 70,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-                color: vibrantWhite),
-            child: Row(
+      body: Obx(() {
+        if (productController.isLoading.value) {
+          return Center(child: CircularProgressIndicator());
+        } else if (productController.isListNull.value) {
+          return Center(
+            child: Text("No Books Found"),
+          );
+        } else {
+          return LoadingOverlay(
+            progressIndicator: Center(
+              child: CircularProgressIndicator(),
+            ),
+            isLoading: false,
+            child: Column(
               children: [
-                IconButton(
-                  icon: Icon(
-                    Icons.search,
-                    color: Colors.black,
-                    size: 25,
+                Container(
+                  height: 70,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      color: vibrantWhite),
+                  child: Row(
+                    children: [
+                      IconButton(
+                        icon: Icon(
+                          Icons.search,
+                          color: Colors.black,
+                          size: 25,
+                        ),
+                        onPressed: () {},
+                      ),
+                      Expanded(
+                        child: TextFormField(
+                          style: TextStyle(fontSize: 18, fontFamily: 'circe'),
+                          decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: "Search for Books"),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(left: 15, right: 10),
+                        child: InkWell(
+                            onTap: () {
+                              setState(() {
+                                getCategories();
+                              });
+
+                              showModalBottomSheet(
+                                  context: context,
+                                  isScrollControlled: true,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30)),
+                                  builder: (context) {
+                                    return StatefulBuilder(builder:
+                                        (context, StateSetter customSetState) {
+                                      return profits_bottomsheet(
+                                          customSetState);
+
+                                      // profits_bottomsheet();
+                                    });
+                                  });
+                            },
+                            child: Icon(Icons.photo_filter_sharp)),
+                        height: 49,
+                      ),
+                    ],
                   ),
-                  onPressed: () {},
                 ),
-                Expanded(
-                  child: TextFormField(
-                    style: TextStyle(fontSize: 18, fontFamily: 'circe'),
-                    decoration: InputDecoration(
-                        border: InputBorder.none, hintText: "Search for Books"),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * .05,
+                    child: Image.network(
+                        'https://childrensliteraturefestival.com/wp-content/uploads/2022/02/ssp-gray.png'),
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(left: 15, right: 10),
-                  child: InkWell(
-                      onTap: () {
-                        setState(() {
-                          getCategories();
-                        });
-
-                        showModalBottomSheet(
-                            context: context,
-                            isScrollControlled: true,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30)),
-                            builder: (context) {
-                              return StatefulBuilder(builder:
-                                  (context, StateSetter customSetState) {
-                                return profits_bottomsheet(customSetState);
-
-                                // profits_bottomsheet();
-                              });
-                            });
-                      },
-                      child: Icon(Icons.photo_filter_sharp)),
-                  height: 49,
+                  height: MediaQuery.of(context).size.height * .15,
+                  padding: EdgeInsets.only(left: 20, right: 30),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(child: Container()),
+                      SizedBox(
+                        height: 10,
+                      )
+                    ],
+                  ),
                 ),
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.all(30),
+                    width: MediaQuery.of(context).size.width,
+                    color: vibrantYellow,
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: GridView.builder(
+                              primary: false,
+                              itemCount: products.length,
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisSpacing: 20,
+                                mainAxisSpacing: 20,
+                                crossAxisCount: 2,
+                              ),
+                              // itemCount:
+                              // productController.productsResponse.length,
+                              itemBuilder: (context, index) {
+                                return BookWidget(
+                                  img: products[index]["images"][0]["src"],
+                                  name: products[index]["name"],
+                                  color: vibrantPink,
+                                  darkBlue: vibrantPurple,
+                                  context: context,
+                                  relatedProducts: products[index]
+                                      ['related_ids'],
+                                  bookId: products[index]["id"],
+                                  subText: products[index]['description'],
+                                  price: products[index]['price'],
+                                );
+                              }),
+                        )
+                      ],
+                    ),
+                  ),
+                )
               ],
             ),
-          ),
-          Obx(() {
-            if (productController.isLoading.value) {
-              return Center(child: CircularProgressIndicator());
-            } else if (productController.isListNull.value) {
-              return Center(
-                child: Text("No Books Found"),
-              );
-            } else {
-              return LoadingOverlay(
-                progressIndicator: Center(
-                  child: CircularProgressIndicator(),
-                ),
-                isLoading: false,
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20.0),
-                      child: Container(
-                        height: MediaQuery.of(context).size.height * .05,
-                        child: Image.network(
-                            'https://childrensliteraturefestival.com/wp-content/uploads/2022/02/ssp-gray.png'),
-                      ),
-                    ),
-                    Container(
-                      height: MediaQuery.of(context).size.height * .15,
-                      padding: EdgeInsets.only(left: 20, right: 30),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(child: Container()),
-                          SizedBox(
-                            height: 10,
-                          )
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        padding: EdgeInsets.all(30),
-                        width: MediaQuery.of(context).size.width,
-                        color: vibrantYellow,
-                        child: Column(
-                          children: [
-                            Expanded(
-                              child: GridView.builder(
-                                  primary: false,
-                                  itemCount: products.length,
-                                  gridDelegate:
-                                      SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisSpacing: 20,
-                                    mainAxisSpacing: 20,
-                                    crossAxisCount: 2,
-                                  ),
-                                  // itemCount:
-                                  // productController.productsResponse.length,
-                                  itemBuilder: (context, index) {
-                                    return BookWidget(
-                                      img: products[index]["images"][0]["src"],
-                                      name: products[index]["name"],
-                                      color: vibrantPink,
-                                      darkBlue: vibrantPurple,
-                                      context: context,
-                                      relatedProducts: products[index]
-                                          ['related_ids'],
-                                      bookId: products[index]["id"],
-                                      subText: products[index]['description'],
-                                      price: products[index]['price'],
-                                    );
-                                  }),
-                            )
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              );
-            }
-          }),
-        ],
-      ),
+          );
+        }
+      }),
     );
   }
 
@@ -235,13 +233,15 @@ class _BookStoreState extends State<BookStore> {
                       InkWell(
                         child: Text(" Apply Filters"),
                         onTap: () {
-                          if (selectedCatId == null) {
-                            productController.updateApiUrl(
-                                "products?per_page=100&stock_status=instock&status=publish");
-                          } else {
-                            productController.updateApiUrl(
-                                "products?category=$selectedCatId");
-                          }
+                          productController.updateApiUrl(
+                              "products?per_page=100&category=$selectedCatId&stock_status=instock&status=publish");
+                          // .updateApiUrl("products?category=$selectedCatId");
+                          // if (selectedCatId == null) {
+                          //   productController.updateApiUrl(
+                          //       "products?per_page=100&stock_status=instock&status=publish");
+                          // } else {
+
+                          // }
                           Navigator.pop(context);
                           productController.getProduct();
                         },

@@ -11,8 +11,11 @@ class ProductsController extends GetxController {
 
   var isLoading = true.obs;
   var isListNull = false.obs;
+  var apiUrl = "products?per_page=100&stock_status=instock&status=publish".obs;
 
-  var apiUrl = getProducts.obs;
+  // products?per_page=100&category=15&stock_status=instock&status=publish
+  // products?per_page=100&category=57&stock_status=instock&status=publish
+
   updateApiUrl(val) {
     apiUrl(val).obs;
   }
@@ -23,6 +26,7 @@ class ProductsController extends GetxController {
     print(" api url is: ${apiUrl.value}");
     var detail = await APIService().getRequest(
         apiName:
+            // "https://clfbooks.childrensliteraturefestival.com/wp-json/wc/v3/products?per_page=100&category=15&stock_status=instock&status=publish",
             "https://clfbooks.childrensliteraturefestival.com/wp-json/wc/v3/${apiUrl.value}",
         isJson: false);
     print(' api response is: ${detail.runtimeType}');
