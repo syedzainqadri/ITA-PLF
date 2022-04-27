@@ -15,8 +15,8 @@ class CategoriesController extends GetxController {
   getCategoriesList() async {
     isLoading(true).obs;
     isListNull(false).obs;
-    var detail =
-        await APIService().getRequest(apiName: getCategories, isJson: false);
+    var detail = await APIService()
+        .getRequest(apiName: basUrl + getCategories, isJson: false);
     print(' api response is: ${detail}');
 
     if (detail != null) {

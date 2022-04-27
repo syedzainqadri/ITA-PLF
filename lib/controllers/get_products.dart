@@ -19,9 +19,12 @@ class ProductsController extends GetxController {
 
   getProduct() async {
     isLoading(true).obs;
-
-    var detail =
-        await APIService().getRequest(apiName: apiUrl.value, isJson: false);
+    //
+    print(" api url is: ${apiUrl.value}");
+    var detail = await APIService().getRequest(
+        apiName:
+            "https://clfbooks.childrensliteraturefestival.com/wp-json/wc/v3/${apiUrl.value}",
+        isJson: false);
     print(' api response is: ${detail.runtimeType}');
 
     if (detail != null) {

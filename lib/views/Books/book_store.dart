@@ -44,6 +44,8 @@ class _BookStoreState extends State<BookStore> {
   void initState() {
     // TODO: implement initState
     catCheck = false;
+    productController.updateApiUrl(
+        "products?per_page=100&stock_status=instock&status=publish");
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       get();
       cartController.open();
@@ -207,7 +209,7 @@ class _BookStoreState extends State<BookStore> {
         if (categoryController.isLoading.value) {
           return Center(child: CircularProgressIndicator());
         } else if (categoryController.isListNull.value) {
-          return Text(" No Profits");
+          return Text(" No Cat");
         } else {
           print("categories list is:  ${categories}");
           return SingleChildScrollView(
@@ -233,8 +235,13 @@ class _BookStoreState extends State<BookStore> {
                       InkWell(
                         child: Text(" Apply Filters"),
                         onTap: () {
-                          productController
-                              .updateApiUrl("products?category=$selectedCatId");
+                          if (selectedCatId == null) {
+                            productController.updateApiUrl(
+                                "products?per_page=100&stock_status=instock&status=publish");
+                          } else {
+                            productController.updateApiUrl(
+                                "products?category=$selectedCatId");
+                          }
                           Navigator.pop(context);
                           productController.getProduct();
                         },
@@ -262,7 +269,7 @@ class _BookStoreState extends State<BookStore> {
                         print(
                           " category single item: ${item}",
                         );
-                        if (item["count"].toString() != null) {
+                        if (int.parse(item["count"].toString()) > 0) {
                           return Container(
                             padding: EdgeInsets.symmetric(horizontal: 30),
                             margin: EdgeInsets.only(top: 15),

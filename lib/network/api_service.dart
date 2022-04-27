@@ -73,10 +73,7 @@ class APIService {
       };
       print(" calling api");
       var response = await client
-          .get(
-              Uri.parse(
-                  "https://clfbooks.childrensliteraturefestival.com/wp-json/wc/v3/products?per_page=100&stock_status=instock&status=publish"),
-              headers: headers)
+          .get(Uri.parse(apiName), headers: headers)
           .timeout(const Duration(seconds: 30));
 
       print(" response body is: ${response.body}");
