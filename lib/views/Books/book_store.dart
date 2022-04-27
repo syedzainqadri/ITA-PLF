@@ -3,6 +3,7 @@ import 'package:PLF/controllers/add_to_cart/add_to_cart.dart';
 import 'package:PLF/controllers/get_caterories_controller/get_categories_controller.dart';
 import 'package:PLF/models/cart_model.dart';
 import 'package:PLF/views/Books/widgets/book_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:PLF/utils/ColorScheme.dart';
 import 'package:get/get.dart';
@@ -44,17 +45,18 @@ class _BookStoreState extends State<BookStore> {
   void initState() {
     // TODO: implement initState
     catCheck = false;
-    productController.updateApiUrl(
-        "products?per_page=100&stock_status=instock&status=publish");
+    productController.updateApiUrl("products?per_page=100&stock_status=instock&status=publish");
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       get();
       cartController.open();
     });
+    getCategories();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    get();
     return Scaffold(
       backgroundColor: vibrantYellow,
       body: Obx(() {
@@ -72,58 +74,6 @@ class _BookStoreState extends State<BookStore> {
             isLoading: false,
             child: Column(
               children: [
-                Container(
-                  height: 70,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                      color: vibrantWhite),
-                  child: Row(
-                    children: [
-                      IconButton(
-                        icon: Icon(
-                          Icons.search,
-                          color: Colors.black,
-                          size: 25,
-                        ),
-                        onPressed: () {},
-                      ),
-                      Expanded(
-                        child: TextFormField(
-                          style: TextStyle(fontSize: 18, fontFamily: 'circe'),
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: "Search for Books"),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(left: 15, right: 10),
-                        child: InkWell(
-                            onTap: () {
-                              setState(() {
-                                getCategories();
-                              });
-
-                              showModalBottomSheet(
-                                  context: context,
-                                  isScrollControlled: true,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(30)),
-                                  builder: (context) {
-                                    return StatefulBuilder(builder:
-                                        (context, StateSetter customSetState) {
-                                      return profits_bottomsheet(
-                                          customSetState);
-
-                                      // profits_bottomsheet();
-                                    });
-                                  });
-                            },
-                            child: Icon(Icons.photo_filter_sharp)),
-                        height: 49,
-                      ),
-                    ],
-                  ),
-                ),
                 Padding(
                   padding: const EdgeInsets.only(top: 20.0),
                   child: Container(
@@ -132,19 +82,162 @@ class _BookStoreState extends State<BookStore> {
                         'https://childrensliteraturefestival.com/wp-content/uploads/2022/02/ssp-gray.png'),
                   ),
                 ),
-                Container(
-                  height: MediaQuery.of(context).size.height * .15,
-                  padding: EdgeInsets.only(left: 20, right: 30),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(child: Container()),
-                      SizedBox(
-                        height: 10,
-                      )
-                    ],
+                Padding(
+                  padding: const EdgeInsets.only(top: 40, left: 20, right: 20),
+                  child: Container(
+                    height: 70,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        color: vibrantWhite),
+                    child: Row(
+                      children: [
+                        IconButton(
+                          icon: Icon(
+                            Icons.search,
+                            color: Colors.black,
+                            size: 25,
+                          ),
+                          onPressed: () {},
+                        ),
+                        Expanded(
+                          child: TextFormField(
+                            style: TextStyle(fontSize: 18, fontFamily: 'circe'),
+                            decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: "Search for Books"),
+                          ),
+                        ),
+                        // Container(
+                        //   margin: EdgeInsets.only(left: 15, right: 10),
+                        //   child: InkWell(
+                        //       onTap: () {
+                        //         setState(() {
+                        //           getCategories();
+                        //         });
+                        //
+                        //         showModalBottomSheet(
+                        //             context: context,
+                        //             isScrollControlled: true,
+                        //             shape: RoundedRectangleBorder(
+                        //                 borderRadius: BorderRadius.circular(30)),
+                        //             builder: (context) {
+                        //               return StatefulBuilder(builder:
+                        //                   (context, StateSetter customSetState) {
+                        //                 return profits_bottomsheet(
+                        //                     customSetState);
+                        //
+                        //                 // profits_bottomsheet();
+                        //               });
+                        //             });
+                        //       },
+                        //       child: Icon(Icons.photo_filter_sharp)),
+                        //   height: 49,
+                        // ),
+                      ],
+                    ),
                   ),
                 ),
+                SizedBox(height: 10),
+                Obx(() {
+                  if (categoryController.isLoading.value) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if (categoryController.isListNull.value) {
+                    return Text(" No Cat");
+                  } else {
+                    print("categories list is:  ${categories}");
+                    return Row(
+                      children: [
+                        InkWell(
+                          onTap: () {
+
+                            setState(() {
+                              productController.updateApiUrl("products?per_page=100&stock_status=instock&status=publish");
+                              productController.getProduct();
+                            });
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 6),
+                            child: Container(
+                              padding: EdgeInsets.symmetric(horizontal: 30),
+                              margin: EdgeInsets.only(top: 15),
+                              width: 120,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30),
+                                color: vibrantBlue,
+                              ),
+                              child: Center(
+                                child: Text("See All",
+                                  style: TextStyle(color: white, fontSize: 14),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: SizedBox(
+                            height: 60,
+                            width: MediaQuery.of(context).size.width,
+                            child: ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemCount: categories.length,
+                                itemBuilder: (_, index) {
+                                  var item = categories[index];
+                                  print(" category single item: ${item}");
+                                  if (int.parse(item["count"].toString()) > 0) {
+                                      return InkWell(
+                                        onTap: () {
+                                          selectedCatId = item["id"];
+
+                                          setState(() {
+                                            productController.updateApiUrl("products?per_page=100&category=$selectedCatId&stock_status=instock&status=publish");
+                                            productController.getProduct();
+                                          });
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: 6),
+                                          child: Container(
+                                            padding: EdgeInsets.symmetric(horizontal: 30),
+                                            margin: EdgeInsets.only(top: 15),
+                                            width: 170,
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(30),
+                                              color: vibrantBlue,
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                item["name"].toString(),
+                                                style: TextStyle(color: white, fontSize: 16),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                  } else {
+                                    return Offstage();
+                                  }
+                                }),
+                          ),
+                        ),
+                      ],
+                    );
+                  }
+                }),
+                SizedBox(height: 20),
+                // Container(
+                //   height: MediaQuery.of(context).size.height * .15,
+                //   padding: EdgeInsets.only(left: 20, right: 30),
+                //   child: Column(
+                //     crossAxisAlignment: CrossAxisAlignment.start,
+                //     children: [
+                //       Expanded(child: Container()),
+                //       SizedBox(
+                //         height: 10,
+                //       )
+                //     ],
+                //   ),
+                // ),
                 Expanded(
                   child: Container(
                     padding: EdgeInsets.all(30),
@@ -233,8 +326,7 @@ class _BookStoreState extends State<BookStore> {
                       InkWell(
                         child: Text(" Apply Filters"),
                         onTap: () {
-                          productController.updateApiUrl(
-                              "products?per_page=100&category=$selectedCatId&stock_status=instock&status=publish");
+                          productController.updateApiUrl("products?per_page=100&category=$selectedCatId&stock_status=instock&status=publish");
                           // .updateApiUrl("products?category=$selectedCatId");
                           // if (selectedCatId == null) {
                           //   productController.updateApiUrl(
@@ -320,3 +412,4 @@ class _BookStoreState extends State<BookStore> {
     );
   }
 }
+// 57 15

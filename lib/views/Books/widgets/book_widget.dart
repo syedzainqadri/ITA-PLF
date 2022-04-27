@@ -45,7 +45,6 @@ class _BookWidgetState extends State<BookWidget> {
             widget.price, widget.relatedProducts, widget.bookId.toString()));
       },
       child: Container(
-        // height: MediaQuery.of(context).size.height * .7,
         child: Column(
           children: [
             SizedBox(

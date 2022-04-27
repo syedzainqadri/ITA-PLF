@@ -12,6 +12,7 @@ import 'package:get/get.dart';
 
 import '../../models/event_model.dart';
 import '../../utils/url_paths.dart';
+import 'Widgets/kitab_gaari_view.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -219,24 +220,28 @@ class _HomePageState extends State<HomePage> {
                     borderRadius: BorderRadius.circular(10),
                     child: InkWell(
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              PageRouteBuilder(
-                                  opaque: false,
-                                  pageBuilder: (context, _, __) {
-                                    return WebViewPage(
-                                        title: "Kitab Gari",
-                                        url: UrlBase.baseWebURL +
-                                            UrlPathHelper.getValue(
-                                                UrlPath.kitabGarri));
-                                  },
-                                  transitionsBuilder:
-                                      (_, __, ___, Widget child) {
-                                    return child;
-                                  }));
+                          // Navigator.push(
+                          //     context,
+                          //     PageRouteBuilder(
+                          //         opaque: false,
+                          //         pageBuilder: (context, _, __) {
+                          //           return WebViewPage(
+                          //               title: "Kitab Gari",
+                          //               url: UrlBase.baseWebURL +
+                          //                   UrlPathHelper.getValue(
+                          //                       UrlPath.kitabGarri));
+                          //         },
+                          //         transitionsBuilder:
+                          //             (_, __, ___, Widget child) {
+                          //           return child;
+                          //         }));
+                          Get.to(KitabGaariPage());
                         },
-                        child: Image.network(
-                            "https://childrensliteraturefestival.com/wp-content/uploads/2020/08/CLF_Kitab_Gari-1.jpg")),
+                        child: Hero(
+                          tag: "img",
+                          child: Image.network(
+                              "https://childrensliteraturefestival.com/wp-content/uploads/2020/08/CLF_Kitab_Gari-1.jpg"),
+                        )),
                   ),
                 ],
               ),
