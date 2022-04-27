@@ -22,7 +22,7 @@ errorSnackbar(String successMsg) {
 
 successSnackbar(String successMsg) {
   return Get.snackbar(
-    "Notification".tr,
+    "Notification",
     successMsg,
     icon: const Icon(
       Icons.check,
@@ -39,7 +39,7 @@ successSnackbar(String successMsg) {
 
 successSnackbarReplace(int index, String successMsg) {
   return Get.snackbar(
-    "notification".tr,
+    "notification",
     successMsg,
     icon: const Icon(
       Icons.check,
