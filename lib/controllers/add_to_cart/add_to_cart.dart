@@ -30,7 +30,8 @@ class CartController extends GetxController {
     String path = join(databasesPath, 'demo.db');
     db = await openDatabase(path, version: 1,
         onCreate: (Database db, int version) async {
-      await db.execute('''
+      await db.execute(
+          '''
 create table $tablecart ( 
   $columnId integer primary key autoincrement, 
   $product_id text not null,
@@ -110,7 +111,7 @@ create table $tablecart (
         product_price
       ],
     );
-    print("response is: ${maps}");
+    print("response is: ${maps.length} ${maps}");
     if (maps.length > 0) {
       products.value = maps;
       for (var item in maps) {
