@@ -3,6 +3,7 @@ import '../../controllers/donate_controller.dart';
 import 'package:get/get.dart';
 
 import '../../utils/ColorScheme.dart';
+import '../../utils/helpers.dart';
 
 class DonateDialog extends StatelessWidget {
   final String name, project, amount, city;
@@ -84,8 +85,29 @@ class DonateDialog extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  _donateController.addDonateData(name, project, amount, city,
-                      transactionController.text.trim());
+                  if(name != null){
+                    if(project != null){
+                      if(amount != null){
+                        if(city != null){
+                          if(transactionController.text.isNotEmpty){
+                            _donateController.addDonateData(name, project, amount, city,
+                                transactionController.text.trim());
+                          }else{
+                            errorToast("Error", "Add the TransactionID First");
+                          }
+                        }else{
+                          errorToast("Error", "Add the City First");
+                        }
+                      }else{
+                        errorToast("Error", "Add the Amount First");
+                      }
+                    }else{
+                      errorToast("Error", "Select the Project First");
+                    }
+                  }else{
+                    errorToast("Error", "Add the Name First");
+                  }
+
                   Get.back();
                 },
                 child: Center(

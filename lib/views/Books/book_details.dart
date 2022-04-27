@@ -1,5 +1,6 @@
 import 'package:PLF/controllers/get_products.dart';
 import 'package:PLF/views/Cart/cart.dart';
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
@@ -11,8 +12,8 @@ import '../../models/cart_model.dart';
 class BookDetails extends StatefulWidget {
   String img, name, subText, price, bookId;
   final relatedIds;
-  BookDetails(
-      this.img, this.name, this.subText, @required this.price, this.relatedIds);
+  BookDetails(this.img, this.name, this.subText, this.price, this.relatedIds,
+      this.bookId);
   @override
   _BookDetailsState createState() => _BookDetailsState();
 }
@@ -57,16 +58,30 @@ class _BookDetailsState extends State<BookDetails> {
             ),
           ),
           actions: [
-            IconButton(
-              icon: Icon(
-                Icons.shopping_cart,
-                color: Colors.black,
-                size: 30,
-              ),
-              onPressed: () {
-                Get.to(CartPage());
-              },
-            ),
+            Obx(() {
+              if (cartController.isLoading.value) {
+                return Offstage();
+              } else {
+                return Padding(
+                  padding: EdgeInsets.only(top: 8, right: 20),
+                  child: Badge(
+                    position: BadgePosition.topEnd(),
+                    badgeContent:
+                        Text(cartController.totalItem.value.toString()),
+                    child: InkWell(
+                      child: Icon(
+                        Icons.shopping_cart,
+                        color: black,
+                        size: 30,
+                      ),
+                      onTap: () {
+                        Get.to(CartPage());
+                      },
+                    ),
+                  ),
+                );
+              }
+            }),
           ],
         ),
         extendBodyBehindAppBar: true,
@@ -130,7 +145,7 @@ class _BookDetailsState extends State<BookDetails> {
                       height: 10,
                     ),
                     Container(
-                        height: 200,
+                        height: 150,
                         child: Html(data: widget.subText, style: {})),
                     SizedBox(
                       height: 20,
@@ -143,12 +158,11 @@ class _BookDetailsState extends State<BookDetails> {
               onTap: () {
                 CartModel cart = CartModel(
                     quantity: 1,
-                    image: widget.img,
+                    product_id: widget.bookId.toString(),
                     price: double.parse(widget.price),
                     name: widget.name,
-                    product_id: widget.bookId.toString());
+                    image: widget.img);
                 cartController.insert(cart);
-                Get.to(CartPage());
               },
               child: Container(
                 color: Colors.white,

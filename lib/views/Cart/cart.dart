@@ -1,9 +1,7 @@
 import 'package:PLF/controllers/add_to_cart/add_to_cart.dart';
-import 'package:PLF/controllers/get_products.dart';
 import 'package:PLF/models/cart_model.dart';
 import 'package:PLF/utils/ColorScheme.dart';
 import 'package:PLF/views/Chekout/checkout.dart';
-import 'package:PLF/views/Home/HomePage.dart';
 import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';

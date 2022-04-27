@@ -8,16 +8,16 @@ import 'package:get/get.dart';
 import '../book_details.dart';
 
 class BookWidget extends StatefulWidget {
-  final img,
-      name,
-      color,
-      darkBlue,
-      bookId,
-      context,
-      price,
-      subText,
-      relatedProducts;
-  const BookWidget(
+  String img;
+  String name;
+  final color;
+  final darkBlue;
+  int bookId;
+  final context;
+  final price;
+  final subText;
+  final relatedProducts;
+  BookWidget(
       {Key key,
       this.subText,
       this.price,
@@ -42,7 +42,7 @@ class _BookWidgetState extends State<BookWidget> {
     return GestureDetector(
       onTap: () {
         Get.to(BookDetails(widget.img, widget.name, widget.subText,
-            widget.price, widget.relatedProducts));
+            widget.price, widget.relatedProducts, widget.bookId.toString()));
       },
       child: Container(
         // height: MediaQuery.of(context).size.height * .7,
