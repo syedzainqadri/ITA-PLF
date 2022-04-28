@@ -1,11 +1,13 @@
 import 'package:PLF/controllers/login_controller.dart';
-import 'package:PLF/views/Home/Widgets/home_navbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:PLF/utils/ColorScheme.dart';
-import 'package:PLF/views/Startup/Onboarding.dart';
 import 'package:PLF/views/Auth/SignupPage.dart';
 import 'package:loading_overlay/loading_overlay.dart';
+
+import '../../controllers/forgot_pass_controller.dart';
+import '../../utils/helpers.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key key}) : super(key: key);
@@ -13,6 +15,7 @@ class LoginPage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  ForgotPasswordController forgotPassController = Get.put(ForgotPasswordController());
 
   @override
   Widget build(BuildContext context) {
@@ -91,6 +94,45 @@ class LoginPage extends StatelessWidget {
                                         TextStyle(color: Colors.grey[800]),
                                     hintText: "Password",
                                     fillColor: white),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 15,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 20),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  InkWell(
+                                    onTap: ()async{
+                                      String message;
+                                      if(emailController.text.isNotEmpty){
+                                        await forgotPassController.getMVisitId(emailController.text.trim()).then((response) => {
+                                          if (response['status'] == true) {
+                                            message = response['message'],
+                                            successToast("Hurrah", message),
+                                          }
+                                          else {
+                                            errorToast("Error", "Failed to request Password"),
+                                          }
+                                        });
+                                      }else{
+                                        errorToast("Error", "Please Enter Username/email First");
+                                      }
+                                    },
+                                    child: Obx(() {
+                                      return forgotPassController.isLoading.isTrue ? CircularProgressIndicator() :
+                                      Text(
+                                        'Forgot Password?',
+                                        style: TextStyle(
+                                            color: black,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.normal),
+                                      );
+                                    })
+                                  ),
+                                ],
                               ),
                             ),
                             SizedBox(
