@@ -1,12 +1,16 @@
+import 'package:PLF/models/banner_model.dart';
 import 'package:PLF/views/Events/allEvent.dart';
 import 'package:PLF/views/Events/widgets/eventWidget.dart';
 import 'package:PLF/utils/url_base.dart';
 import 'package:PLF/views/Home/Widgets/home_navbar.dart';
 import 'package:PLF/views/Webview/webview.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:PLF/utils/ColorScheme.dart';
 import 'package:PLF/views/Events/widgets/eventHistoryWidget.dart';
 import '../../controllers/events_controller.dart';
+import '../../controllers/home_bottom_banner_controller.dart';
+import '../../controllers/home_top_banner_controller.dart';
 import '../Events/event_history.dart';
 import 'package:get/get.dart';
 
@@ -24,18 +28,23 @@ class _HomePageState extends State<HomePage> {
   bool deepExpanded = true;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final GetEventController _eventController = Get.put(GetEventController());
+  final GetHomeTopBannerController _homeTopBannerController = Get.put(GetHomeTopBannerController());
+  final GetHomeBottomBannerController _homeBottomBannerController = Get.put(GetHomeBottomBannerController());
   List<EventModel> eventModel = [];
   List<EventModel> upComingEventModel = [];
   List<EventModel> eventHistoryModel = [];
+  List<BannersModel> homeTopBannerModel = [];
+  List<BannersModel> homeBottomBannerModel = [];
   @override
   initState() {
-    // appBarTitle = "Pakistan Learning Festival";
     super.initState();
     getData();
   }
 
   getData() async {
     eventModel = await _eventController.getEventsData();
+    homeTopBannerModel = await _homeTopBannerController.getHomeTopBanner();
+    homeBottomBannerModel = await _homeBottomBannerController.getHomeBottomBanner();
     for (int i = 0; i < eventModel.length; i++) {
       if (eventModel[i].status == true) {
         upComingEventModel.add(eventModel[i]);
@@ -101,7 +110,7 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.40,
+                    height: MediaQuery.of(context).size.height * 0.33,
                     width: double.infinity,
                     child: upComingEventModel.isNotEmpty
                         ? ListView.builder(
@@ -126,26 +135,51 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(
                     height: 30,
                   ),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              PageRouteBuilder(
-                                  opaque: false,
-                                  pageBuilder: (context, _, __) {
-                                    return WebViewPage(
-                                        title: "Ad", url: UrlBase.baseWebURL);
-                                  },
-                                  transitionsBuilder:
-                                      (_, __, ___, Widget child) {
-                                    return child;
-                                  }));
-                        },
-                        child: Image.network(
-                            "https://childrensliteraturefestival.com/wp-content/uploads/2021/03/Peace-ing_Together.gif")),
-                  ),
+
+                  homeTopBannerModel.length != 0 ?
+                  SizedBox(
+                    height: 70,
+                    width: MediaQuery.of(context).size.width,
+                    child: ListView.builder(
+                        itemCount: 1,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          final homeTopBanner = homeTopBannerModel[index];
+                      return homeTopBanner.status ? ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  PageRouteBuilder(
+                                      opaque: false,
+                                      pageBuilder: (context, _, __) {
+                                        return WebViewPage(title: "Ad", url: homeTopBanner.eventUrl);
+                                      },
+                                      transitionsBuilder:
+                                          (_, __, ___, Widget child) {
+                                        return child;
+                                      }));
+                            },
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10)),
+                              child: CachedNetworkImage(
+                                imageUrl: homeTopBanner.url,
+                                fit: BoxFit.cover,
+                                placeholder: (context, val) => Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                                errorWidget: (context, url, error) => Icon(Icons.image),
+                              ),
+                            ),
+                            // Image.network(homeTopBanner.url)
+                        ),
+                      ): SizedBox.shrink();
+                    }),
+                  ) : Center(child: Text("No Banner Added"),),
+
                   SizedBox(
                     height: 30,
                   ),
@@ -216,33 +250,49 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(
                     height: 20,
                   ),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: InkWell(
-                        onTap: () {
-                          // Navigator.push(
-                          //     context,
-                          //     PageRouteBuilder(
-                          //         opaque: false,
-                          //         pageBuilder: (context, _, __) {
-                          //           return WebViewPage(
-                          //               title: "Kitab Gari",
-                          //               url: UrlBase.baseWebURL +
-                          //                   UrlPathHelper.getValue(
-                          //                       UrlPath.kitabGarri));
-                          //         },
-                          //         transitionsBuilder:
-                          //             (_, __, ___, Widget child) {
-                          //           return child;
-                          //         }));
-                          Get.to(KitabGaariPage());
-                        },
-                        child: Hero(
-                          tag: "img",
-                          child: Image.network(
-                              "https://childrensliteraturefestival.com/wp-content/uploads/2020/08/CLF_Kitab_Gari-1.jpg"),
-                        )),
-                  ),
+                  homeBottomBannerModel.length != 0 ?
+                  SizedBox(
+                    height: 300,
+                    width: MediaQuery.of(context).size.width,
+                    child: ListView.builder(
+                        itemCount: 1,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          final homeBottomBanner = homeBottomBannerModel[index];
+                          return homeBottomBanner.status ? ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    PageRouteBuilder(
+                                        opaque: false,
+                                        pageBuilder: (context, _, __) {
+                                          return WebViewPage(title: "Ad", url: homeBottomBanner.eventUrl);
+                                        },
+                                        transitionsBuilder:
+                                            (_, __, ___, Widget child) {
+                                          return child;
+                                        }));
+                              },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10)),
+                                child: CachedNetworkImage(
+                                  imageUrl: homeBottomBanner.url,
+                                  fit: BoxFit.cover,
+                                  placeholder: (context, val) => Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                  errorWidget: (context, url, error) => Icon(Icons.image),
+                                ),
+                              ),
+                              // Image.network(homeTopBanner.url)
+                            ),
+                          ): SizedBox.shrink();
+                        }),
+                  ) : Center(child: Text("No Banner Added"),),
                 ],
               ),
             ),

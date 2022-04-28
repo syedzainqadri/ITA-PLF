@@ -3,10 +3,13 @@ import 'package:PLF/utils/url_base.dart';
 import 'package:PLF/utils/url_paths.dart';
 import 'package:PLF/views/Volenteer/volenteer.dart';
 import 'package:PLF/views/Webview/webview.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:PLF/utils/ColorScheme.dart';
 import 'package:PLF/views/Home/HomePage.dart';
+import '../../controllers/event_banner_controller.dart';
+import '../../models/banner_model.dart';
 import '../Feedback/feedback.dart';
 import '../../models/event_model.dart';
 
@@ -28,6 +31,20 @@ class EventDetailPage extends StatefulWidget {
 
 class _EventDetailPageState extends State<EventDetailPage> {
   int selectedDate = DateTime.now().day;
+  final GetEventBannerController _eventBannerController = Get.put(GetEventBannerController());
+  List<BannersModel> eventModel = [];
+
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
+  getData() async {
+    eventModel = await _eventBannerController.getEventBanner();
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -119,29 +136,51 @@ class _EventDetailPageState extends State<EventDetailPage> {
                           ),
                         ),
                         SizedBox(
-                          height: 30,
+                          height: 1,
                         ),
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    PageRouteBuilder(
-                                        opaque: false,
-                                        pageBuilder: (context, _, __) {
-                                          return WebViewPage(
-                                              title: "Ad",
-                                              url: UrlBase.baseWebURL);
-                                        },
-                                        transitionsBuilder:
-                                            (_, __, ___, Widget child) {
-                                          return child;
-                                        }));
-                              },
-                              child: Image.network(
-                                  "https://childrensliteraturefestival.com/wp-content/uploads/2021/03/Peace-ing_Together.gif")),
-                        ),
+                        eventModel.length != 0 ?
+                        SizedBox(
+                          height: 130,
+                          width: MediaQuery.of(context).size.width,
+                          child: ListView.builder(
+                              itemCount: 1,
+                              physics: NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                final donationBanner = eventModel[index];
+                                return donationBanner.status ? ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          PageRouteBuilder(
+                                              opaque: false,
+                                              pageBuilder: (context, _, __) {
+                                                return WebViewPage(title: "Ad", url: donationBanner.eventUrl);
+                                              },
+                                              transitionsBuilder:
+                                                  (_, __, ___, Widget child) {
+                                                return child;
+                                              }));
+                                    },
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(10),
+                                          topRight: Radius.circular(10)),
+                                      child: CachedNetworkImage(
+                                        imageUrl: donationBanner.url,
+                                        fit: BoxFit.cover,
+                                        placeholder: (context, val) => Center(
+                                          child: CircularProgressIndicator(),
+                                        ),
+                                        errorWidget: (context, url, error) => Icon(Icons.image),
+                                      ),
+                                    ),
+                                    // Image.network(homeTopBanner.url)
+                                  ),
+                                ): SizedBox.shrink();
+                              }),
+                        ) : Center(child: Text("No Banner Added"),),
                         SizedBox(
                           height: 30,
                         ),
@@ -367,7 +406,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
 
   staticButtonWidget(buttonName) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+      padding: EdgeInsets.symmetric(horizontal: 18, vertical: 15),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10)),
           color: vibrantOrange),

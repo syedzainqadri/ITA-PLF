@@ -1,7 +1,10 @@
+import 'package:PLF/controllers/feedback_banner_controller.dart';
 import 'package:PLF/controllers/feedback_controller.dart';
 import 'package:PLF/utils/ColorScheme.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import '../../models/banner_model.dart';
 import '../../utils/helpers.dart';
 import '../../utils/url_base.dart';
 import '../Webview/webview.dart';
@@ -17,6 +20,20 @@ class _FeedbackPageState extends State<FeedbackPage> {
   final remarksController = TextEditingController();
   String selectedProject;
   double myRating;
+
+  final GetFeedbackBannerController _feedbackBannerController = Get.put(GetFeedbackBannerController());
+  List<BannersModel> feedbackModel = [];
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
+  getData() async {
+    feedbackModel = await _feedbackBannerController.getFeedbackBanner();
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,33 +61,55 @@ class _FeedbackPageState extends State<FeedbackPage> {
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(10.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          PageRouteBuilder(
-                              opaque: false,
-                              pageBuilder: (context, _, __) {
-                                return WebViewPage(
-                                    title: "Ad", url: UrlBase.baseWebURL);
-                              },
-                              transitionsBuilder: (_, __, ___, Widget child) {
-                                return child;
-                              }));
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Image.network(
-                          "https://childrensliteraturefestival.com/wp-content/uploads/2021/03/Peace-ing_Together.gif"),
-                    )),
-              ),
+              SizedBox(height: 20),
+              feedbackModel.length != 0 ?
+              SizedBox(
+                height: 70,
+                width: MediaQuery.of(context).size.width,
+                child: ListView.builder(
+                    itemCount: 1,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      final feedbackBanner = feedbackModel[index];
+                      return feedbackBanner.status ? ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                    opaque: false,
+                                    pageBuilder: (context, _, __) {
+                                      return WebViewPage(title: "Ad", url: feedbackBanner.eventUrl);
+                                    },
+                                    transitionsBuilder:
+                                        (_, __, ___, Widget child) {
+                                      return child;
+                                    }));
+                          },
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10)),
+                            child: CachedNetworkImage(
+                              imageUrl: feedbackBanner.url,
+                              fit: BoxFit.cover,
+                              placeholder: (context, val) => Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                              errorWidget: (context, url, error) => Icon(Icons.image),
+                            ),
+                          ),
+                          // Image.network(homeTopBanner.url)
+                        ),
+                      ): SizedBox.shrink();
+                    }),
+              ) : Center(child: Text("No Banner Added"),),
               SizedBox(height: 20),
               Padding(
                 padding: EdgeInsets.only(left: 20, right: 20),

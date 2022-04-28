@@ -1,14 +1,18 @@
 import 'package:PLF/controllers/donate_controller.dart';
 import 'package:PLF/views/Home/HomePage.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:PLF/utils/ColorScheme.dart';
 
+import '../../controllers/donate_banner_controller.dart';
+import '../../models/banner_model.dart';
 import '../../utils/helpers.dart';
 import '../../utils/url_base.dart';
 import '../Home/Widgets/home_navbar.dart';
 import '../Webview/webview.dart';
 import 'donate_dialog.dart';
+import 'package:get/get.dart';
 
 class DonationsScreen extends StatefulWidget {
   const DonationsScreen({Key key}) : super(key: key);
@@ -23,12 +27,19 @@ class _DonationsScreenState extends State<DonationsScreen> {
   final cityController = TextEditingController();
 
   String selectedProject;
+  final GetDonateBannerController _donateBannerController = Get.put(GetDonateBannerController());
+  List<BannersModel> donationModel = [];
 
   @override
   void initState() {
     // TODO: implement initState
     appBarTitle = "Donate";
+    getData();
     super.initState();
+  }
+  getData() async {
+    donationModel = await _donateBannerController.getDonationBanner();
+    setState(() {});
   }
 
   @override
@@ -41,28 +52,53 @@ class _DonationsScreenState extends State<DonationsScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            PageRouteBuilder(
-                                opaque: false,
-                                pageBuilder: (context, _, __) {
-                                  return WebViewPage(
-                                      title: "Ad", url: UrlBase.baseWebURL);
-                                },
-                                transitionsBuilder: (_, __, ___, Widget child) {
-                                  return child;
-                                }));
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Image.network(
-                            "https://childrensliteraturefestival.com/wp-content/uploads/2021/03/Peace-ing_Together.gif"),
-                      )),
-                ),
+                SizedBox(height: 20),
+                donationModel.length != 0 ?
+                SizedBox(
+                  height: 70,
+                  width: MediaQuery.of(context).size.width,
+                  child: ListView.builder(
+                      itemCount: 1,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        final donationBanner = donationModel[index];
+                        return donationBanner.status ? ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  PageRouteBuilder(
+                                      opaque: false,
+                                      pageBuilder: (context, _, __) {
+                                        return WebViewPage(title: "Ad", url: donationBanner.eventUrl);
+                                      },
+                                      transitionsBuilder:
+                                          (_, __, ___, Widget child) {
+                                        return child;
+                                      }));
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 20),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10)),
+                                child: CachedNetworkImage(
+                                  imageUrl: donationBanner.url,
+                                  fit: BoxFit.cover,
+                                  placeholder: (context, val) => Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                  errorWidget: (context, url, error) => Icon(Icons.image),
+                                ),
+                              ),
+                            ),
+                            // Image.network(homeTopBanner.url)
+                          ),
+                        ): SizedBox.shrink();
+                      }),
+                ) : Center(child: Text("No Banner Added"),),
                 SizedBox(height: 20),
                 Padding(
                   padding: EdgeInsets.only(left: 20, right: 20),
