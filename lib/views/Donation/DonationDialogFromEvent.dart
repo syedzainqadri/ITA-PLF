@@ -85,18 +85,20 @@ class DonateDialogFromEvent extends StatelessWidget {
                 height: 30,
               ),
               InkWell(
-                onTap: () {
+                onTap: () async {
                   if (name != null) {
                     if (project != null) {
                       if (amount != null) {
                         if (city != null) {
                           if (transactionController.text.isNotEmpty) {
-                            _donateController.addDonateData(
+                            await _donateController.addDonateData(
                                 name,
                                 project,
                                 amount,
                                 city,
                                 transactionController.text.trim());
+                            errorToast("Thank you ", "For your Donations");
+                            Get.to(HomeNavbar());
                           } else {
                             errorToast("Error", "Add the TransactionID First");
                           }
@@ -112,8 +114,6 @@ class DonateDialogFromEvent extends StatelessWidget {
                   } else {
                     errorToast("Error", "Add the Name First");
                   }
-                  errorToast("Thank you ", "For your Donations");
-                  Get.to(HomeNavbar());
                 },
                 child: Center(
                   child: Container(

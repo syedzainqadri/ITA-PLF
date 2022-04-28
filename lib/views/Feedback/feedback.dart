@@ -165,12 +165,15 @@ class _FeedbackPageState extends State<FeedbackPage> {
                 height: 50,
               ),
               InkWell(
-                onTap: () {
+                onTap: () async {
                   if (selectedProject != null) {
                     if (remarksController.text.isNotEmpty) {
                       if (myRating != null) {
-                        _feedbackController.addFeedbackData(selectedProject,
-                            remarksController.text.trim(), myRating);
+                        await _feedbackController.addFeedbackData(
+                            selectedProject,
+                            remarksController.text.trim(),
+                            myRating);
+                        Get.to(HomeNavbar());
                       } else {
                         errorToast("Error", "Add your Ratings First");
                       }
@@ -180,8 +183,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                   } else {
                     errorToast("Error", "Select the Project First");
                   }
-                  Get.to(HomeNavbar());
-                  errorToast('Thank You', 'For your Feedback');
+                  // errorToast('Thank You', 'For your Feedback');
                 },
                 child: Container(
                   child: Container(

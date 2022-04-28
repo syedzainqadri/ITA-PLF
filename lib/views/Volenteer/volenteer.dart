@@ -178,18 +178,20 @@ class _VolunteerScreenState extends State<VolunteerScreen> {
                   height: 50,
                 ),
                 InkWell(
-                  onTap: () {
+                  onTap: () async {
                     if (nameController.text.isNotEmpty) {
                       if (emailController.text.isNotEmpty) {
                         if (cityController.text.isNotEmpty) {
                           if (phoneController.text.isNotEmpty) {
                             if (selectedProject != null) {
-                              _volunteerController.addVolunteerData(
+                              await _volunteerController.addVolunteerData(
                                   nameController.text.trim(),
                                   emailController.text.trim(),
                                   cityController.text.trim(),
                                   phoneController.text.trim(),
                                   selectedProject);
+                              errorToast("Thank you",
+                                  "For Showing Intrest, We will get back to you with our decision");
                             } else {
                               errorToast("Error", "Select the Project First");
                             }
@@ -205,8 +207,6 @@ class _VolunteerScreenState extends State<VolunteerScreen> {
                     } else {
                       errorToast("Error", "Add the Name First");
                     }
-                    errorToast("Thank you",
-                        "For Showing Intrest, We will get back to you with our decision");
                   },
                   child: Container(
                     child: Container(

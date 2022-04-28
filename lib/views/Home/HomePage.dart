@@ -1,7 +1,6 @@
 import 'package:PLF/views/Events/allEvent.dart';
 import 'package:PLF/views/Events/widgets/eventWidget.dart';
 import 'package:PLF/utils/url_base.dart';
-import 'package:PLF/views/Home/Widgets/home_navbar.dart';
 import 'package:PLF/views/Webview/webview.dart';
 import 'package:flutter/material.dart';
 import 'package:PLF/utils/ColorScheme.dart';
@@ -67,7 +66,7 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Upcoming Events",
+                        "Upcoming Programs",
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
@@ -117,7 +116,7 @@ class _HomePageState extends State<HomePage> {
                             })
                         : Center(
                             child: Text(
-                              "No UpComing Events Available",
+                              "No UpComing Programs Available",
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.w600),
                             ),
@@ -153,7 +152,7 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Events History",
+                        "Programs History",
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
@@ -207,7 +206,7 @@ class _HomePageState extends State<HomePage> {
                             })
                         : Center(
                             child: Text(
-                              "No Events History Available",
+                              "No Programs History Available",
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.w600),
                             ),
@@ -220,21 +219,6 @@ class _HomePageState extends State<HomePage> {
                     borderRadius: BorderRadius.circular(10),
                     child: InkWell(
                         onTap: () {
-                          // Navigator.push(
-                          //     context,
-                          //     PageRouteBuilder(
-                          //         opaque: false,
-                          //         pageBuilder: (context, _, __) {
-                          //           return WebViewPage(
-                          //               title: "Kitab Gari",
-                          //               url: UrlBase.baseWebURL +
-                          //                   UrlPathHelper.getValue(
-                          //                       UrlPath.kitabGarri));
-                          //         },
-                          //         transitionsBuilder:
-                          //             (_, __, ___, Widget child) {
-                          //           return child;
-                          //         }));
                           Get.to(KitabGaariPage());
                         },
                         child: Hero(

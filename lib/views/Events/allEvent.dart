@@ -23,7 +23,7 @@ class _AllUpcomingEventsState extends State<AllUpcomingEvents> {
         backgroundColor: vibrantAmber,
         appBar: AppBar(
           title: Text(
-            "Upcoming Events",
+            "Upcoming Programs",
             style: TextStyle(color: white),
           ),
           elevation: 0.0,

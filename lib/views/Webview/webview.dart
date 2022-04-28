@@ -1,7 +1,9 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:PLF/utils/ColorScheme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -22,6 +24,7 @@ class WebViewPageState extends State<WebViewPage> {
     if (Platform.isAndroid) WebView.platform = AndroidWebView();
   }
 
+  WebViewController _webViewController;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,6 +49,8 @@ class WebViewPageState extends State<WebViewPage> {
         backgroundColor: white,
       ),
       body: WebView(
+        zoomEnabled: true,
+        javascriptMode: JavascriptMode.unrestricted,
         initialUrl: widget.url,
       ),
     );
