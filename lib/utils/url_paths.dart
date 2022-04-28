@@ -3,7 +3,7 @@ const basUrl =
 
 const getProducts = "products";
 //products?category=
-const getCategories = "products/categories";
+const getCategories = "products/categories?hide_empty=true";
 const getAllMethods = "payment_gateways";
 const createUserApi = "users";
 const makeOrder = "orders";

@@ -46,6 +46,7 @@ class _BookWidgetState extends State<BookWidget> {
       },
       child: Container(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(
                 height: MediaQuery.of(context).size.width * 0.22,
@@ -67,7 +68,7 @@ class _BookWidgetState extends State<BookWidget> {
                     ),
                   ),
                 )),
-            SizedBox(height: 5),
+            // SizedBox(height: 5),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Row(
@@ -77,6 +78,7 @@ class _BookWidgetState extends State<BookWidget> {
                     child: Center(
                       child: Text(
                         widget.name,
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                           color: const Color(0xff4d4d4d),
                           fontSize: 14,
@@ -89,7 +91,7 @@ class _BookWidgetState extends State<BookWidget> {
                 ],
               ),
             ),
-            SizedBox(height: 10),
+            // SizedBox(height: 30),
             InkWell(
               onTap: () {
                 CartModel cart = CartModel(

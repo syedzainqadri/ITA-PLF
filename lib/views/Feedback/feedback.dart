@@ -1,5 +1,6 @@
 import 'package:PLF/controllers/feedback_controller.dart';
 import 'package:PLF/utils/ColorScheme.dart';
+import 'package:PLF/views/Home/Widgets/home_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../../utils/helpers.dart';
@@ -94,7 +95,8 @@ class _FeedbackPageState extends State<FeedbackPage> {
                     filled: true,
                     fillColor: Colors.white,
                   ),
-                  validator: (value) => value == null ?  "Select a Project": null,
+                  validator: (value) =>
+                      value == null ? "Select a Project" : null,
                   dropdownColor: Colors.white,
                   hint: const Text("Select a Project"),
                   value: selectedProject,
@@ -164,22 +166,22 @@ class _FeedbackPageState extends State<FeedbackPage> {
               ),
               InkWell(
                 onTap: () {
-                  if(selectedProject != null){
-                    if(remarksController.text.isNotEmpty){
-                      if(myRating != null){
-                        _feedbackController.addFeedbackData(
-                            selectedProject, remarksController.text.trim(), myRating);
-                      }else{
+                  if (selectedProject != null) {
+                    if (remarksController.text.isNotEmpty) {
+                      if (myRating != null) {
+                        _feedbackController.addFeedbackData(selectedProject,
+                            remarksController.text.trim(), myRating);
+                      } else {
                         errorToast("Error", "Add your Ratings First");
                       }
-                    }else{
+                    } else {
                       errorToast("Error", "Add your Remarks First");
                     }
-                  }else{
+                  } else {
                     errorToast("Error", "Select the Project First");
                   }
-
-                  setState(() {});
+                  Get.to(HomeNavbar());
+                  errorToast('Thank You', 'For your Feedback');
                 },
                 child: Container(
                   child: Container(

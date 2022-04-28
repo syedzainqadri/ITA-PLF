@@ -6,9 +6,9 @@ import 'package:get/get.dart';
 import '../../utils/ColorScheme.dart';
 import '../../utils/helpers.dart';
 
-class DonateDialog extends StatelessWidget {
+class DonateDialogFromEvent extends StatelessWidget {
   final String name, project, amount, city;
-  DonateDialog(
+  DonateDialogFromEvent(
       {Key key,
       @required this.name,
       @required this.project,
@@ -112,8 +112,8 @@ class DonateDialog extends StatelessWidget {
                   } else {
                     errorToast("Error", "Add the Name First");
                   }
-                  Get.back();
                   errorToast("Thank you ", "For your Donations");
+                  Get.to(HomeNavbar());
                 },
                 child: Center(
                   child: Container(

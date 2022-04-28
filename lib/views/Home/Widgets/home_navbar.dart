@@ -49,44 +49,93 @@ class _HomeNavbarState extends State<HomeNavbar> {
                 elevation: 0,
                 centerTitle: true,
                 leading: IconButton(
-                  icon: Icon(
-                    Icons.menu,
-                    color: vibrantWhite,
-                    size: 30,
+                  icon: Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Icon(
+                      Icons.menu,
+                      color: vibrantWhite,
+                      size: 30,
+                    ),
                   ),
                   onPressed: () {
                     _scaffoldKey.currentState.openDrawer();
                   },
                 ),
-                title: Text(
-                  "Buy Book",
-                  style: TextStyle(color: vibrantWhite),
+                title: Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Text(
+                    "Buy Book",
+                    style: TextStyle(color: vibrantWhite),
+                  ),
                 ),
                 actions: [
-                  Obx(() {
-                    if (cartController.isLoading.value) {
-                      return Offstage();
-                    } else {
-                      return Padding(
-                        padding: EdgeInsets.only(top: 8),
-                        child: Badge(
-                          position: BadgePosition.topEnd(),
-                          badgeContent:
-                              Text(cartController.totalItem.value.toString()),
-                          child: InkWell(
-                            child: Icon(
-                              Icons.shopping_cart,
-                              color: vibrantWhite,
-                              size: 30,
-                            ),
-                            onTap: () {
-                              Get.to(CartPage());
-                            },
-                          ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Icon(
+                          Icons.search,
+                          color: white,
+                          size: 30,
                         ),
-                      );
-                    }
-                  }),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Obx(
+                        () {
+                          return Padding(
+                            padding: EdgeInsets.only(top: 8),
+                            child: Badge(
+                              position: BadgePosition.topEnd(),
+                              badgeContent: Text(
+                                cartController.totalItem.value.toString(),
+                                style: TextStyle(color: white),
+                              ),
+                              child: InkWell(
+                                child: Icon(
+                                  Icons.shopping_cart,
+                                  color: vibrantWhite,
+                                  size: 30,
+                                ),
+                                onTap: () {
+                                  Get.to(CartPage());
+                                },
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                  // Mistake by Niaz ...
+                  //     Obx(() {
+                  //       if (cartController.isLoading.value) {
+                  //         return Offstage();
+                  //       } else {
+                  //         return Padding(
+                  //           padding: EdgeInsets.only(top: 8),
+                  //           child: Badge(
+                  //             position: BadgePosition.topEnd(),
+                  //             badgeContent: Text(
+                  //                 cartController.totalItem.value.toString()),
+                  //             child: InkWell(
+                  //               child: Icon(
+                  //                 Icons.shopping_cart,
+                  //                 color: vibrantWhite,
+                  //                 size: 30,
+                  //               ),
+                  //               onTap: () {
+                  //                 Get.to(CartPage());
+                  //               },
+                  //             ),
+                  //           ),
+                  //         );
+                  //       }
+                  //     }),
+                  //   ],
+                  // ),
                   SizedBox(
                     width: 20,
                   )
@@ -117,7 +166,7 @@ class _HomeNavbarState extends State<HomeNavbar> {
                 actions: [
                   IconButton(
                     icon: Icon(
-                      Icons.notifications_none,
+                      Icons.search,
                       color: vibrantWhite,
                       size: 30,
                     ),

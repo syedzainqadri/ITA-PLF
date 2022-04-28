@@ -7,14 +7,15 @@ import '../../controllers/volunteer_controller.dart';
 import '../../utils/url_base.dart';
 import '../Webview/webview.dart';
 
-class VolunteerScreen extends StatefulWidget {
-  const VolunteerScreen({Key key}) : super(key: key);
+class VolunteerScreenFromEvent extends StatefulWidget {
+  const VolunteerScreenFromEvent({Key key}) : super(key: key);
 
   @override
-  State<VolunteerScreen> createState() => _VolunteerScreenState();
+  State<VolunteerScreenFromEvent> createState() =>
+      _VolunteerScreenFromEventState();
 }
 
-class _VolunteerScreenState extends State<VolunteerScreen> {
+class _VolunteerScreenFromEventState extends State<VolunteerScreenFromEvent> {
   final VolunteerController _volunteerController =
       Get.put(VolunteerController());
   final nameController = TextEditingController();
@@ -33,6 +34,25 @@ class _VolunteerScreenState extends State<VolunteerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: vibrantBlue,
+        title: Text(
+          "Volenteer",
+          style: TextStyle(
+            color: vibrantWhite,
+          ),
+        ),
+        elevation: 0.0,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.navigate_before,
+            color: vibrantWhite,
+          ),
+        ),
+      ),
       backgroundColor: vibrantAmber,
       body: Container(
         child: SingleChildScrollView(
@@ -62,6 +82,7 @@ class _VolunteerScreenState extends State<VolunteerScreen> {
                             "https://childrensliteraturefestival.com/wp-content/uploads/2021/03/Peace-ing_Together.gif"),
                       )),
                 ),
+                SizedBox(height: 20),
                 Padding(
                   padding: EdgeInsets.only(left: 20, right: 20),
                   child: TextField(
@@ -205,6 +226,7 @@ class _VolunteerScreenState extends State<VolunteerScreen> {
                     } else {
                       errorToast("Error", "Add the Name First");
                     }
+                    Get.to(HomeNavbar());
                     errorToast("Thank you",
                         "For Showing Intrest, We will get back to you with our decision");
                   },

@@ -124,7 +124,7 @@ class _BookDetailsState extends State<BookDetails> {
                       height: 10,
                     ),
                     Text(
-                      widget.price,
+                      "Price: ${widget.price}",
                       style: TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: 17,

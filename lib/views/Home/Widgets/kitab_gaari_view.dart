@@ -1,8 +1,8 @@
-
-
+import 'package:PLF/views/Donation/DonationScreenFromEvent.dart';
 import 'package:PLF/views/Donation/donations.dart';
 import 'package:PLF/utils/url_base.dart';
 import 'package:PLF/utils/url_paths.dart';
+import 'package:PLF/views/Volenteer/VolenteerScreenFromEvent.dart';
 import 'package:PLF/views/Volenteer/volenteer.dart';
 import 'package:PLF/views/Webview/webview.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +12,6 @@ import 'package:PLF/utils/ColorScheme.dart';
 import '../../Feedback/feedback.dart';
 
 class KitabGaariPage extends StatefulWidget {
-
-
   @override
   _KitabGaariPageState createState() => _KitabGaariPageState();
 }
@@ -61,10 +59,12 @@ class _KitabGaariPageState extends State<KitabGaariPage> {
             Hero(
               tag: "img",
               child: SizedBox(
-                height: 350,
+                height: 250,
                 width: MediaQuery.of(context).size.width,
                 child: ClipRRect(
-                  child: Image.network("https://childrensliteraturefestival.com/wp-content/uploads/2020/08/CLF_Kitab_Gari-1.jpg", fit: BoxFit.fill),
+                  child: Image.network(
+                      "https://childrensliteraturefestival.com/wp-content/uploads/2020/08/CLF_Kitab_Gari-1.jpg",
+                      fit: BoxFit.contain),
                 ),
               ),
             ),
@@ -109,7 +109,7 @@ class _KitabGaariPageState extends State<KitabGaariPage> {
                         ),
                         Text(
                           "Kitab Gari, a project initiated by Children’s Literature Festival (CLF), a flagship program of Idara-e-Taleem-o-Aagahi (ITA), aims to promote reading habits for imagination and pleasure, increase the accessibility of books for our young generation, teachers and communities. This mobile rickshaw library is stocked with 500+ books, both fiction and non-fiction for children up to 16 years and for teachers. The Kitab Gari visits bring along several inquiry based and fun-filled learning activities for the children. It focuses on 4 main learning strands: Storytelling /reading (voice/digital), Arts and Crafts, Documentaries/Movies and Board Games. The Kitab Gari has been on the go since its launch in August 2019 ,reaching out to many underprivileged areas, schools and communities, attracting students and providing them with a platform to unlock their hidden potential!"
-                         "We at CLF, would love to join hands with “YOU” through the facilitation of Kitab Gari visits in your school/ locality. All our visits have brought immense excitement and enthusiasm among children and have been a skyrocketing success in boosting the love for books alongside reigniting the passion for reading. We also have from time to time ‘special ambassadors and resource persons promoting reading’ who also come and present during the Kitab Garee visits. We aim to keep the wheels rolling and reach out to as many children and teachers as possible at very low cost.",
+                          "We at CLF, would love to join hands with “YOU” through the facilitation of Kitab Gari visits in your school/ locality. All our visits have brought immense excitement and enthusiasm among children and have been a skyrocketing success in boosting the love for books alongside reigniting the passion for reading. We also have from time to time ‘special ambassadors and resource persons promoting reading’ who also come and present during the Kitab Garee visits. We aim to keep the wheels rolling and reach out to as many children and teachers as possible at very low cost.",
                           style: TextStyle(
                             fontFamily: 'circe',
                             fontSize: 17,
@@ -149,52 +149,46 @@ class _KitabGaariPageState extends State<KitabGaariPage> {
                             spacing: 10,
                             alignment: WrapAlignment.center,
                             children: [
-                                InkWell(
-                                    onTap: () {
-                                      Get.to(WebViewPage(
-                                          title: "Photos",
-                                          url: "https://childrensliteraturefestival.com/clf-kitab-gari#photos"));
-                                    },
-                                    child: buttonWidget("Photos")
-                                ),
-
+                              InkWell(
+                                  onTap: () {
+                                    Get.to(WebViewPage(
+                                        title: "Photos",
+                                        url:
+                                            "https://childrensliteraturefestival.com/clf-kitab-gari#photos"));
+                                  },
+                                  child: buttonWidget("Photos")),
                               InkWell(
                                   onTap: () {
                                     Get.to(WebViewPage(
                                         title: "Videos",
-                                        url: "https://childrensliteraturefestival.com/clf-kitab-gari#videos"));
+                                        url:
+                                            "https://childrensliteraturefestival.com/clf-kitab-gari#videos"));
                                   },
-                                  child: buttonWidget("Videos")
-                              ),
-
+                                  child: buttonWidget("Videos")),
                               InkWell(
                                   onTap: () {
                                     Get.to(WebViewPage(
                                         title: "Media",
-                                        url: "https://childrensliteraturefestival.com/clf-kitab-gari#media"));
+                                        url:
+                                            "https://childrensliteraturefestival.com/clf-kitab-gari#media"));
                                   },
-                                  child: buttonWidget("Media")
-                              ),
-
+                                  child: buttonWidget("Media")),
                               InkWell(
                                   onTap: () {
                                     Get.to(WebViewPage(
                                         title: "Book a Visit",
-                                        url: "https://childrensliteraturefestival.com/clf-kitab-gari#book-a-visit"));
+                                        url:
+                                            "https://childrensliteraturefestival.com/clf-kitab-gari#book-a-visit"));
                                   },
-                                  child: buttonWidget("Book a Visit")
-                              ),
-
+                                  child: buttonWidget("Book a Visit")),
                               InkWell(
                                   onTap: () {
                                     Get.to(WebViewPage(
                                         title: "Sessions",
-                                        url: "https://childrensliteraturefestival.com/clf-kitab-gari#sessions"));
+                                        url:
+                                            "https://childrensliteraturefestival.com/clf-kitab-gari#sessions"));
                                   },
-                                  child: buttonWidget("Sessions")
-                              ),
-
-
+                                  child: buttonWidget("Sessions")),
                             ],
                           ),
                         ),
@@ -221,7 +215,7 @@ class _KitabGaariPageState extends State<KitabGaariPage> {
                             ),
                             InkWell(
                                 onTap: () {
-                                  Get.to(VolunteerScreen());
+                                  Get.to(VolunteerScreenFromEvent());
                                 },
                                 child: staticButtonWidget("Volunteer")),
                             SizedBox(
@@ -229,7 +223,7 @@ class _KitabGaariPageState extends State<KitabGaariPage> {
                             ),
                             InkWell(
                                 onTap: () {
-                                  Get.to(DonationsScreen());
+                                  Get.to(DonationsScreenFromEvent());
                                 },
                                 child: staticButtonWidget("Donation")),
                           ],
@@ -251,12 +245,12 @@ class _KitabGaariPageState extends State<KitabGaariPage> {
 
   Widget buildEmptyContainer(BuildContext context) {
     return SizedBox.shrink(
-      // width: MediaQuery.of(context).size.width / 2.5,
-      // height: 55,
-      // padding: EdgeInsets.all(15),
-      // decoration: BoxDecoration(
-      //     borderRadius: BorderRadius.all(Radius.circular(10)), color: grey)
-    );
+        // width: MediaQuery.of(context).size.width / 2.5,
+        // height: 55,
+        // padding: EdgeInsets.all(15),
+        // decoration: BoxDecoration(
+        //     borderRadius: BorderRadius.all(Radius.circular(10)), color: grey)
+        );
   }
 
   buttonWidget(buttonName) {
