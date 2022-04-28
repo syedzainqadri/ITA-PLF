@@ -1104,10 +1104,11 @@ class _CustomDrawerState extends State<CustomDrawer> {
                               opaque: false,
                               pageBuilder: (context, _, __) {
                                 return WebViewPage(
-                                    title: "PLFs Activities",
-                                    url: UrlBase.baseWebURL +
-                                        UrlPathHelper.getValue(
-                                            UrlPath.plfActivities));
+                                  title: "PLFs Activities",
+                                  url: UrlBase.baseWebURL +
+                                      UrlPathHelper.getValue(
+                                          UrlPath.plfActivities),
+                                );
                               },
                               transitionsBuilder: (_, __, ___, Widget child) {
                                 return child;

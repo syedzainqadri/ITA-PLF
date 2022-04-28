@@ -22,6 +22,7 @@ class CategoriesController extends GetxController {
     if (detail != null) {
       try {
         final resposeData = jsonDecode(detail);
+        print('api responce now: $resposeData');
 
         isLoading(false).obs;
         return resposeData;

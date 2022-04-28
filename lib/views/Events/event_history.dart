@@ -19,7 +19,7 @@ class _EventsHistoryState extends State<EventsHistory> {
       backgroundColor: vibrantAmber,
       appBar: AppBar(
         title: Text(
-          "Events History",
+          "Programs History",
           style: TextStyle(color: white),
         ),
         elevation: 0.0,
@@ -55,7 +55,7 @@ class _EventsHistoryState extends State<EventsHistory> {
               })
           : Center(
               child: Text(
-                "No Events History Available",
+                "No Programs History Available",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
               ),
             ),
