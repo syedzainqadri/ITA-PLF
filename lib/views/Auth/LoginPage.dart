@@ -15,7 +15,8 @@ class LoginPage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  ForgotPasswordController forgotPassController = Get.put(ForgotPasswordController());
+  ForgotPasswordController forgotPassController =
+      Get.put(ForgotPasswordController());
 
   @override
   Widget build(BuildContext context) {
@@ -104,34 +105,41 @@ class LoginPage extends StatelessWidget {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  InkWell(
-                                    onTap: ()async{
-                                      String message;
-                                      if(emailController.text.isNotEmpty){
-                                        await forgotPassController.getMVisitId(emailController.text.trim()).then((response) => {
-                                          if (response['status'] == true) {
-                                            message = response['message'],
-                                            successToast("Hurrah", message),
-                                          }
-                                          else {
-                                            errorToast("Error", "Failed to request Password"),
-                                          }
-                                        });
-                                      }else{
-                                        errorToast("Error", "Please Enter Username/email First");
-                                      }
-                                    },
-                                    child: Obx(() {
-                                      return forgotPassController.isLoading.isTrue ? CircularProgressIndicator() :
-                                      Text(
-                                        'Forgot Password?',
-                                        style: TextStyle(
-                                            color: black,
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.normal),
-                                      );
-                                    })
-                                  ),
+                                  InkWell(onTap: () async {
+                                    String message;
+                                    if (emailController.text.isNotEmpty) {
+                                      await forgotPassController
+                                          .getMVisitId(
+                                              emailController.text.trim())
+                                          .then((response) => {
+                                                if (response['status'] == true)
+                                                  {
+                                                    message =
+                                                        response['message'],
+                                                    successToast(
+                                                        "Hurrah", message),
+                                                  }
+                                                else
+                                                  {
+                                                    errorToast("Error",
+                                                        "Failed to request Password"),
+                                                  }
+                                              });
+                                    } else {
+                                      errorToast("Error",
+                                          "Please Enter Username/email First");
+                                    }
+                                  }, child: Obx(() {
+                                    return forgotPassController.isLoading.isTrue
+                                        ? CircularProgressIndicator()
+                                        : Text(
+                                            'Forgot Password?',
+                                            style: TextStyle(
+                                                color: black,
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.normal),
+                                          );
+                                  })),
                                 ],
                               ),
                             ),
@@ -161,7 +169,7 @@ class LoginPage extends StatelessWidget {
                                         Get.to(SignupPage());
                                       },
                                       child: Text(
-                                        'SignUp',
+                                        'Sign Up',
                                         style: TextStyle(
                                             color: black,
                                             fontSize: 16,
@@ -198,7 +206,7 @@ class LoginPage extends StatelessWidget {
                                         }
                                       },
                                       child: Text(
-                                        'SignIn',
+                                        'Sign In',
                                         style: TextStyle(
                                             color: black,
                                             fontSize: 16,

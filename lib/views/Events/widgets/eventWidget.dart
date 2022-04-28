@@ -32,14 +32,16 @@ InkWell eventWidget(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Hero(
-              tag: img,
-              child: SizedBox(
-                height: MediaQuery.of(context).size.width * 0.42,
-                width: MediaQuery.of(context).size.width,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.network(img, fit: BoxFit.fill),
+            Expanded(
+              child: Hero(
+                tag: img,
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.width * 0.42,
+                  width: MediaQuery.of(context).size.width,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.network(img, fit: BoxFit.fill),
+                  ),
                 ),
               ),
             ),

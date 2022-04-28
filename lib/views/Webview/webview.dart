@@ -1,9 +1,8 @@
-import 'dart:convert';
+import 'dart:async';
 import 'dart:io';
 
 import 'package:PLF/utils/ColorScheme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -16,7 +15,10 @@ class WebViewPage extends StatefulWidget {
 }
 
 class WebViewPageState extends State<WebViewPage> {
+  final Completer<WebViewController> controller =
+      Completer<WebViewController>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  var loadingPercentage = 0;
 
   @override
   void initState() {
@@ -24,7 +26,6 @@ class WebViewPageState extends State<WebViewPage> {
     if (Platform.isAndroid) WebView.platform = AndroidWebView();
   }
 
-  WebViewController _webViewController;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,10 +49,47 @@ class WebViewPageState extends State<WebViewPage> {
         ),
         backgroundColor: white,
       ),
-      body: WebView(
-        zoomEnabled: true,
-        javascriptMode: JavascriptMode.unrestricted,
-        initialUrl: widget.url,
+      body: Stack(
+        children: [
+          WebView(
+            zoomEnabled: true,
+            javascriptMode: JavascriptMode.unrestricted,
+            initialUrl: widget.url,
+            onPageStarted: (url) {
+              setState(() {
+                loadingPercentage = 0;
+              });
+            },
+            onProgress: (progress) {
+              setState(() {
+                loadingPercentage = progress;
+              });
+            },
+            onPageFinished: (url) {
+              setState(() {
+                loadingPercentage = 100;
+              });
+            },
+            navigationDelegate: (navigation) {
+              final host = Uri.parse(navigation.url).host;
+              if (host.contains('youtube.com')) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      'Blocking navigation to $host',
+                    ),
+                  ),
+                );
+                return NavigationDecision.prevent;
+              }
+              return NavigationDecision.navigate;
+            },
+          ),
+          if (loadingPercentage < 100)
+            LinearProgressIndicator(
+              value: loadingPercentage / 100.0,
+            ),
+        ],
       ),
     );
   }

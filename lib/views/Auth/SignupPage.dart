@@ -204,7 +204,7 @@ class _SignupPageState extends State<SignupPage> {
                                         Get.to(LoginPage());
                                       },
                                       child: Text(
-                                        'SignIn',
+                                        'Sign In',
                                         style: TextStyle(
                                             color: black,
                                             fontSize: 16,
@@ -243,7 +243,7 @@ class _SignupPageState extends State<SignupPage> {
                                         }
                                       },
                                       child: Text(
-                                        'SignUp',
+                                        'Sign Up',
                                         style: TextStyle(
                                             color: black,
                                             fontSize: 16,

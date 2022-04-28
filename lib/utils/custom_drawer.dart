@@ -1130,31 +1130,31 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   ),
                 ],
               ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                          opaque: false,
-                          pageBuilder: (context, _, __) {
-                            return BookStore();
-                          },
-                          transitionsBuilder: (_, __, ___, Widget child) {
-                            return child;
-                          }));
-                },
-                child: ListTile(
-                  title: Text(
-                    'Book Store',
-                    style: TextStyle(
-                      color: black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
+              // GestureDetector(
+              //   onTap: () {
+              //     Navigator.pop(context);
+              //     Navigator.push(
+              //         context,
+              //         PageRouteBuilder(
+              //             opaque: false,
+              //             pageBuilder: (context, _, __) {
+              //               return BookStore();
+              //             },
+              //             transitionsBuilder: (_, __, ___, Widget child) {
+              //               return child;
+              //             }));
+              //   },
+              //   child: ListTile(
+              //     title: Text(
+              //       'Book Store',
+              //       style: TextStyle(
+              //         color: black,
+              //         fontSize: 18,
+              //         fontWeight: FontWeight.bold,
+              //       ),
+              //     ),
+              //   ),
+              // ),
               // GestureDetector(
               //   onTap: () {
               //     Navigator.pop(context);
