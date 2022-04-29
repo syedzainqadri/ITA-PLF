@@ -1,6 +1,8 @@
+import 'package:PLF/views/Donation/DonationScreenFromEvent.dart';
 import 'package:PLF/views/Donation/donations.dart';
 import 'package:PLF/utils/url_base.dart';
 import 'package:PLF/utils/url_paths.dart';
+import 'package:PLF/views/Volenteer/VolenteerScreenFromEvent.dart';
 import 'package:PLF/views/Volenteer/volenteer.dart';
 import 'package:PLF/views/Webview/webview.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -31,9 +33,9 @@ class EventDetailPage extends StatefulWidget {
 
 class _EventDetailPageState extends State<EventDetailPage> {
   int selectedDate = DateTime.now().day;
-  final GetEventBannerController _eventBannerController = Get.put(GetEventBannerController());
+  final GetEventBannerController _eventBannerController =
+      Get.put(GetEventBannerController());
   List<BannersModel> eventModel = [];
-
 
   @override
   void initState() {
@@ -138,49 +140,74 @@ class _EventDetailPageState extends State<EventDetailPage> {
                         SizedBox(
                           height: 1,
                         ),
-                        eventModel.length != 0 ?
-                        SizedBox(
-                          height: 130,
-                          width: MediaQuery.of(context).size.width,
-                          child: ListView.builder(
-                              itemCount: 1,
-                              physics: NeverScrollableScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                final donationBanner = eventModel[index];
-                                return donationBanner.status ? ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: InkWell(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          PageRouteBuilder(
-                                              opaque: false,
-                                              pageBuilder: (context, _, __) {
-                                                return WebViewPage(title: "Ad", url: donationBanner.eventUrl);
-                                              },
-                                              transitionsBuilder:
-                                                  (_, __, ___, Widget child) {
-                                                return child;
-                                              }));
-                                    },
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(10),
-                                          topRight: Radius.circular(10)),
-                                      child: CachedNetworkImage(
-                                        imageUrl: donationBanner.url,
-                                        fit: BoxFit.cover,
-                                        placeholder: (context, val) => Center(
-                                          child: CircularProgressIndicator(),
-                                        ),
-                                        errorWidget: (context, url, error) => Icon(Icons.image),
-                                      ),
-                                    ),
-                                    // Image.network(homeTopBanner.url)
-                                  ),
-                                ): SizedBox.shrink();
-                              }),
-                        ) : Center(child: Text("No Banner Added"),),
+                        eventModel.length != 0
+                            ? SizedBox(
+                                height: 130,
+                                width: MediaQuery.of(context).size.width,
+                                child: ListView.builder(
+                                    itemCount: 1,
+                                    physics: NeverScrollableScrollPhysics(),
+                                    itemBuilder: (context, index) {
+                                      final donationBanner = eventModel[index];
+                                      return donationBanner.status
+                                          ? ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              child: InkWell(
+                                                onTap: () {
+                                                  Navigator.push(
+                                                      context,
+                                                      PageRouteBuilder(
+                                                          opaque: false,
+                                                          pageBuilder: (context,
+                                                              _, __) {
+                                                            return WebViewPage(
+                                                                title: "Ad",
+                                                                url: donationBanner
+                                                                    .eventUrl);
+                                                          },
+                                                          transitionsBuilder:
+                                                              (_,
+                                                                  __,
+                                                                  ___,
+                                                                  Widget
+                                                                      child) {
+                                                            return child;
+                                                          }));
+                                                },
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                          topLeft:
+                                                              Radius.circular(
+                                                                  10),
+                                                          topRight:
+                                                              Radius.circular(
+                                                                  10)),
+                                                  child: CachedNetworkImage(
+                                                    imageUrl:
+                                                        donationBanner.url,
+                                                    fit: BoxFit.cover,
+                                                    placeholder:
+                                                        (context, val) =>
+                                                            Center(
+                                                      child:
+                                                          CircularProgressIndicator(),
+                                                    ),
+                                                    errorWidget:
+                                                        (context, url, error) =>
+                                                            Icon(Icons.image),
+                                                  ),
+                                                ),
+                                                // Image.network(homeTopBanner.url)
+                                              ),
+                                            )
+                                          : SizedBox.shrink();
+                                    }),
+                              )
+                            : Center(
+                                child: Text("No Banner Added"),
+                              ),
                         SizedBox(
                           height: 30,
                         ),
@@ -347,7 +374,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                             ),
                             InkWell(
                                 onTap: () {
-                                  Get.to(VolunteerScreen());
+                                  Get.to(VolunteerScreenFromEvent());
                                 },
                                 child: staticButtonWidget("Volunteer")),
                             SizedBox(
@@ -355,7 +382,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                             ),
                             InkWell(
                                 onTap: () {
-                                  Get.to(DonationsScreen());
+                                  Get.to(DonationsScreenFromEvent());
                                 },
                                 child: staticButtonWidget("Donation")),
                           ],
