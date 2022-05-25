@@ -85,7 +85,7 @@ class CreateOrderController extends GetxController {
 
     print(" sending data is:  ${jsonEncode(data)}");
     var nonce = await http.get(Uri.parse(
-        "https://clfbooks.childrensliteraturefestival.com/api/get_nonce/?json=get_nonce&controller=user&method=register"));
+        "https://itapublications.pakistanlearningfestival.com/api/get_nonce/?json=get_nonce&controller=user&method=register"));
     final responseNonce = jsonDecode(nonce.body.toString());
     var nonceString = responseNonce["nonce"];
     print(" nonce is :$nonceString");
@@ -101,7 +101,7 @@ class CreateOrderController extends GetxController {
     var detail = await http
         .post(
             Uri.parse(
-                "https://clfbooks.childrensliteraturefestival.com/wp-json/wc/v3/orders"),
+                "https://itapublications.pakistanlearningfestival.com/wp-json/wc/v3/orders"),
             body: jsonEncode(data),
             headers: headers)
         .timeout(const Duration(seconds: 30));

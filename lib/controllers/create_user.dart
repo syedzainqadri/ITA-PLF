@@ -15,7 +15,7 @@ class RegisterController extends GetxController {
     isLoading(true).obs;
 
     var nonce = await http.get(Uri.parse(
-        "https://clfbooks.childrensliteraturefestival.com/api/get_nonce/?json=get_nonce&controller=user&method=register"));
+        "https://itapublications.pakistanlearningfestival.com/api/get_nonce/?json=get_nonce&controller=user&method=register"));
     final responseNonce = jsonDecode(nonce.body.toString());
     var nonceString = responseNonce["nonce"];
     print(" nonce is :$nonceString");
@@ -38,7 +38,7 @@ class RegisterController extends GetxController {
       var detail = await http
           .post(
               Uri.parse(
-                  "https://clfbooks.childrensliteraturefestival.com/wp-json/wc/v3/customers"),
+                  "https://itapublications.pakistanlearningfestival.com/wp-json/wc/v3/customers"),
               body: jsonEncode(data),
               headers: headers)
           .timeout(const Duration(seconds: 30));

@@ -26,7 +26,7 @@ class APIService {
         .post(
             isAuth
                 ? Uri.parse(
-                    "https://clfbooks.childrensliteraturefestival.com/wp-json/wp/v2/users")
+                    "https://itapublications.pakistanlearningfestival.com/wp-json/wp/v2/users")
                 : Uri.parse(basUrl + apiName),
             body: isJson ? json.encode(mapData) : mapData,
             headers: headers)

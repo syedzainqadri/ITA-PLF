@@ -1,8 +1,3 @@
-import 'dart:convert';
-import 'dart:io';
-
-import 'package:PLF/models/product.dart';
-import 'package:PLF/network/api_service.dart';
 import 'package:PLF/utils/url_paths.dart';
 import 'package:get/get.dart';
 import 'package:woocommerce/woocommerce.dart';

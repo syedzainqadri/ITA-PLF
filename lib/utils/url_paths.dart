@@ -1,5 +1,5 @@
 const basUrl =
-    "https://clfbooks.childrensliteraturefestival.com/wp-json/wc/v3/";
+    "https://itapublications.pakistanlearningfestival.com//wp-json/wc/v3/";
 
 const getProducts = "products";
 //products?category=
@@ -7,6 +7,7 @@ const getCategories = "products/categories?hide_empty=true";
 const getAllMethods = "payment_gateways";
 const createUserApi = "users";
 const makeOrder = "orders";
+
 enum UrlPath {
   about,
   plfAdvisor,

@@ -63,7 +63,7 @@
     },
     {
       "name": "collection",
-      "rootUri": "file:///Users/xain/development/flutter/.pub-cache/hosted/pub.dartlang.org/collection-1.15.0",
+      "rootUri": "file:///Users/xain/development/flutter/.pub-cache/hosted/pub.dartlang.org/collection-1.16.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -185,7 +185,7 @@
       "name": "flutter_web_plugins",
       "rootUri": "file:///Users/xain/development/flutter/packages/flutter_web_plugins",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.17"
     },
     {
       "name": "get",
@@ -219,9 +219,9 @@
     },
     {
       "name": "js",
-      "rootUri": "file:///Users/xain/development/flutter/.pub-cache/hosted/pub.dartlang.org/js-0.6.3",
+      "rootUri": "file:///Users/xain/development/flutter/.pub-cache/hosted/pub.dartlang.org/js-0.6.4",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.16"
     },
     {
       "name": "loading_overlay",
@@ -231,7 +231,7 @@
     },
     {
       "name": "material_color_utilities",
-      "rootUri": "file:///Users/xain/development/flutter/.pub-cache/hosted/pub.dartlang.org/material_color_utilities-0.1.3",
+      "rootUri": "file:///Users/xain/development/flutter/.pub-cache/hosted/pub.dartlang.org/material_color_utilities-0.1.4",
       "packageUri": "lib/",
       "languageVersion": "2.13"
     },
@@ -441,7 +441,7 @@
     },
     {
       "name": "vector_math",
-      "rootUri": "file:///Users/xain/development/flutter/.pub-cache/hosted/pub.dartlang.org/vector_math-2.1.1",
+      "rootUri": "file:///Users/xain/development/flutter/.pub-cache/hosted/pub.dartlang.org/vector_math-2.1.2",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
@@ -518,7 +518,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2022-04-29T00:44:29.463600Z",
+  "generated": "2022-05-25T09:21:33.730844Z",
   "generator": "pub",
-  "generatorVersion": "2.16.2"
+  "generatorVersion": "2.17.0"
 }

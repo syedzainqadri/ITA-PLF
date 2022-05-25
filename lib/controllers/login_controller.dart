@@ -22,7 +22,7 @@ class LoginController extends GetxController {
     var detail = await http
         .get(
           Uri.parse(
-              "https://clfbooks.childrensliteraturefestival.com/wp-json/login-user/login?username=$userName&password=$password"),
+              "https://itapublications.pakistanlearningfestival.com/wp-json/login-user/login?username=$userName&password=$password"),
         )
         .timeout(const Duration(seconds: 30));
 
