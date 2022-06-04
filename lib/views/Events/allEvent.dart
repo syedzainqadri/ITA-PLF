@@ -1,10 +1,10 @@
+
+
 import 'package:PLF/models/event_model.dart';
 import 'package:flutter/material.dart';
 import 'package:PLF/utils/ColorScheme.dart';
-
 import '../../utils/url_base.dart';
 import '../Webview/webview.dart';
-import 'widgets/eventWidget.dart';
 import 'widgets/eventHistoryWidget.dart';
 
 class AllUpcomingEvents extends StatefulWidget {

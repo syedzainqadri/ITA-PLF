@@ -15,8 +15,7 @@ class PaymentMethodController extends GetxController {
   getMethods() async {
     isLoading(true).obs;
 
-    var detail =
-        await APIService().getRequest(apiName: getAllMethods, isJson: false);
+    var detail = await APIService().getRequest(apiName: getAllMethods, isJson: false);
     print(' api response is: ${detail}');
     // if(debugMode)print(detail);
     if (detail != null) {

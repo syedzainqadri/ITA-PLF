@@ -1,10 +1,13 @@
+import 'package:PLF/controllers/program_controller.dart';
 import 'package:PLF/models/banner_model.dart';
+import 'package:PLF/models/program_model.dart';
 import 'package:PLF/views/Events/allEvent.dart';
 import 'package:PLF/views/Events/widgets/eventWidget.dart';
 import 'package:PLF/utils/url_base.dart';
 import 'package:PLF/views/Home/Widgets/home_navbar.dart';
 import 'package:PLF/views/Webview/webview.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:PLF/utils/ColorScheme.dart';
 import 'package:PLF/views/Events/widgets/eventHistoryWidget.dart';
@@ -16,6 +19,8 @@ import 'package:get/get.dart';
 
 import '../../models/event_model.dart';
 import '../../utils/url_paths.dart';
+import '../program/all_program_screen.dart';
+import '../program/program_widget.dart';
 import 'Widgets/kitab_gaari_view.dart';
 
 class HomePage extends StatefulWidget {
@@ -28,11 +33,14 @@ class _HomePageState extends State<HomePage> {
   bool deepExpanded = true;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final GetEventController _eventController = Get.put(GetEventController());
+  final ProgramController _programController = Get.put(ProgramController());
   final GetHomeTopBannerController _homeTopBannerController =
       Get.put(GetHomeTopBannerController());
   final GetHomeBottomBannerController _homeBottomBannerController =
       Get.put(GetHomeBottomBannerController());
   List<EventModel> eventModel = [];
+  List<ProgramModel> programModel = [];
+  List<ProgramModel> featuredProgramModel = [];
   List<EventModel> upComingEventModel = [];
   List<EventModel> eventHistoryModel = [];
   List<BannersModel> homeTopBannerModel = [];
@@ -45,9 +53,9 @@ class _HomePageState extends State<HomePage> {
 
   getData() async {
     eventModel = await _eventController.getEventsData();
+    programModel = await _programController.getProgramsData();
     homeTopBannerModel = await _homeTopBannerController.getHomeTopBanner();
-    homeBottomBannerModel =
-        await _homeBottomBannerController.getHomeBottomBanner();
+    homeBottomBannerModel = await _homeBottomBannerController.getHomeBottomBanner();
     for (int i = 0; i < eventModel.length; i++) {
       if (eventModel[i].status == true) {
         upComingEventModel.add(eventModel[i]);
@@ -55,7 +63,12 @@ class _HomePageState extends State<HomePage> {
         eventHistoryModel.add(eventModel[i]);
       }
     }
-    print(upComingEventModel.length);
+    for(int j=0; j<programModel.length; j++){
+      if(programModel[j].isFeatured == true){
+        featuredProgramModel.add(programModel[j]);
+      }
+    }
+    print(featuredProgramModel.length);
     setState(() {});
   }
 
@@ -74,6 +87,7 @@ class _HomePageState extends State<HomePage> {
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -142,64 +156,127 @@ class _HomePageState extends State<HomePage> {
                   ),
                   homeTopBannerModel.length != 0
                       ? SizedBox(
-                          height: 70,
-                          width: MediaQuery.of(context).size.width,
-                          child: ListView.builder(
-                              itemCount: 1,
-                              physics: NeverScrollableScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                final homeTopBanner = homeTopBannerModel[index];
-                                return homeTopBanner.status
-                                    ? ClipRRect(
-                                        borderRadius: BorderRadius.circular(10),
-                                        child: InkWell(
-                                          onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                PageRouteBuilder(
-                                                    opaque: false,
-                                                    pageBuilder:
-                                                        (context, _, __) {
-                                                      return WebViewPage(
-                                                          title: "Ad",
-                                                          url: homeTopBanner
-                                                              .eventUrl);
-                                                    },
-                                                    transitionsBuilder: (_, __,
-                                                        ___, Widget child) {
-                                                      return child;
-                                                    }));
-                                          },
-                                          child: ClipRRect(
-                                            borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(10),
-                                                topRight: Radius.circular(10)),
-                                            child: CachedNetworkImage(
-                                              imageUrl: homeTopBanner.url,
-                                              fit: BoxFit.cover,
-                                              placeholder: (context, val) =>
-                                                  Center(
-                                                child:
-                                                    CircularProgressIndicator(),
-                                              ),
-                                              errorWidget:
-                                                  (context, url, error) =>
-                                                      Icon(Icons.image),
-                                            ),
-                                          ),
-                                          // Image.network(homeTopBanner.url)
-                                        ),
-                                      )
-                                    : SizedBox.shrink();
-                              }),
-                        )
+                    height: 70,
+                    width: MediaQuery.of(context).size.width,
+                    child: ListView.builder(
+                        itemCount: 1,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          final homeTopBanner = homeTopBannerModel[index];
+                          return homeTopBanner.status
+                              ? ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    PageRouteBuilder(
+                                        opaque: false,
+                                        pageBuilder:
+                                            (context, _, __) {
+                                          return WebViewPage(
+                                              title: "Ad",
+                                              url: homeTopBanner
+                                                  .eventUrl);
+                                        },
+                                        transitionsBuilder: (_, __,
+                                            ___, Widget child) {
+                                          return child;
+                                        }));
+                              },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10)),
+                                child: CachedNetworkImage(
+                                  imageUrl: homeTopBanner.url,
+                                  fit: BoxFit.cover,
+                                  placeholder: (context, val) =>
+                                      Center(
+                                        child:
+                                        CircularProgressIndicator(),
+                                      ),
+                                  errorWidget:
+                                      (context, url, error) =>
+                                      Icon(Icons.image),
+                                ),
+                              ),
+                              // Image.network(homeTopBanner.url)
+                            ),
+                          )
+                              : SizedBox.shrink();
+                        }),
+                  )
                       : Center(
-                          child: CircularProgressIndicator(color: vibrantBlue),
-                          // child: Text("No Banner Added"),
-                        ),
+                    child: CircularProgressIndicator(color: vibrantBlue),
+                    // child: Text("No Banner Added"),
+                  ),
                   SizedBox(
                     height: 30,
                   ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Featured Programs",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => AllProgramsScreen(
+                                  programModel: programModel)));
+                        },
+                        child: Container(
+                          padding:
+                          EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: vibrantRed,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.2),
+                                spreadRadius: 1,
+                                blurRadius: 1,
+                                offset: Offset(1, 4),
+                              ),
+                            ],
+                          ),
+                          child: Text(
+                            "See all",
+                            style: TextStyle(color: vibrantWhite, fontSize: 13),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+
+                  SizedBox(
+                    height: 5,
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.33,
+                    width: double.infinity,
+                    child: featuredProgramModel.isNotEmpty
+                        ? ListView.builder(
+                        itemCount: featuredProgramModel.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          return programWidget(
+                              featuredProgramModel[index].url,
+                              featuredProgramModel[index].name,
+                              featuredProgramModel[index].description,
+                              context,
+                              featuredProgramModel[index]);
+                        })
+                        : Center(child: CircularProgressIndicator(color: vibrantBlue),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
