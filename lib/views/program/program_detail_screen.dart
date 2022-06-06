@@ -8,6 +8,9 @@ import 'package:get/get.dart';
 import 'package:PLF/utils/ColorScheme.dart';
 import '../../controllers/event_banner_controller.dart';
 import '../../models/banner_model.dart';
+import '../Donation/DonationScreenFromEvent.dart';
+import '../Feedback/feedback.dart';
+import '../Volenteer/VolenteerScreenFromEvent.dart';
 
 class ProgramDetailScreen extends StatefulWidget {
   String img, name, subText, date;
@@ -161,6 +164,35 @@ class _ProgramDetailScreenState extends State<ProgramDetailScreen> {
                           thickness: 2,
                         ),
                         SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            InkWell(
+                                onTap: () {
+                                  Get.to(FeedbackPage());
+                                },
+                                child: staticButtonWidget("Feedback")),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            InkWell(
+                                onTap: () {
+                                  Get.to(VolunteerScreenFromEvent());
+                                },
+                                child: staticButtonWidget("Volunteer")),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            InkWell(
+                                onTap: () {
+                                  Get.to(DonationsScreenFromEvent());
+                                },
+                                child: staticButtonWidget("Donation")),
+                          ],
+                        ),
+                        SizedBox(
                           height: 15,
                         ),
                       ],
@@ -183,6 +215,24 @@ class _ProgramDetailScreenState extends State<ProgramDetailScreen> {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10)),
           color: vibrantPurple),
+      child: Center(
+        child: Text(
+          buttonName,
+          style: TextStyle(
+              color: Colors.white,
+              fontFamily: 'circe',
+              fontWeight: FontWeight.w700),
+        ),
+      ),
+    );
+  }
+
+  staticButtonWidget(buttonName) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 18, vertical: 15),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          color: vibrantOrange),
       child: Center(
         child: Text(
           buttonName,

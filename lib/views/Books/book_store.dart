@@ -188,6 +188,8 @@ class _BookStoreState extends State<BookStore> {
                                 itemCount: categories.length,
                                 itemBuilder: (_, index) {
                                   var item = categories[index];
+                                  print("items");
+                                  print(item);
                                   print(
                                       " category single item: ${item["count"].toString()}");
                                   // var _count = item["count"].toString();
@@ -218,8 +220,7 @@ class _BookStoreState extends State<BookStore> {
                                             color: vibrantBlue,
                                           ),
                                           child: Center(
-                                            child: Text(
-                                              item["name"].toString(),
+                                            child: Text(item["name"].toString(),
                                               style: TextStyle(
                                                   color: white,
                                                   fontSize: 16,

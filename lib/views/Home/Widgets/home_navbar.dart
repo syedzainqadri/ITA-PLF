@@ -191,7 +191,7 @@ class _HomeNavbarState extends State<HomeNavbar> {
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.account_balance_wallet),
+              icon: Image.asset("asset/images/donation.png", height: 20, width: 20, color: Colors.white),
               label: 'Donation',
             ),
             BottomNavigationBarItem(

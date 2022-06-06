@@ -168,12 +168,8 @@ class _CartPageState extends State<CartPage> {
                             itemCount: cartController.totalItem.value,
                             itemBuilder: (context, index) {
                               totalPrice1 = totalPrice1 +
-                                  (double.parse((cartController.products[index]
-                                              ["product_price"])
-                                          .toString()) *
-                                      double.parse((cartController
-                                              .products[index]["quantity"])
-                                          .toString()));
+                                  (double.parse((cartController.products[index]["product_price"]).toString()) *
+                                      double.parse((cartController.products[index]["quantity"]).toString()));
                               print("");
                               return itemsCard(
                                   img: cartController.products[index]
@@ -197,8 +193,7 @@ class _CartPageState extends State<CartPage> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     "Total",
@@ -221,7 +216,7 @@ class _CartPageState extends State<CartPage> {
                                 height: 5,
                               ),
                               Text(
-                                "- - - - - - - - - - - - - - - - - - - - - - - - - - - -",
+                                "- - - - - - - - - - - - - - - - - - - - - - -",
                                 style: TextStyle(fontSize: 25),
                               ),
                               Row(
@@ -324,12 +319,11 @@ class _CartPageState extends State<CartPage> {
                 child: Container(
                   padding: EdgeInsets.only(right: 10.0),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(
-                            top: 8.0, right: 8.0, left: 8.0),
+                        padding: const EdgeInsets.only(top: 8.0, right: 8.0, left: 8.0),
                         child: Text(
                           itemName,
                           overflow: TextOverflow.ellipsis,
@@ -337,10 +331,13 @@ class _CartPageState extends State<CartPage> {
                         ),
                       ),
                       Expanded(
-                        child: Text(
-                          itemPrice.toString() + " RS",
-                          style: TextStyle(
-                              color: vibrantRed, fontWeight: FontWeight.bold),
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 6.0, right: 8.0, left: 8.0),
+                          child: Text(
+                              "RS: " + itemPrice.toString(),
+                            style: TextStyle(
+                                color: vibrantRed, fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ),
                       Row(

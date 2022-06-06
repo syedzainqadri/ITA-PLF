@@ -31,6 +31,7 @@ InkWell programHistoryWidget(String img, String name, String subText,
       ),
       child: Row(
         children: [
+          SizedBox(width: 5),
           Hero(
             tag: img,
             child: SizedBox(

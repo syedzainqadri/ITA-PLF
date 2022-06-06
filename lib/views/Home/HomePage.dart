@@ -20,6 +20,7 @@ import 'package:get/get.dart';
 import '../../models/event_model.dart';
 import '../../utils/url_paths.dart';
 import '../program/all_program_screen.dart';
+import '../program/program_history_widget.dart';
 import '../program/program_widget.dart';
 import 'Widgets/kitab_gaari_view.dart';
 
@@ -214,68 +215,7 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(
                     height: 30,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Featured Programs",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => AllProgramsScreen(
-                                  programModel: programModel)));
-                        },
-                        child: Container(
-                          padding:
-                          EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: vibrantRed,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.2),
-                                spreadRadius: 1,
-                                blurRadius: 1,
-                                offset: Offset(1, 4),
-                              ),
-                            ],
-                          ),
-                          child: Text(
-                            "See all",
-                            style: TextStyle(color: vibrantWhite, fontSize: 13),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
 
-                  SizedBox(
-                    height: 5,
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.33,
-                    width: double.infinity,
-                    child: featuredProgramModel.isNotEmpty
-                        ? ListView.builder(
-                        itemCount: featuredProgramModel.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return programWidget(
-                              featuredProgramModel[index].url,
-                              featuredProgramModel[index].name,
-                              featuredProgramModel[index].description,
-                              context,
-                              featuredProgramModel[index]);
-                        })
-                        : Center(child: CircularProgressIndicator(color: vibrantBlue),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -347,68 +287,129 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(
                     height: 20,
                   ),
-                  homeBottomBannerModel.length != 0
-                      ? SizedBox(
-                          height: 300,
-                          width: MediaQuery.of(context).size.width,
-                          child: ListView.builder(
-                              itemCount: 1,
-                              physics: NeverScrollableScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                final homeBottomBanner =
-                                    homeBottomBannerModel[index];
-                                return homeBottomBanner.status
-                                    ? ClipRRect(
-                                        borderRadius: BorderRadius.circular(10),
-                                        child: InkWell(
-                                          onTap: () {
-                                            Get.to(KitabGaariPage());
-                                            // Navigator.push(
-                                            //   context,
-                                            //   PageRouteBuilder(
-                                            //     opaque: false,
-                                            //     pageBuilder: (context, _, __) {
-                                            //       return WebViewPage(
-                                            //           title: "Ad",
-                                            //           url: homeBottomBanner
-                                            //               .eventUrl);
-                                            //     },
-                                            //     transitionsBuilder:
-                                            //         (_, __, ___, Widget child) {
-                                            //       return child;
-                                            //     },
-                                            //   ),
-                                            // );
-                                          },
-                                          child: ClipRRect(
-                                            borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(10),
-                                                topRight: Radius.circular(10)),
-                                            child: CachedNetworkImage(
-                                              imageUrl: homeBottomBanner.url,
-                                              fit: BoxFit.cover,
-                                              placeholder: (context, val) =>
-                                                  Center(
-                                                child:
-                                                    CircularProgressIndicator(),
-                                              ),
-                                              errorWidget:
-                                                  (context, url, error) =>
-                                                      Icon(Icons.image),
-                                            ),
-                                          ),
-                                          // Image.network(homeTopBanner.url)
-                                        ),
-                                      )
-                                    : SizedBox.shrink();
-                              }),
-                        )
-                      : Center(
-                          child: CircularProgressIndicator(
-                            color: vibrantBlue,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Featured Programs",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => AllProgramsScreen(
+                                  programModel: programModel)));
+                        },
+                        child: Container(
+                          padding:
+                          EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: vibrantRed,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.2),
+                                spreadRadius: 1,
+                                blurRadius: 1,
+                                offset: Offset(1, 4),
+                              ),
+                            ],
                           ),
-                          // child: Text("No Banner Added"),
+                          child: Text(
+                            "See all",
+                            style: TextStyle(color: vibrantWhite, fontSize: 13),
+                          ),
                         ),
+                      )
+                    ],
+                  ),
+
+                  SizedBox(
+                    height: 5,
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.4,
+                    width: double.infinity,
+                    child: featuredProgramModel.isNotEmpty
+                        ? ListView.builder(
+                        itemCount: featuredProgramModel.length,
+                        scrollDirection: Axis.vertical,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return programHistoryWidget(
+                              featuredProgramModel[index].url,
+                              featuredProgramModel[index].name,
+                              featuredProgramModel[index].description,
+                              context,
+                              featuredProgramModel[index]);
+                        })
+                        : Center(child: CircularProgressIndicator(color: vibrantBlue),
+                    ),
+                  ),
+
+                  // homeBottomBannerModel.length != 0
+                  //     ? SizedBox(
+                  //         height: 300,
+                  //         width: MediaQuery.of(context).size.width,
+                  //         child: ListView.builder(
+                  //             itemCount: 1,
+                  //             physics: NeverScrollableScrollPhysics(),
+                  //             itemBuilder: (context, index) {
+                  //               final homeBottomBanner =
+                  //                   homeBottomBannerModel[index];
+                  //               return homeBottomBanner.status
+                  //                   ? ClipRRect(
+                  //                       borderRadius: BorderRadius.circular(10),
+                  //                       child: InkWell(
+                  //                         onTap: () {
+                  //                           Get.to(KitabGaariPage());
+                  //                           // Navigator.push(
+                  //                           //   context,
+                  //                           //   PageRouteBuilder(
+                  //                           //     opaque: false,
+                  //                           //     pageBuilder: (context, _, __) {
+                  //                           //       return WebViewPage(
+                  //                           //           title: "Ad",
+                  //                           //           url: homeBottomBanner
+                  //                           //               .eventUrl);
+                  //                           //     },
+                  //                           //     transitionsBuilder:
+                  //                           //         (_, __, ___, Widget child) {
+                  //                           //       return child;
+                  //                           //     },
+                  //                           //   ),
+                  //                           // );
+                  //                         },
+                  //                         child: ClipRRect(
+                  //                           borderRadius: BorderRadius.only(
+                  //                               topLeft: Radius.circular(10),
+                  //                               topRight: Radius.circular(10)),
+                  //                           child: CachedNetworkImage(
+                  //                             imageUrl: homeBottomBanner.url,
+                  //                             fit: BoxFit.cover,
+                  //                             placeholder: (context, val) =>
+                  //                                 Center(
+                  //                               child:
+                  //                                   CircularProgressIndicator(),
+                  //                             ),
+                  //                             errorWidget:
+                  //                                 (context, url, error) =>
+                  //                                     Icon(Icons.image),
+                  //                           ),
+                  //                         ),
+                  //                         // Image.network(homeTopBanner.url)
+                  //                       ),
+                  //                     )
+                  //                   : SizedBox.shrink();
+                  //             }),
+                  //       )
+                  //     : Center(
+                  //         child: CircularProgressIndicator(
+                  //           color: vibrantBlue,
+                  //         ),
+                  //         // child: Text("No Banner Added"),
+                  //       ),
                 ],
               ),
             ),

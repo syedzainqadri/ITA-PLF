@@ -88,6 +88,36 @@ class _BookWidgetState extends State<BookWidget> {
                       ),
                     ),
                   ),
+
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Price:",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: const Color(0xff4d4d4d),
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    maxLines: 1,
+                  ),
+                  SizedBox(width: 10),
+                  Text(
+                    widget.price,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: const Color(0xff4d4d4d),
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    maxLines: 1,
+                  ),
                 ],
               ),
             ),
