@@ -255,7 +255,7 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.4,
+                    height: MediaQuery.of(context).size.height * 0.36,
                     width: double.infinity,
                     child: eventHistoryModel.isNotEmpty
                         ? ListView.builder(
@@ -263,7 +263,7 @@ class _HomePageState extends State<HomePage> {
                             physics: NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) {
                               return eventHistoryWidget(
-                                eventHistoryModel[index].url,
+                                eventHistoryModel[index].url != null ? eventHistoryModel[index].url : "",
                                 eventHistoryModel[index].name,
                                 eventHistoryModel[index].description,
                                 eventHistoryModel[index].description != null
@@ -329,7 +329,7 @@ class _HomePageState extends State<HomePage> {
                     height: 5,
                   ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.4,
+                    height: MediaQuery.of(context).size.height * 0.36,
                     width: double.infinity,
                     child: featuredProgramModel.isNotEmpty
                         ? ListView.builder(

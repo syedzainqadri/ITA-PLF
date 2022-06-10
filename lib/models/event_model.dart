@@ -5,6 +5,7 @@ class EventModel {
   String id;
   String url;
   String description;
+  String eventDate;
   bool tarana;
   bool poster;
   bool sponsors;
@@ -21,7 +22,7 @@ class EventModel {
   bool status;
 
   EventModel({this.id,
-    this.name, this.url, this.description, this.tarana, this.poster, this.sponsors, this.program,
+    this.name, this.url, this.description, this.eventDate, this.tarana, this.poster, this.sponsors, this.program,
     this.resource_Persons, this.gallery, this.media, this.getInvolved, this.testimonials,
     this.venue, this.registration, this.videos, this.book_launches, this.status,
   });
@@ -31,6 +32,7 @@ class EventModel {
     id = doc['id'];
     url = doc['url'];
     description = doc['description'];
+    eventDate = doc['eventDate'];
     tarana = doc['tarana'];
     poster = doc['poster'];
     sponsors = doc['sponsors'];

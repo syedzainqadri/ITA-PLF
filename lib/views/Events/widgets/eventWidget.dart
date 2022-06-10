@@ -65,7 +65,7 @@ InkWell eventWidget(
                   Icon(Icons.calendar_today, size: 15),
                   SizedBox(width: 5),
                   Text(
-                    "22-12-2022",
+                    eventModel.eventDate,
                     style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w400,

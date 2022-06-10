@@ -42,7 +42,7 @@ class _EventsHistoryState extends State<EventsHistory> {
                 return Padding(
                   padding: const EdgeInsets.only(top: 5.0, left: 20, right: 20),
                   child: eventHistoryWidget(
-                    widget.eventHistoryModel[index].url,
+                    widget.eventHistoryModel[index].url != null ? widget.eventHistoryModel[index].url : "",
                     widget.eventHistoryModel[index].name,
                     widget.eventHistoryModel[index].description,
                     widget.eventHistoryModel[index].description != null

@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../Books/book_store.dart';
 import '../../Donation/donations.dart';
+import '../../user/program_register.dart';
 
 String appBarTitle = "Pakistan Learning Festival";
 
@@ -22,6 +23,7 @@ class _HomeNavbarState extends State<HomeNavbar> {
     HomePage(),
     DonationsScreen(),
     VolunteerScreen(),
+    ProgramRegisterScreen(),
     BookStore(),
   ];
 
@@ -42,7 +44,7 @@ class _HomeNavbarState extends State<HomeNavbar> {
         drawer: CustomDrawer(),
         backgroundColor: Color.fromARGB(255, 255, 255, 255),
         key: _scaffoldKey,
-        appBar: _currentIndex == 3
+        appBar: _currentIndex == 4
             ? AppBar(
                 toolbarHeight: 60,
                 backgroundColor: vibrantBlue,
@@ -144,11 +146,8 @@ class _HomeNavbarState extends State<HomeNavbar> {
             : AppBar(
                 title: Center(
                     child: Text(
-                  _currentIndex == 0
-                      ? "Pakistan Learning Festival"
-                      : _currentIndex == 1
-                          ? "Donate"
-                          : "Volunteer Now",
+                  _currentIndex == 0 ? "Pakistan Learning Festival"
+                      : _currentIndex == 1 ? "Donate" : _currentIndex == 2 ? "Volunteer Now" : "Program Register",
                   style: TextStyle(color: vibrantWhite),
                 )),
                 backgroundColor: vibrantBlue,
@@ -197,6 +196,10 @@ class _HomeNavbarState extends State<HomeNavbar> {
             BottomNavigationBarItem(
               icon: Icon(Icons.person),
               label: 'Volunteer',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.people_alt_rounded),
+              label: 'Users',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.store),

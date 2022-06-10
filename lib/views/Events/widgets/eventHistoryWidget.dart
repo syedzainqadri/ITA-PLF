@@ -30,7 +30,7 @@ InkWell eventHistoryWidget(String img, String name, String subText,
       child: Row(
         children: [
           SizedBox(width: 5),
-          Hero(
+          img != "" ? Hero(
             tag: img,
             child: SizedBox(
                 height: MediaQuery.of(context).size.width * 0.28,
@@ -38,6 +38,15 @@ InkWell eventHistoryWidget(String img, String name, String subText,
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: Image.network(img, fit: BoxFit.fill))),
+          )
+          :Hero(
+            tag: img,
+            child: SizedBox(
+                height: MediaQuery.of(context).size.width * 0.28,
+                width: MediaQuery.of(context).size.width / 3,
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.asset("asset/images/logo.png", fit: BoxFit.fill))),
           ),
           Expanded(
             child: Container(
@@ -69,7 +78,7 @@ InkWell eventHistoryWidget(String img, String name, String subText,
                         Icon(Icons.calendar_today, size: 15),
                         SizedBox(width: 5),
                         Text(
-                          "22-12-2022",
+                          eventModel.eventDate,
                           style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w400,

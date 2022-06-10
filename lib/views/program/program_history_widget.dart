@@ -71,7 +71,7 @@ InkWell programHistoryWidget(String img, String name, String subText,
                         Icon(Icons.calendar_today, size: 15),
                         SizedBox(width: 5),
                         Text(
-                          "22-12-2022",
+                          programModel.programDate,
                           style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w400,
