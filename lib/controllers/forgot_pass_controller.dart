@@ -11,9 +11,7 @@ class ForgotPasswordController extends GetxController {
   Future<Map<String, dynamic>> getMVisitId(String username) async {
     isLoading.value = true;
     final queryParameters = {'user_login': username};
-    final uri = Uri.parse(
-            "https://itapublications.pakistanlearningfestival.com/api/user/retrieve_password/")
-        .replace(queryParameters: queryParameters);
+    final uri = Uri.parse("https://itapublications.pakistanlearningfestival.com/api/user/retrieve_password/").replace(queryParameters: queryParameters);
     var response = await http.post(uri);
     if (response.statusCode == 200) {
       isLoading.value = false;

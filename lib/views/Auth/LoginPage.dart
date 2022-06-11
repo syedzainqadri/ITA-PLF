@@ -108,26 +108,20 @@ class LoginPage extends StatelessWidget {
                                   InkWell(onTap: () async {
                                     String message;
                                     if (emailController.text.isNotEmpty) {
-                                      await forgotPassController
-                                          .getMVisitId(
-                                              emailController.text.trim())
+                                      await forgotPassController.getMVisitId(emailController.text.trim())
                                           .then((response) => {
                                                 if (response['status'] == true)
                                                   {
-                                                    message =
-                                                        response['message'],
-                                                    successToast(
-                                                        "Hurrah", message),
+                                                    message = response['message'],
+                                                    successToast("Hurrah", message),
                                                   }
                                                 else
                                                   {
-                                                    errorToast("Error",
-                                                        "Failed to request Password"),
+                                                    errorToast("Error", "Failed to request Password"),
                                                   }
                                               });
                                     } else {
-                                      errorToast("Error",
-                                          "Please Enter Username/email First");
+                                      errorToast("Error", "Please Enter Username/email First");
                                     }
                                   }, child: Obx(() {
                                     return forgotPassController.isLoading.isTrue
