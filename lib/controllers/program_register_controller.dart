@@ -20,7 +20,7 @@ class ProgramRegisterController extends GetxController {
         "phoneNo": phoneNo,
         "type": type,
         "project": project,
-        "evnet": event,
+        "event": event,
       });
       isLoading.value = false;
     } catch (e) {
