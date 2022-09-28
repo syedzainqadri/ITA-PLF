@@ -1,4 +1,7 @@
 import 'dart:convert';
+import 'package:PLF/helper/shared_preferences/shared_preferences.dart';
+import 'package:PLF/views/Home/Widgets/home_navbar.dart';
+import 'package:PLF/widgets/custom_snackbar.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 
@@ -12,7 +15,7 @@ class RegisterController extends GetxController {
     isLoading(true).obs;
 
     var nonce = await http.get(Uri.parse(
-        "http://clf.ewigsol.com/api/get_nonce/?json=get_nonce&controller=user&method=register"));
+        "https://itapublications.pakistanlearningfestival.com/api/get_nonce/?json=get_nonce&controller=user&method=register"));
     final responseNonce = jsonDecode(nonce.body.toString());
     var nonceString = responseNonce["nonce"];
     print(" nonce is :$nonceString");
@@ -30,10 +33,36 @@ class RegisterController extends GetxController {
       "password": password,
     };
     print(" sending data is: $data");
-    var detail = await http
-        .post(Uri.parse("https://clf.ewigsol.com/wp-json/wc/v3/customers"),
-            body: jsonEncode(data), headers: headers)
-        .timeout(const Duration(seconds: 30));
-    print(' register api response is: ${detail.body}');
+
+    try {
+      var detail = await http
+          .post(
+              Uri.parse(
+                  "https://itapublications.pakistanlearningfestival.com/wp-json/wc/v3/customers"),
+              body: jsonEncode(data),
+              headers: headers)
+          .timeout(const Duration(seconds: 30));
+
+      final resposeData = jsonDecode(detail.body);
+      print("register response is: ${resposeData}");
+      if (resposeData.toString().contains("message")) {
+        print(" in if");
+        print("message: ${resposeData["message"]}");
+        isLoading(false);
+        errorSnackbar(resposeData["message"]);
+      } else {
+        print(" in else");
+        MyHelper.saveLoginDetails(
+            email: resposeData["email"].toString(),
+            name: userName.toString(),
+            userId: resposeData["id"].toString());
+        isLoading(false).obs;
+        Get.offAll(HomeNavbar());
+      }
+    } catch (e) {
+      print(" $e");
+      isLoading(false);
+      errorSnackbar("something went wrong");
+    }
   }
 }

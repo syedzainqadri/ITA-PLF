@@ -1,15 +1,28 @@
-import 'package:PLF/views/Events/upcomingEvents.dart';
-import 'package:PLF/custom_drawer.dart';
-import 'package:PLF/views/Events/widget/eventWidget.dart';
+import 'package:PLF/controllers/program_controller.dart';
+import 'package:PLF/models/banner_model.dart';
+import 'package:PLF/models/program_model.dart';
+import 'package:PLF/views/Events/allEvent.dart';
+import 'package:PLF/views/Events/widgets/eventWidget.dart';
+import 'package:PLF/utils/url_base.dart';
+import 'package:PLF/views/Home/Widgets/home_navbar.dart';
+import 'package:PLF/views/Webview/webview.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:PLF/utils/ColorScheme.dart';
-import 'package:PLF/views/Events/widget/eventVerticalListWidget.dart';
+import 'package:PLF/views/Events/widgets/eventHistoryWidget.dart';
 import '../../controllers/events_controller.dart';
+import '../../controllers/home_bottom_banner_controller.dart';
+import '../../controllers/home_top_banner_controller.dart';
 import '../Events/event_history.dart';
 import 'package:get/get.dart';
 
 import '../../models/event_model.dart';
+import '../../utils/url_paths.dart';
+import '../program/all_program_screen.dart';
+import '../program/program_history_widget.dart';
+import '../program/program_widget.dart';
+import 'Widgets/kitab_gaari_view.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -21,10 +34,18 @@ class _HomePageState extends State<HomePage> {
   bool deepExpanded = true;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final GetEventController _eventController = Get.put(GetEventController());
+  final ProgramController _programController = Get.put(ProgramController());
+  final GetHomeTopBannerController _homeTopBannerController =
+      Get.put(GetHomeTopBannerController());
+  final GetHomeBottomBannerController _homeBottomBannerController =
+      Get.put(GetHomeBottomBannerController());
   List<EventModel> eventModel = [];
+  List<ProgramModel> programModel = [];
+  List<ProgramModel> featuredProgramModel = [];
   List<EventModel> upComingEventModel = [];
   List<EventModel> eventHistoryModel = [];
-
+  List<BannersModel> homeTopBannerModel = [];
+  List<BannersModel> homeBottomBannerModel = [];
   @override
   initState() {
     super.initState();
@@ -33,6 +54,9 @@ class _HomePageState extends State<HomePage> {
 
   getData() async {
     eventModel = await _eventController.getEventsData();
+    programModel = await _programController.getProgramsData();
+    homeTopBannerModel = await _homeTopBannerController.getHomeTopBanner();
+    homeBottomBannerModel = await _homeBottomBannerController.getHomeBottomBanner();
     for (int i = 0; i < eventModel.length; i++) {
       if (eventModel[i].status == true) {
         upComingEventModel.add(eventModel[i]);
@@ -40,7 +64,12 @@ class _HomePageState extends State<HomePage> {
         eventHistoryModel.add(eventModel[i]);
       }
     }
-    print(upComingEventModel.length);
+    for(int j=0; j<programModel.length; j++){
+      if(programModel[j].isFeatured == true){
+        featuredProgramModel.add(programModel[j]);
+      }
+    }
+    print(featuredProgramModel.length);
     setState(() {});
   }
 
@@ -48,172 +77,344 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      drawer: CustomDrawer(),
-      backgroundColor: lightBlue,
-      appBar: AppBar(
-        title: Center(child: Text("PLF")),
-        backgroundColor: darkBlue,
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(
-            Icons.menu,
-            color: Colors.white,
-            size: 30,
-          ),
-          onPressed: () {
-            _scaffoldKey.currentState.openDrawer();
-          },
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(
-              Icons.notifications_none,
-              color: Colors.white,
-              size: 30,
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
       body: Obx(() {
-        return _eventController.isLoadingEvents.isTrue
-            ? const Center(child: CircularProgressIndicator())
-            : Column(
+        if (_eventController.isLoading.value) {
+          return Center(child: CircularProgressIndicator());
+        } else {
+          return Container(
+            padding: EdgeInsets.all(30),
+            width: MediaQuery.of(context).size.width,
+            color: vibrantAmber,
+            child: SingleChildScrollView(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.all(30),
-                      width: MediaQuery.of(context).size.width,
-                      color: offWhite,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Upcoming Events",
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.w600),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Upcoming Events",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => AllUpcomingEvents(
+                                  eventModel: upComingEventModel)));
+                        },
+                        child: Container(
+                          padding:
+                              EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: vibrantRed,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.2),
+                                spreadRadius: 1,
+                                blurRadius: 1,
+                                offset: Offset(1, 4),
                               ),
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => AllUpcomingEvents(
-                                          eventModel: upComingEventModel)));
-                                },
-                                child: Text(
-                                  "See all",
-                                  style: TextStyle(
-                                      color: Colors.blueAccent, fontSize: 13),
-                                ),
-                              )
                             ],
                           ),
-                          Expanded(
-                            child: upComingEventModel.isNotEmpty
-                                ? ListView.builder(
-                                    itemCount: upComingEventModel.length,
-                                    scrollDirection: Axis.horizontal,
-                                    itemBuilder: (context, index) {
-                                      return eventWidget(
-                                          upComingEventModel[index].url,
-                                          upComingEventModel[index].name,
-                                          upComingEventModel[index].description,
-                                          context,
-                                          upComingEventModel[index]);
-                                    },
-                                  )
-                                : Center(
-                                    child: Text(
-                                      "No UpComing Events Available",
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                  ),
+                          child: Text(
+                            "See all",
+                            style: TextStyle(color: vibrantWhite, fontSize: 13),
                           ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Events History",
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.w600),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => EventsHistory(
-                                          eventHistoryModel:
-                                              eventHistoryModel)));
-                                },
-                                child: Text(
-                                  "See all",
-                                  style: TextStyle(
-                                      color: Colors.blueAccent, fontSize: 13),
-                                ),
-                              )
-                            ],
-                          ),
-                          Expanded(
-                            child: eventHistoryModel.isNotEmpty
-                                ? ListView.builder(
-                                    itemCount: eventHistoryModel.length,
-                                    itemBuilder: (context, index) {
-                                      return eventVerticalListWidget(
-                                          eventHistoryModel[index].url,
-                                          eventHistoryModel[index].name,
-                                          eventHistoryModel[index].description,
-                                          context,
-                                          eventHistoryModel[index]);
-                                    })
-                                : Center(
-                                    child: Text(
-                                      "No Events History Available",
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                  ),
-                            // SingleChildScrollView(
-                            //   scrollDirection: Axis.vertical,
-                            //   child: Column(
-                            //     children: [
-                            //       programWidget(
-                            //           "boy1Big",
-                            //           "Incredible Libraries",
-                            //           "Program Description",
-                            //           "0-5",
-                            //           true,
-                            //           context
-                            //       ),
-                            //       programWidget(
-                            //           "yaa", "YAA", "Program Description", "0-5", true, context),
-                            //       programWidget("boy2", "Online Book Club",
-                            //           "Program Description", "0-2", false, context),
-                            //       programWidget("story_bytes", "Story Bytes",
-                            //           "Program Description", "0-2", false, context),
-                            //       programWidget("girl", "Art & Craft Therapy",
-                            //           "Program Description", "0-2", false, context),
-                            //       programWidget("boy2", "Digital Learning Festival",
-                            //           "Program Description", "0-2", false, context),
-                            //       programWidget("boy1Big", "PLP Publications",
-                            //           "Program Description", "0-2", false, context),
-                            //     ],
-                            //   ),
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.33,
+                    width: double.infinity,
+                    child: upComingEventModel.isNotEmpty
+                        ? ListView.builder(
+                            itemCount: upComingEventModel.length,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) {
+                              return eventWidget(
+                                  upComingEventModel[index].url,
+                                  upComingEventModel[index].name,
+                                  upComingEventModel[index].description,
+                                  context,
+                                  upComingEventModel[index]);
+                            })
+                        : Center(
+                            child:
+                                CircularProgressIndicator(color: vibrantBlue),
+                            // child: Text(
+                            //   "No UpComing Events Available",
+                            //   style: TextStyle(
+                            //       fontSize: 16, fontWeight: FontWeight.w600),
                             // ),
                           ),
-                        ],
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  homeTopBannerModel.length != 0
+                      ? SizedBox(
+                    height: 70,
+                    width: MediaQuery.of(context).size.width,
+                    child: ListView.builder(
+                        itemCount: 1,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          final homeTopBanner = homeTopBannerModel[index];
+                          return homeTopBanner.status
+                              ? ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    PageRouteBuilder(
+                                        opaque: false,
+                                        pageBuilder:
+                                            (context, _, __) {
+                                          return WebViewPage(
+                                              title: "Ad",
+                                              url: homeTopBanner
+                                                  .eventUrl);
+                                        },
+                                        transitionsBuilder: (_, __,
+                                            ___, Widget child) {
+                                          return child;
+                                        }));
+                              },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10)),
+                                child: CachedNetworkImage(
+                                  imageUrl: homeTopBanner.url,
+                                  fit: BoxFit.cover,
+                                  placeholder: (context, val) =>
+                                      Center(
+                                        child:
+                                        CircularProgressIndicator(),
+                                      ),
+                                  errorWidget:
+                                      (context, url, error) =>
+                                      Icon(Icons.image),
+                                ),
+                              ),
+                              // Image.network(homeTopBanner.url)
+                            ),
+                          )
+                              : SizedBox.shrink();
+                        }),
+                  )
+                      : Center(
+                    child: CircularProgressIndicator(color: vibrantBlue),
+                    // child: Text("No Banner Added"),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Events History",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
                       ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => EventsHistory(
+                                  eventHistoryModel: eventHistoryModel)));
+                        },
+                        child: Container(
+                          padding:
+                              EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: vibrantRed,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.2),
+                                spreadRadius: 1,
+                                blurRadius: 1,
+                                offset: Offset(1, 4),
+                              ),
+                            ],
+                          ),
+                          child: Text(
+                            "See all",
+                            style: TextStyle(color: vibrantWhite, fontSize: 13),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.36,
+                    width: double.infinity,
+                    child: eventHistoryModel.isNotEmpty
+                        ? ListView.builder(
+                            itemCount: eventHistoryModel.length,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return eventHistoryWidget(
+                                eventHistoryModel[index].url != null ? eventHistoryModel[index].url : "",
+                                eventHistoryModel[index].name,
+                                eventHistoryModel[index].description,
+                                eventHistoryModel[index].description != null
+                                    ? true
+                                    : false,
+                                context,
+                                eventHistoryModel[index],
+                              );
+                            })
+                        : Center(
+                            child: CircularProgressIndicator(
+                              color: vibrantBlue,
+                            ),
+                            // child: Text(
+                            //   "No Events History Available",
+                            //   style: TextStyle(
+                            //       fontSize: 16, fontWeight: FontWeight.w600),
+                            // ),
+                          ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Featured Programs",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => AllProgramsScreen(
+                                  programModel: programModel)));
+                        },
+                        child: Container(
+                          padding:
+                          EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: vibrantRed,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.2),
+                                spreadRadius: 1,
+                                blurRadius: 1,
+                                offset: Offset(1, 4),
+                              ),
+                            ],
+                          ),
+                          child: Text(
+                            "See all",
+                            style: TextStyle(color: vibrantWhite, fontSize: 13),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+
+                  SizedBox(
+                    height: 5,
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.36,
+                    width: double.infinity,
+                    child: featuredProgramModel.isNotEmpty
+                        ? ListView.builder(
+                        itemCount: featuredProgramModel.length,
+                        scrollDirection: Axis.vertical,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return programHistoryWidget(
+                              featuredProgramModel[index].url,
+                              featuredProgramModel[index].name,
+                              featuredProgramModel[index].description,
+                              context,
+                              featuredProgramModel[index]);
+                        })
+                        : Center(child: CircularProgressIndicator(color: vibrantBlue),
                     ),
                   ),
+
+                  // homeBottomBannerModel.length != 0
+                  //     ? SizedBox(
+                  //         height: 300,
+                  //         width: MediaQuery.of(context).size.width,
+                  //         child: ListView.builder(
+                  //             itemCount: 1,
+                  //             physics: NeverScrollableScrollPhysics(),
+                  //             itemBuilder: (context, index) {
+                  //               final homeBottomBanner =
+                  //                   homeBottomBannerModel[index];
+                  //               return homeBottomBanner.status
+                  //                   ? ClipRRect(
+                  //                       borderRadius: BorderRadius.circular(10),
+                  //                       child: InkWell(
+                  //                         onTap: () {
+                  //                           Get.to(KitabGaariPage());
+                  //                           // Navigator.push(
+                  //                           //   context,
+                  //                           //   PageRouteBuilder(
+                  //                           //     opaque: false,
+                  //                           //     pageBuilder: (context, _, __) {
+                  //                           //       return WebViewPage(
+                  //                           //           title: "Ad",
+                  //                           //           url: homeBottomBanner
+                  //                           //               .eventUrl);
+                  //                           //     },
+                  //                           //     transitionsBuilder:
+                  //                           //         (_, __, ___, Widget child) {
+                  //                           //       return child;
+                  //                           //     },
+                  //                           //   ),
+                  //                           // );
+                  //                         },
+                  //                         child: ClipRRect(
+                  //                           borderRadius: BorderRadius.only(
+                  //                               topLeft: Radius.circular(10),
+                  //                               topRight: Radius.circular(10)),
+                  //                           child: CachedNetworkImage(
+                  //                             imageUrl: homeBottomBanner.url,
+                  //                             fit: BoxFit.cover,
+                  //                             placeholder: (context, val) =>
+                  //                                 Center(
+                  //                               child:
+                  //                                   CircularProgressIndicator(),
+                  //                             ),
+                  //                             errorWidget:
+                  //                                 (context, url, error) =>
+                  //                                     Icon(Icons.image),
+                  //                           ),
+                  //                         ),
+                  //                         // Image.network(homeTopBanner.url)
+                  //                       ),
+                  //                     )
+                  //                   : SizedBox.shrink();
+                  //             }),
+                  //       )
+                  //     : Center(
+                  //         child: CircularProgressIndicator(
+                  //           color: vibrantBlue,
+                  //         ),
+                  //         // child: Text("No Banner Added"),
+                  //       ),
                 ],
-              );
+              ),
+            ),
+          );
+        }
       }),
     );
   }
@@ -232,3 +433,58 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+buttonWidget(buttonName) {
+  return Container(
+    padding: EdgeInsets.all(15),
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(10)), color: darkBlue),
+    child: Center(
+      child: Text(
+        buttonName,
+        style: TextStyle(
+            color: Colors.white,
+            fontFamily: 'circe',
+            fontWeight: FontWeight.w700,
+            fontSize: 18),
+      ),
+    ),
+  );
+}
+
+// class BannerImage extends StatelessWidget {
+//   const BannerImage({
+//     Key key,
+//   }) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return InkWell(
+//       onTap: (() {
+//         Get.to(page);
+//         // Navigator.push(
+//         //   context,
+//         //   PageRouteBuilder(
+//         //     opaque: false,
+//         //     pageBuilder: (context, _, __) {
+//         //       return WebViewPage(
+//         //         title: "Kitab Gari",
+//         //         url: UrlBase.baseWebURL +
+//         //             UrlPathHelper.getValue(UrlPath.kitabGarri),
+//         //       );
+//         //     },
+//         //     transitionsBuilder: (_, __, ___, Widget child) {
+//         //       return child;
+//         //     },
+//         //   ),
+//         // );
+//       }),
+//       child: Container(
+//         child: ClipRRect(
+//           child: Image.network(
+//               'https://childrensliteraturefestival.com/wp-content/uploads/2020/08/CLF_Kitab_Gari-1.jpg'),
+//         ),
+//       ),
+//     );
+//   }
+// }

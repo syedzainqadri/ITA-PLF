@@ -1,9 +1,18 @@
+const basUrl =
+    "https://itapublications.pakistanlearningfestival.com//wp-json/wc/v3/";
 
+const getProducts = "products";
+//products?category=
+const getCategories = "products/categories?hide_empty=true";
+const getAllMethods = "payment_gateways";
+const createUserApi = "users";
+const makeOrder = "orders";
 
 enum UrlPath {
   about,
   plfAdvisor,
   plfTarana,
+
   ambassadors,
   resourcePersons,
   childProdigies,
@@ -32,7 +41,6 @@ enum UrlPath {
   schoolReadingProgram,
   plfActivities,
 
-
   // buttons urls
   tarana,
   poster,
@@ -47,15 +55,11 @@ enum UrlPath {
   registration,
   videos,
   bookLaunches,
-
-
-
 }
 
-class UrlPathHelper{
-  static String getValue(UrlPath path){
-    switch(path){
-
+class UrlPathHelper {
+  static String getValue(UrlPath path) {
+    switch (path) {
       case UrlPath.about:
         return "/about/";
 
@@ -146,7 +150,7 @@ class UrlPathHelper{
       case UrlPath.plfActivities:
         return "/clf-activities/";
 
-        // button urls
+      // button urls
 
       case UrlPath.tarana:
         return "/#tarana";
@@ -186,8 +190,6 @@ class UrlPathHelper{
 
       case UrlPath.bookLaunches:
         return "/#book_laucnches";
-
-
 
       default:
         return "";
