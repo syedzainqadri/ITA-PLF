@@ -1,13 +1,12 @@
-import 'package:flutter/material.dart';
 import 'package:PLF/utils/ColorScheme.dart';
+import 'package:flutter/material.dart';
 
 import '../../models/event_model.dart';
-import 'widget/eventVerticalListWidget.dart';
+import 'widgets/eventHistoryWidget.dart';
 
 class EventsHistory extends StatefulWidget {
   final List<EventModel> eventHistoryModel;
-  const EventsHistory({Key key, @required this.eventHistoryModel})
-      : super(key: key);
+  const EventsHistory({Key key, this.eventHistoryModel}) : super(key: key);
 
   @override
   State<EventsHistory> createState() => _EventsHistoryState();
@@ -17,18 +16,18 @@ class _EventsHistoryState extends State<EventsHistory> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: vibrantAmber,
       appBar: AppBar(
         title: Text(
-          "Events History",
-          style: TextStyle(color: Color.fromARGB(255, 34, 33, 33)),
+          "Programs History",
+          style: TextStyle(color: white),
         ),
         elevation: 0.0,
-        backgroundColor: Colors.transparent,
+        backgroundColor: vibrantBlue,
         leading: IconButton(
           icon: Icon(
-            Icons.navigate_before,
-            color: Color.fromARGB(255, 34, 33, 33),
+            Icons.arrow_back,
+            color: white,
             size: 30,
           ),
           onPressed: () {
@@ -40,16 +39,23 @@ class _EventsHistoryState extends State<EventsHistory> {
           ? ListView.builder(
               itemCount: widget.eventHistoryModel.length,
               itemBuilder: (context, index) {
-                return eventVerticalListWidget(
-                    widget.eventHistoryModel[index].url,
+                return Padding(
+                  padding: const EdgeInsets.only(top: 5.0, left: 20, right: 20),
+                  child: eventHistoryWidget(
+                    widget.eventHistoryModel[index].url != null ? widget.eventHistoryModel[index].url : "",
                     widget.eventHistoryModel[index].name,
                     widget.eventHistoryModel[index].description,
+                    widget.eventHistoryModel[index].description != null
+                        ? true
+                        : false,
                     context,
-                    widget.eventHistoryModel[index]);
+                    widget.eventHistoryModel[index],
+                  ),
+                );
               })
           : Center(
               child: Text(
-                "No Events History Available",
+                "No Programs History Available",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
               ),
             ),

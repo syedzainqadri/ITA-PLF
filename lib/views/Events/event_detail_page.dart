@@ -1,12 +1,18 @@
+import 'package:PLF/views/Donation/DonationScreenFromEvent.dart';
+import 'package:PLF/views/Donation/donations.dart';
 import 'package:PLF/utils/url_base.dart';
 import 'package:PLF/utils/url_paths.dart';
-import 'package:PLF/webview.dart';
+import 'package:PLF/views/Volenteer/VolenteerScreenFromEvent.dart';
+import 'package:PLF/views/Volenteer/volenteer.dart';
+import 'package:PLF/views/Webview/webview.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:PLF/utils/ColorScheme.dart';
 import 'package:PLF/views/Home/HomePage.dart';
-
-import '../../SubProgramWidget.dart';
+import '../../controllers/event_banner_controller.dart';
+import '../../models/banner_model.dart';
+import '../Feedback/feedback.dart';
 import '../../models/event_model.dart';
 
 class EventDetailPage extends StatefulWidget {
@@ -27,149 +33,193 @@ class EventDetailPage extends StatefulWidget {
 
 class _EventDetailPageState extends State<EventDetailPage> {
   int selectedDate = DateTime.now().day;
+  final GetEventBannerController _eventBannerController =
+      Get.put(GetEventBannerController());
+  List<BannersModel> eventModel = [];
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
+  getData() async {
+    eventModel = await _eventBannerController.getEventBanner();
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xffe7f4f5),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-          ),
-        ),
-      ),
-      extendBodyBehindAppBar: true,
-      body: Column(
-        children: [
-          Row(
-            children: [
-              Container(
-                width: 200,
-                height: 260,
-                child: Stack(
-                  children: [
-                    Positioned(
-                      left: 0,
-                      top: 0,
-                      child: Container(
-                        width: 200,
-                        height: 240,
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: AssetImage('asset/images/iconBg.png'),
-                                fit: BoxFit.contain)),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      left: 20,
-                      child: Hero(
-                        tag: widget.img,
-                        child: Container(
-                          height: 220,
-                          width: 200,
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: NetworkImage(widget.img))),
-                        ),
-                      ),
-                    )
-                  ],
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: vibrantWhite,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30),
+                color: vibrantRed,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 3,
+                    blurRadius: 3,
+                    offset: Offset(4, 4),
+                  ),
+                ],
+              ),
+              child: Center(
+                child: Icon(
+                  Icons.arrow_back,
+                  color: vibrantWhite,
                 ),
               ),
-              Expanded(
-                child: Container(
-                  padding: EdgeInsets.all(20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.name,
-                        style: TextStyle(
-                            fontSize: 21,
-                            fontWeight: FontWeight.w700,
-                            fontFamily: 'product'),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      // Text(
-                      //   "Program Description",
-                      //   style: TextStyle(
-                      //       fontSize: 16,
-                      //       fontWeight: FontWeight.w500,
-                      //       color: darkBlue,
-                      //       fontFamily: 'circe'),
-                      // ),
-                      // SizedBox(
-                      //   height: 15,
-                      // ),
-                      // Row(
-                      //   children: [
-                      //     Text(
-                      //       widget.subText,
-                      //       // style: TextStyle(fontFamily: 'circe'),
-                      //     )
-                      //   ],
-                      // ),
-                      // SizedBox(
-                      //   height: 10,
-                      // ),
-                    ],
-                  ),
-                ),
-              )
-            ],
+            ),
           ),
-          Expanded(
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.all(30),
-              color: Colors.white,
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Event Details",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 17,
-                          fontFamily: 'product'),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      widget.subText,
-                      style: TextStyle(
-                        fontFamily: 'circe',
-                        fontSize: 15,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 60,
-                    ),
-                    Wrap(
-                      runAlignment: WrapAlignment.start,
-                      direction: Axis.horizontal,
-                      alignment: WrapAlignment.start,
-                      spacing: 10.0,
-                      // runSpacing: 0.0,
-                      // mainAxisAlignment: MainAxisAlignment.start,
+        ),
+        extendBodyBehindAppBar: true,
+        body: Column(
+          children: [
+            Hero(
+              tag: widget.img,
+              child: ClipRRect(
+                child: Image.network(widget.img, fit: BoxFit.fill),
+              ),
+            ),
+            Expanded(
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                // color: Colors.white,
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10, right: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        SizedBox(height: 20),
+                        Text(
+                          widget.name,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 22,
+                              fontFamily: 'product'),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            widget.eventModel.tarana
-                                ? InkWell(
+                            Icon(Icons.calendar_today),
+                            SizedBox(width: 5),
+                            Text(
+                              "22-12-2022",
+                              style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w400,
+                                  decoration: TextDecoration.underline),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          widget.subText,
+                          style: TextStyle(
+                            fontFamily: 'circe',
+                            fontSize: 17,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 1,
+                        ),
+                        eventModel.length != 0
+                            ? SizedBox(
+                                height: 130,
+                                width: MediaQuery.of(context).size.width,
+                                child: ListView.builder(
+                                    itemCount: 1,
+                                    physics: NeverScrollableScrollPhysics(),
+                                    itemBuilder: (context, index) {
+                                      final donationBanner = eventModel[index];
+                                      return donationBanner.status
+                                          ? ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              child: InkWell(
+                                                onTap: () {
+                                                  Navigator.push(
+                                                      context,
+                                                      PageRouteBuilder(
+                                                          opaque: false,
+                                                          pageBuilder: (context,
+                                                              _, __) {
+                                                            return WebViewPage(
+                                                                title: "Ad",
+                                                                url: donationBanner
+                                                                    .eventUrl);
+                                                          },
+                                                          transitionsBuilder:
+                                                              (_,
+                                                                  __,
+                                                                  ___,
+                                                                  Widget
+                                                                      child) {
+                                                            return child;
+                                                          }));
+                                                },
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                          topLeft:
+                                                              Radius.circular(
+                                                                  10),
+                                                          topRight:
+                                                              Radius.circular(
+                                                                  10)),
+                                                  child: CachedNetworkImage(
+                                                    imageUrl:
+                                                        donationBanner.url,
+                                                    fit: BoxFit.cover,
+                                                    placeholder:
+                                                        (context, val) =>
+                                                            Center(
+                                                      child:
+                                                          CircularProgressIndicator(),
+                                                    ),
+                                                    errorWidget:
+                                                        (context, url, error) =>
+                                                            Icon(Icons.image),
+                                                  ),
+                                                ),
+                                                // Image.network(homeTopBanner.url)
+                                              ),
+                                            )
+                                          : SizedBox.shrink();
+                                    }),
+                              )
+                            : Center(
+                                child: Text("No Banner Added"),
+                              ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Center(
+                          child: Wrap(
+                            direction: Axis.horizontal,
+                            runSpacing: 20,
+                            spacing: 10,
+                            alignment: WrapAlignment.center,
+                            children: [
+                              if (widget.eventModel.tarana)
+                                InkWell(
                                     onTap: () {
                                       Get.to(WebViewPage(
                                           title: "Tarana",
@@ -177,13 +227,9 @@ class _EventDetailPageState extends State<EventDetailPage> {
                                               UrlPathHelper.getValue(
                                                   UrlPath.tarana)));
                                     },
-                                    child: buttonWidget("Tarana"))
-                                : buildEmptyContainer(context),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            widget.eventModel.poster
-                                ? InkWell(
+                                    child: buttonWidget("Tarana")),
+                              if (widget.eventModel.poster)
+                                InkWell(
                                     onTap: () {
                                       Get.to(WebViewPage(
                                           title: "Poster",
@@ -191,18 +237,9 @@ class _EventDetailPageState extends State<EventDetailPage> {
                                               UrlPathHelper.getValue(
                                                   UrlPath.poster)));
                                     },
-                                    child: buttonWidget("Poster"))
-                                : buildEmptyContainer(context),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            widget.eventModel.sponsors
-                                ? InkWell(
+                                    child: buttonWidget("Poster")),
+                              if (widget.eventModel.sponsors)
+                                InkWell(
                                     onTap: () {
                                       Get.to(WebViewPage(
                                           title: "Sponsors",
@@ -210,13 +247,9 @@ class _EventDetailPageState extends State<EventDetailPage> {
                                               UrlPathHelper.getValue(
                                                   UrlPath.sponsors)));
                                     },
-                                    child: buttonWidget("Sponsors"))
-                                : buildEmptyContainer(context),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            widget.eventModel.program
-                                ? InkWell(
+                                    child: buttonWidget("Sponsors")),
+                              if (widget.eventModel.program)
+                                InkWell(
                                     onTap: () {
                                       Get.to(WebViewPage(
                                           title: "Program",
@@ -224,18 +257,9 @@ class _EventDetailPageState extends State<EventDetailPage> {
                                               UrlPathHelper.getValue(
                                                   UrlPath.program)));
                                     },
-                                    child: buttonWidget("Program"))
-                                : buildEmptyContainer(context),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            widget.eventModel.resource_Persons
-                                ? InkWell(
+                                    child: buttonWidget("Program")),
+                              if (widget.eventModel.resource_Persons)
+                                InkWell(
                                     onTap: () {
                                       Get.to(WebViewPage(
                                           title: "Resource Persons",
@@ -243,13 +267,9 @@ class _EventDetailPageState extends State<EventDetailPage> {
                                               UrlPathHelper.getValue(
                                                   UrlPath.resourcePerson)));
                                     },
-                                    child: buttonWidget("Resource Persons"))
-                                : buildEmptyContainer(context),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            widget.eventModel.gallery
-                                ? InkWell(
+                                    child: buttonWidget("Resource Persons")),
+                              if (widget.eventModel.gallery)
+                                InkWell(
                                     onTap: () {
                                       Get.to(WebViewPage(
                                           title: "Gallery",
@@ -257,18 +277,9 @@ class _EventDetailPageState extends State<EventDetailPage> {
                                               UrlPathHelper.getValue(
                                                   UrlPath.gallery)));
                                     },
-                                    child: buttonWidget("Gallery"))
-                                : buildEmptyContainer(context),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            widget.eventModel.media
-                                ? InkWell(
+                                    child: buttonWidget("Gallery")),
+                              if (widget.eventModel.media)
+                                InkWell(
                                     onTap: () {
                                       Get.to(WebViewPage(
                                           title: "Media",
@@ -276,13 +287,9 @@ class _EventDetailPageState extends State<EventDetailPage> {
                                               UrlPathHelper.getValue(
                                                   UrlPath.media)));
                                     },
-                                    child: buttonWidget("Media"))
-                                : buildEmptyContainer(context),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            widget.eventModel.getInvolved
-                                ? InkWell(
+                                    child: buttonWidget("Media")),
+                              if (widget.eventModel.getInvolved)
+                                InkWell(
                                     onTap: () {
                                       Get.to(WebViewPage(
                                           title: "Get Involved",
@@ -290,18 +297,9 @@ class _EventDetailPageState extends State<EventDetailPage> {
                                               UrlPathHelper.getValue(
                                                   UrlPath.getInvolved)));
                                     },
-                                    child: buttonWidget("Get Involved"))
-                                : buildEmptyContainer(context),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            widget.eventModel.testimonials
-                                ? InkWell(
+                                    child: buttonWidget("Get Involved")),
+                              if (widget.eventModel.testimonials)
+                                InkWell(
                                     onTap: () {
                                       Get.to(WebViewPage(
                                           title: "Testimonials",
@@ -309,13 +307,9 @@ class _EventDetailPageState extends State<EventDetailPage> {
                                               UrlPathHelper.getValue(
                                                   UrlPath.testimonials)));
                                     },
-                                    child: buttonWidget("Testimonials"))
-                                : buildEmptyContainer(context),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            widget.eventModel.venue
-                                ? InkWell(
+                                    child: buttonWidget("Testimonials")),
+                              if (widget.eventModel.venue)
+                                InkWell(
                                     onTap: () {
                                       Get.to(WebViewPage(
                                           title: "Venue",
@@ -323,18 +317,9 @@ class _EventDetailPageState extends State<EventDetailPage> {
                                               UrlPathHelper.getValue(
                                                   UrlPath.venue)));
                                     },
-                                    child: buttonWidget("Venue"))
-                                : buildEmptyContainer(context),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            widget.eventModel.registration
-                                ? InkWell(
+                                    child: buttonWidget("Venue")),
+                              if (widget.eventModel.registration)
+                                InkWell(
                                     onTap: () {
                                       Get.to(WebViewPage(
                                           title: "Registration",
@@ -342,13 +327,9 @@ class _EventDetailPageState extends State<EventDetailPage> {
                                               UrlPathHelper.getValue(
                                                   UrlPath.registration)));
                                     },
-                                    child: buttonWidget("Registration"))
-                                : buildEmptyContainer(context),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            widget.eventModel.videos
-                                ? InkWell(
+                                    child: buttonWidget("Registration")),
+                              if (widget.eventModel.videos)
+                                InkWell(
                                     onTap: () {
                                       Get.to(WebViewPage(
                                           title: "Videos",
@@ -356,18 +337,9 @@ class _EventDetailPageState extends State<EventDetailPage> {
                                               UrlPathHelper.getValue(
                                                   UrlPath.videos)));
                                     },
-                                    child: buttonWidget("Videos"))
-                                : buildEmptyContainer(context),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            widget.eventModel.book_launches
-                                ? InkWell(
+                                    child: buttonWidget("Videos")),
+                              if (widget.eventModel.book_launches)
+                                InkWell(
                                     onTap: () {
                                       Get.to(WebViewPage(
                                           title: "Book Launches",
@@ -375,33 +347,68 @@ class _EventDetailPageState extends State<EventDetailPage> {
                                               UrlPathHelper.getValue(
                                                   UrlPath.bookLaunches)));
                                     },
-                                    child: buttonWidget("Book Launches"))
-                                : buildEmptyContainer(context),
-                          ],
+                                    child: buttonWidget("Book Launches")),
+                            ],
+                          ),
                         ),
                         SizedBox(
                           height: 10,
                         ),
+                        Divider(
+                          color: Colors.grey[300],
+                          thickness: 2,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            InkWell(
+                                onTap: () {
+                                  Get.to(FeedbackPage());
+                                },
+                                child: staticButtonWidget("Feedback")),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            InkWell(
+                                onTap: () {
+                                  Get.to(VolunteerScreenFromEvent());
+                                },
+                                child: staticButtonWidget("Volunteer")),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            InkWell(
+                                onTap: () {
+                                  Get.to(DonationsScreenFromEvent());
+                                },
+                                child: staticButtonWidget("Donation")),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
                       ],
                     ),
-                  ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
-  Container buildEmptyContainer(BuildContext context) {
-    return Container(
+  Widget buildEmptyContainer(BuildContext context) {
+    return SizedBox.shrink(
         // width: MediaQuery.of(context).size.width / 2.5,
         // height: 55,
         // padding: EdgeInsets.all(15),
         // decoration: BoxDecoration(
-        //   borderRadius: BorderRadius.all(Radius.circular(10)),
-        // ),
+        //     borderRadius: BorderRadius.all(Radius.circular(10)), color: grey)
         );
   }
 
@@ -410,15 +417,33 @@ class _EventDetailPageState extends State<EventDetailPage> {
       width: MediaQuery.of(context).size.width / 2.5,
       padding: EdgeInsets.all(15),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(10)), color: darkBlue),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          color: vibrantPurple),
       child: Center(
         child: Text(
           buttonName,
           style: TextStyle(
               color: Colors.white,
               fontFamily: 'circe',
-              fontWeight: FontWeight.w700,
-              fontSize: 14),
+              fontWeight: FontWeight.w700),
+        ),
+      ),
+    );
+  }
+
+  staticButtonWidget(buttonName) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 18, vertical: 15),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          color: vibrantOrange),
+      child: Center(
+        child: Text(
+          buttonName,
+          style: TextStyle(
+              color: Colors.white,
+              fontFamily: 'circe',
+              fontWeight: FontWeight.w700),
         ),
       ),
     );
@@ -462,7 +487,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10)),
           color: (selectedDate == tempDate.day)
-              ? offWhite
+              ? yellow
               : lightBlue.withOpacity(0.5),
         ),
         child: Container(
