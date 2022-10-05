@@ -1,5 +1,4 @@
 import 'package:PLF/views/Auth/LoginPage.dart';
-import 'package:PLF/views/Home/HomePage.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +15,8 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.network('')
+    _controller = VideoPlayerController.network(
+        'https://www.youtube.com/watch?v=C5t7md9-GDc')
       ..initialize().then((_) {
         setState(() {
           _controller.play();

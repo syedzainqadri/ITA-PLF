@@ -5,6 +5,7 @@ class CartModel {
   String image;
   String name;
   double price;
+  double salePrice;
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
@@ -12,6 +13,7 @@ class CartModel {
       "quantity": quantity,
       "product_name": name,
       "product_price": price,
+      "product_sale_price": salePrice,
       "product_image": image
     };
     if (id != null) {
@@ -22,7 +24,12 @@ class CartModel {
   }
 
   CartModel(
-      {this.product_id, this.quantity, this.name, this.image, this.price});
+      {this.product_id,
+      this.quantity,
+      this.name,
+      this.image,
+      this.price,
+      this.salePrice});
 
   CartModel.fromMap(Map<String, dynamic> map) {
     id = map["id"];
@@ -30,6 +37,7 @@ class CartModel {
     quantity = map["quantity"];
     name = map["product_name"];
     price = map["product_price"];
+    salePrice = map["product_sale_price"];
     image = map["product_image"];
   }
 }

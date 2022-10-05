@@ -1,6 +1,4 @@
-import 'dart:convert';
 import 'package:PLF/models/cart_model.dart';
-import 'package:PLF/views/Home/Widgets/home_navbar.dart';
 import 'package:get/get.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
@@ -12,6 +10,7 @@ final String quantity = 'quantity';
 final String product_name = 'product_name';
 final String product_image = 'product_image';
 final String product_price = 'product_price';
+final String product_sale_price = 'product_sale_price';
 
 class CartController extends GetxController {
   var totalPrice = 0.obs;
@@ -20,29 +19,55 @@ class CartController extends GetxController {
   var isLoading = false.obs;
   var totalItem = 0.obs;
   var totalPrize = 0.obs;
+
   addPrize(val) {
     totalPrize(totalPrize.value + val).obs;
   }
 
   var products = <Map>[].obs;
-  Future open() async {
+//   Future open() async {
+//     var databasesPath = await getDatabasesPath();
+//     String path = join(databasesPath, 'demo.db');
+//     db = await openDatabase(
+//       path,
+//       version: 1,
+//       onCreate: (Database db, int version) async {
+//         await db.execute('''
+// create table $tablecart (
+//   $columnId integer primary key autoincrement,
+//   $product_id text not null,
+//   $quantity integer not null,
+//     $product_name text not null,
+//   $product_image text not null,
+//     $product_price double not null
+
+//   )
+// ''');
+//       },
+//     );
+//   }
+  Future<Database> open() async {
     var databasesPath = await getDatabasesPath();
     String path = join(databasesPath, 'demo.db');
-    db = await openDatabase(path, version: 1,
-        onCreate: (Database db, int version) async {
-      await db.execute(
-          '''
+    db = await openDatabase(
+      path,
+      version: 1,
+      onCreate: (Database db, int version) async {
+        await db.execute('''
 create table $tablecart ( 
   $columnId integer primary key autoincrement, 
   $product_id text not null,
   $quantity integer not null,
     $product_name text not null,
   $product_image text not null,
-    $product_price double not null
+    $product_price double not null,
+    $product_sale_price double not null
 
   )
 ''');
-    });
+      },
+    );
+    return db;
   }
 
   Future<CartModel> insert(CartModel cart) async {
@@ -83,10 +108,12 @@ create table $tablecart (
   }
 
   getCount() async {
+    // Database db = await instance.database;
+    // open();
     isLoading(true).obs;
     int count = Sqflite.firstIntValue(
         await db.rawQuery('SELECT COUNT(*) FROM $tablecart'));
-    print(" total count is:  $count");
+    print("total count is:  $count");
     totalItem.value = count;
     isLoading(false).obs;
   }
@@ -111,7 +138,7 @@ create table $tablecart (
         product_price
       ],
     );
-    print("response is: ${maps.length} ${maps}");
+    print("response is: ${maps.length} $maps");
     if (maps.length > 0) {
       products.value = maps;
       for (var item in maps) {

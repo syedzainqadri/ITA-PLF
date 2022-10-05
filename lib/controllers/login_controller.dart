@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:PLF/helper/shared_preferences/shared_preferences.dart';
-import 'package:PLF/views/Home/HomePage.dart';
 import 'package:PLF/widgets/custom_snackbar.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -18,7 +17,6 @@ class LoginController extends GetxController {
     password,
   }) async {
     isLoading(true).obs;
-
     var detail = await http
         .get(
           Uri.parse(
@@ -39,7 +37,7 @@ class LoginController extends GetxController {
 
       isLoading(false).obs;
 
-      print(' register api response is: ${resposeData}');
+      print(' register api response is: $resposeData');
       print(" user name is: ${resposeData["data"]["user_login"]}");
       Get.offAll(HomeNavbar());
     }

@@ -144,7 +144,7 @@ class _BookStoreState extends State<BookStore> {
                   } else if (categoryController.isListNull.value) {
                     return Text(" No Cat");
                   } else {
-                    print("categories list is:  ${categories}");
+                    print("categories list is:  $categories");
                     return Row(
                       children: [
                         InkWell(
@@ -220,7 +220,8 @@ class _BookStoreState extends State<BookStore> {
                                             color: vibrantBlue,
                                           ),
                                           child: Center(
-                                            child: Text(item["name"].toString(),
+                                            child: Text(
+                                              item["name"].toString(),
                                               style: TextStyle(
                                                   color: white,
                                                   fontSize: 16,
@@ -285,6 +286,7 @@ class _BookStoreState extends State<BookStore> {
                                   bookId: products[index]["id"],
                                   subText: products[index]['description'],
                                   price: products[index]['price'],
+                                  salePrice: products[index]['sale_price'],
                                 );
                               }),
                         )

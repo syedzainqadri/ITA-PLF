@@ -1,22 +1,19 @@
-
 import 'package:flutter/foundation.dart';
 
-class UrlBase{
+class UrlBase {
   static String get baseWebURL {
     if (kReleaseMode) {
-      return "https://childrensliteraturefestival.com";
+      return "https://pakistanlearningfestival.com";
     } else {
-      return "https://childrensliteraturefestival.com";
+      return "https://pakistanlearningfestival.com";
     }
   }
 
   static String get buttonURL {
     if (kReleaseMode) {
-      return "https://childrensliteraturefestival.com/clf_karachi_2021";
+      return "https://pakistanlearningfestival.com/clf_karachi_2021";
     } else {
-      return "https://childrensliteraturefestival.com/clf_karachi_2021";
+      return "https://pakistanlearningfestival.com/clf_karachi_2021";
     }
   }
-
-
 }

@@ -29,9 +29,10 @@ class _HomeNavbarState extends State<HomeNavbar> {
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      cartController.getCount();
-    });
+    //TODO; manage cart counting
+    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    //   cartController.getCount();
+    // });
     super.initState();
   }
 
@@ -146,8 +147,13 @@ class _HomeNavbarState extends State<HomeNavbar> {
             : AppBar(
                 title: Center(
                     child: Text(
-                  _currentIndex == 0 ? "Pakistan Learning Festival"
-                      : _currentIndex == 1 ? "Donate" : _currentIndex == 2 ? "Volunteer Now" : "Program Register",
+                  _currentIndex == 0
+                      ? "Pakistan Learning Festival"
+                      : _currentIndex == 1
+                          ? "Donate"
+                          : _currentIndex == 2
+                              ? "Volunteer Now"
+                              : "User        Register",
                   style: TextStyle(color: vibrantWhite),
                 )),
                 backgroundColor: vibrantBlue,
@@ -190,7 +196,8 @@ class _HomeNavbarState extends State<HomeNavbar> {
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Image.asset("asset/images/donation.png", height: 20, width: 20, color: Colors.white),
+              icon: Image.asset("asset/images/donation.png",
+                  height: 20, width: 20, color: Colors.white),
               label: 'Donation',
             ),
             BottomNavigationBarItem(

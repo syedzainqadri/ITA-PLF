@@ -12,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:PLF/utils/ColorScheme.dart';
 import 'package:get/get.dart';
 import '../../controllers/program_register_controller.dart';
-import '../../controllers/volunteer_controller.dart';
 import '../../models/banner_model.dart';
 import '../Webview/webview.dart';
 
@@ -47,7 +46,7 @@ class _ProgramRegisterScreenState extends State<ProgramRegisterScreen> {
 
   @override
   void initState() {
-    appBarTitle = "Program Register";
+    appBarTitle = "User Register";
     getData();
     super.initState();
   }

@@ -15,12 +15,14 @@ class BookWidget extends StatefulWidget {
   int bookId;
   final context;
   final price;
+  final salePrice;
   final subText;
   final relatedProducts;
   BookWidget(
       {Key key,
       this.subText,
       this.price,
+      this.salePrice,
       this.img,
       this.name,
       this.color,
@@ -88,38 +90,124 @@ class _BookWidgetState extends State<BookWidget> {
                       ),
                     ),
                   ),
-
                 ],
               ),
             ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 10),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: [
+            //       Text(
+            //         "Price:",
+            //         textAlign: TextAlign.center,
+            //         style: TextStyle(
+            //           color: const Color(0xff4d4d4d),
+            //           fontSize: 14,
+            //           fontWeight: FontWeight.bold,
+            //         ),
+            //         maxLines: 1,
+            //       ),
+            //       SizedBox(width: 10),
+            //       Text(
+            //         widget.price,
+            //         textAlign: TextAlign.center,
+            //         style: TextStyle(
+            //           color: const Color(0xff4d4d4d),
+            //           fontSize: 14,
+            //           fontWeight: FontWeight.bold,
+            //         ),
+            //         maxLines: 1,
+            //       ),
+            //     ],
+            //   ),
+            // ),
+            // Price
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Price:",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: const Color(0xff4d4d4d),
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
+              padding: const EdgeInsets.symmetric(horizontal: 5),
+              child: (widget.salePrice != null && widget.salePrice != "")
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          children: [
+                            Text(
+                              "Price:",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: const Color(0xff4d4d4d),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  decoration: TextDecoration.lineThrough),
+                              maxLines: 1,
+                            ),
+                            SizedBox(width: 10),
+                            Text(
+                              widget.price,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: const Color(0xff4d4d4d),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  decoration: TextDecoration.lineThrough),
+                              maxLines: 1,
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              "Sale Price:",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: const Color(0xff4d4d4d),
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              maxLines: 1,
+                            ),
+                            SizedBox(width: 10),
+                            Text(
+                              widget.salePrice,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: const Color(0xff4d4d4d),
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              maxLines: 1,
+                            ),
+                          ],
+                        )
+                      ],
+                    )
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Price:",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: const Color(0xff4d4d4d),
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.lineThrough,
+                          ),
+                          maxLines: 1,
+                        ),
+                        SizedBox(width: 10),
+                        Text(
+                          widget.price,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: const Color(0xff4d4d4d),
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          maxLines: 1,
+                        ),
+                      ],
                     ),
-                    maxLines: 1,
-                  ),
-                  SizedBox(width: 10),
-                  Text(
-                    widget.price,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: const Color(0xff4d4d4d),
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    maxLines: 1,
-                  ),
-                ],
-              ),
             ),
             // SizedBox(height: 30),
             InkWell(
@@ -128,6 +216,7 @@ class _BookWidgetState extends State<BookWidget> {
                     quantity: 1,
                     product_id: widget.bookId.toString(),
                     price: double.parse(widget.price),
+                    salePrice: double.parse(widget.price),
                     name: widget.name,
                     image: widget.img);
                 cartController.insert(cart);
