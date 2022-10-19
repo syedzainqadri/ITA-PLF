@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> {
     // FILER HOME TOP BANNER
     //TODO; Mi - fix banner issues by ID because flags not available
 
-    final List<BannersModel> topHomeBanner = [homeTopBannerModel[6]];
+    final List<BannersModel> topHomeBanner = [homeTopBannerModel[0]];
 
     print(featuredProgramModel.length);
     setState(() {});
@@ -190,7 +190,7 @@ class _HomePageState extends State<HomePage> {
                               itemCount: 1,
                               physics: NeverScrollableScrollPhysics(),
                               itemBuilder: (context, index) {
-                                final homeTopBanner = homeTopBannerModel[10];
+                                final homeTopBanner = homeTopBannerModel[0];
                                 return homeTopBanner.status
                                     ? ClipRRect(
                                         borderRadius: BorderRadius.circular(10),
@@ -387,68 +387,68 @@ class _HomePageState extends State<HomePage> {
                           ),
                   ),
 
-                  // homeBottomBannerModel.length != 0
-                  //     ? SizedBox(
-                  //         height: 300,
-                  //         width: MediaQuery.of(context).size.width,
-                  //         child: ListView.builder(
-                  //             itemCount: 1,
-                  //             physics: NeverScrollableScrollPhysics(),
-                  //             itemBuilder: (context, index) {
-                  //               final homeBottomBanner =
-                  //                   homeBottomBannerModel[index];
-                  //               return homeBottomBanner.status
-                  //                   ? ClipRRect(
-                  //                       borderRadius: BorderRadius.circular(10),
-                  //                       child: InkWell(
-                  //                         onTap: () {
-                  //                           Get.to(KitabGaariPage());
-                  //                           // Navigator.push(
-                  //                           //   context,
-                  //                           //   PageRouteBuilder(
-                  //                           //     opaque: false,
-                  //                           //     pageBuilder: (context, _, __) {
-                  //                           //       return WebViewPage(
-                  //                           //           title: "Ad",
-                  //                           //           url: homeBottomBanner
-                  //                           //               .eventUrl);
-                  //                           //     },
-                  //                           //     transitionsBuilder:
-                  //                           //         (_, __, ___, Widget child) {
-                  //                           //       return child;
-                  //                           //     },
-                  //                           //   ),
-                  //                           // );
-                  //                         },
-                  //                         child: ClipRRect(
-                  //                           borderRadius: BorderRadius.only(
-                  //                               topLeft: Radius.circular(10),
-                  //                               topRight: Radius.circular(10)),
-                  //                           child: CachedNetworkImage(
-                  //                             imageUrl: homeBottomBanner.url,
-                  //                             fit: BoxFit.cover,
-                  //                             placeholder: (context, val) =>
-                  //                                 Center(
-                  //                               child:
-                  //                                   CircularProgressIndicator(),
-                  //                             ),
-                  //                             errorWidget:
-                  //                                 (context, url, error) =>
-                  //                                     Icon(Icons.image),
-                  //                           ),
-                  //                         ),
-                  //                         // Image.network(homeTopBanner.url)
-                  //                       ),
-                  //                     )
-                  //                   : SizedBox.shrink();
-                  //             }),
-                  //       )
-                  //     : Center(
-                  //         child: CircularProgressIndicator(
-                  //           color: vibrantBlue,
-                  //         ),
-                  //         // child: Text("No Banner Added"),
-                  //       ),
+                  homeBottomBannerModel.length != 0
+                      ? SizedBox(
+                          height: 300,
+                          width: MediaQuery.of(context).size.width,
+                          child: ListView.builder(
+                              itemCount: 1,
+                              physics: NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                final homeBottomBanner =
+                                    homeBottomBannerModel[0];
+                                return homeBottomBanner.status
+                                    ? ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: InkWell(
+                                          onTap: () {
+                                            //   Get.to(KitabGaariPage());
+                                            Navigator.push(
+                                              context,
+                                              PageRouteBuilder(
+                                                opaque: false,
+                                                pageBuilder: (context, _, __) {
+                                                  return WebViewPage(
+                                                      title: "Ad",
+                                                      url: homeBottomBanner
+                                                          .eventUrl);
+                                                },
+                                                transitionsBuilder:
+                                                    (_, __, ___, Widget child) {
+                                                  return child;
+                                                },
+                                              ),
+                                            );
+                                          },
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(10),
+                                                topRight: Radius.circular(10)),
+                                            child: CachedNetworkImage(
+                                              imageUrl: homeBottomBanner.url,
+                                              fit: BoxFit.cover,
+                                              placeholder: (context, val) =>
+                                                  Center(
+                                                child:
+                                                    CircularProgressIndicator(),
+                                              ),
+                                              errorWidget:
+                                                  (context, url, error) =>
+                                                      Icon(Icons.image),
+                                            ),
+                                          ),
+                                          // Image.network(homeTopBanner.url)
+                                        ),
+                                      )
+                                    : SizedBox.shrink();
+                              }),
+                        )
+                      : Center(
+                          child: CircularProgressIndicator(
+                            color: vibrantBlue,
+                          ),
+                          // child: Text("No Banner Added"),
+                        ),
                 ],
               ),
             ),
